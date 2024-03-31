@@ -29,9 +29,12 @@ const CreateAccount: React.FC = () => {
 
 	const [isCreating, setIsCreating] = useState<boolean>(false);
 
-	const handleNameChange = useCallback((value: string) => setName(value), []);
+	const handleNameChange = useCallback(
+		(value: string) => setName(value.trim()),
+		[]
+	);
 	const handleLastNameChange = useCallback(
-		(value: string) => setLastName(value),
+		(value: string) => setLastName(value.trim()),
 		[]
 	);
 	const handleEmailChange = useCallback(
