@@ -18,7 +18,7 @@ react {
     //   The folder where the react-native NPM package is. Default is ../node_modules/react-native
     reactNativeDir = file("../../../../node_modules/react-native")
     //   The folder where the react-native Codegen package is. Default is ../node_modules/@react-native/codegen
-    codegenDir = file("../../../../node-modules/@react-native/codegen")
+    codegenDir = file("../../../../node_modules/@react-native/codegen")
     //   The cli.js file which is the React Native CLI entrypoint. Default is ../node_modules/react-native/cli.js
     cliFile = file("../../../../node_modules/react-native/cli.js")
     /* Variants */
@@ -47,7 +47,7 @@ react {
     // extraPackagerArgs = []
     /* Hermes Commands */
     //   The hermes compiler command to run. By default it is 'hermesc'
-    hermesCommand = '../../node_modules/react-native/sdks/hermesc/%OS-BIN%/hermesc'
+    hermesCommand = '../../../../node_modules/react-native/sdks/hermesc/%OS-BIN%/hermesc'
     //
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
     // hermesFlags = ["-O", "-output-source-map"]
@@ -130,12 +130,6 @@ android {
             // Note: CodePush updates should not be tested in Debug mode as they are overriden by the RN packager. However, because CodePush checks for updates in all modes, we must supply a key.
             resValue "string", "CodePushDeploymentKey", '""'
         }
-        releaseStaging {
-            resValue "string", "CodePushDeploymentKey", '""'
-            // Note: It's a good idea to provide matchingFallbacks for the new buildType you create to prevent build issues
-            // Add the following line if not already there
-            matchingFallbacks = ['release']
-        }
         release {
             resValue "string", "CodePushDeploymentKey", '"' + project.env.get("ANDROID_CODEPUSH_DEPLOYMENT_KEY") + '"'
 
@@ -149,15 +143,9 @@ android {
     }
 }
 
-repositories {
-    jcenter()
-
-}
-
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-    implementation("com.facebook.react:flipper-integration")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
@@ -176,7 +164,7 @@ project.ext.vectoricons = [
 
 apply from: "../../../../node_modules/react-native-vector-icons/fonts.gradle"
 
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+apply from: "../../../../node_modules/react-native-code-push/android/codepush.gradle"
 
 bugsnag {
     uploadReactNativeMappings = true
