@@ -184,11 +184,14 @@ const UserDetails: React.FC<UserDetailsProps> = ({
 				if (
 					user.stores.length <= 0 ||
 					selectedStore !== user.stores[0].id
-				)
-					await addUserToStore({
-						user_id: user.id,
-						store_id: selectedStore,
-					});
+				) {
+					if (selectedStore.toLowerCase() !== 'nostore') {
+						await addUserToStore({
+							user_id: user.id,
+							store_id: selectedStore,
+						});
+					}
+				}
 			}
 
 			await updateUserRole({
