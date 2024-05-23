@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 
 import strings from '@teams/Locales';
 
-import { useAuth } from '@teams/Contexts/AuthContext';
 import { useTeam } from '@teams/Contexts/TeamContext';
 
 import { login } from '@teams/Functions/Auth';
@@ -41,7 +40,6 @@ import {
 const Login: React.FC = () => {
 	const { navigate, reset } =
 		useNavigation<StackNavigationProp<RoutesParams>>();
-	const { initializing } = useAuth();
 
 	const teamContext = useTeam();
 
@@ -169,13 +167,15 @@ const Login: React.FC = () => {
 	}, [navigate]);
 
 	useEffect(() => {
-		const user = auth().currentUser;
+		try {
+			const user = auth().currentUser;
 
-		BootSplash.hide({ fade: true });
+			BootSplash.hide({ fade: true });
 
-		if (user) {
-			handleNavigate();
-		} else {
+			if (user) {
+				handleNavigate();
+			}
+		} finally {
 			setIsLoading(false);
 		}
 	}, [handleNavigate]);
@@ -226,7 +226,7 @@ const Login: React.FC = () => {
 					<Button
 						title={strings.View_Login_Button_SignIn}
 						onPress={handleLogin}
-						isLoading={isLoging || initializing}
+						isLoading={isLoging}
 					/>
 				</FormContainer>
 			</Content>
