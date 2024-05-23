@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -55,6 +56,18 @@ const DrawerMenu: React.FC = () => {
 	const handleNavigateToSettings = useCallback(() => {
 		navigate('Settings');
 	}, [navigate]);
+
+	const handleNavigateToFaq = useCallback(async () => {
+		if (
+			await Linking.canOpenURL(
+				'https://controledevalidades.com/perguntas-frequentes/'
+			)
+		) {
+			await Linking.openURL(
+				'https://controledevalidades.com/perguntas-frequentes/'
+			);
+		}
+	}, []);
 
 	const handleNavigateToAbout = useCallback(() => {
 		navigate('About');
@@ -147,6 +160,13 @@ const DrawerMenu: React.FC = () => {
 							</MenuContent>
 						</MenuItemContainer>
 					)}
+
+					<MenuItemContainer onPress={handleNavigateToFaq}>
+						<MenuContent>
+							<Icons name="book-outline" />
+							<MenuItemText>Perguntas Frequentes</MenuItemText>
+						</MenuContent>
+					</MenuItemContainer>
 
 					<MenuItemContainer onPress={handleNavigateToAbout}>
 						<MenuContent>
