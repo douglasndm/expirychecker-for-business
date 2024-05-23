@@ -102,7 +102,5 @@
 		<key>apiKey</key>
 		<string>$(BUGSNAG_API_KEY)</string>
 	</dict>
-    <key>CodePushDeploymentKey</key>
-    <string>$(IOS_CODEPUSH_DEPLOYMENT_KEY)</string>
 </dict>
 </plist>

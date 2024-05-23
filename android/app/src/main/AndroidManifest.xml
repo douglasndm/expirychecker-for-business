@@ -37,7 +37,5 @@
         </activity>
 
         <meta-data android:name="com.bugsnag.android.API_KEY" android:value="${bugsnagApiKey}"/>
-
-        <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/ic_notification"/>
     </application>
 </manifest>

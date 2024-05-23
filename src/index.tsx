@@ -4,7 +4,6 @@ import { ActivityIndicator } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { ThemeProvider } from 'styled-components';
 import FlashMessage from 'react-native-flash-message';
-import CodePush from 'react-native-code-push';
 
 import StatusBar from '@components/StatusBar';
 import AskReview from '@components/AskReview';
@@ -79,4 +78,4 @@ const App: React.FC = () => {
 	);
 };
 
-export default CodePush(App);
+export default App;

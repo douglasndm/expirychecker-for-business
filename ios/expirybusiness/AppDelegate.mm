@@ -6,8 +6,6 @@
 #import "RNFBAppCheckModule.h"
 #import <Firebase.h>
 
-#import <CodePush/CodePush.h>
-
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -33,9 +31,9 @@
 - (NSURL *)bundleURL
 {
 #if DEBUG
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
 #else
-  return [CodePush bundleURL];
+    return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
 }
 

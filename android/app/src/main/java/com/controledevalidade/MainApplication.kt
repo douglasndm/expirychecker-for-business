@@ -13,8 +13,6 @@ import com.facebook.soloader.SoLoader
 
 import com.bugsnag.android.Bugsnag
 
-import com.microsoft.codepush.react.CodePush
-
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
@@ -31,10 +29,6 @@ class MainApplication : Application(), ReactApplication {
 
         override val isNewArchEnabled: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
         override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
-
-        override fun getJSBundleFile(): String? {
-            return CodePush.getJSBundleFile()
-        }
       }
 
   override val reactHost: ReactHost
