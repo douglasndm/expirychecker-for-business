@@ -1,7 +1,7 @@
 {
   "name": "expirybusiness",
-  "version": "1.10.9",
-  "build": "142",
+  "version": "1.10.10",
+  "build": "144",
   "private": true,
   "scripts": {
     "build": "./build.sh",
@@ -10,7 +10,14 @@
     "start": "react-native start",
     "lint": "eslint .",
     "test": "jest",
-    "bugsnag:upload-android": "bugsnag-cli upload android-aab android/app/build/outputs/bundle/release/app-release.aab && bugsnag-cli upload react-native-android"
+    "bugsnag:upload-android": "bugsnag-cli upload android-aab android/app/build/outputs/bundle/release/app-release.aab && bugsnag-cli upload react-native-android",
+    "bugsnag:create-build": "bugsnag-cli create-build",
+    "bugsnag:upload-android-ndk": "bugsnag-cli upload android-ndk android/",
+    "bugsnag:upload-android-proguard": "bugsnag-cli upload android-proguard android/",
+    "bugsnag:upload-rn-android": "bugsnag-cli upload react-native-android",
+    "bugsnag:upload-dsym": "bugsnag-cli upload dsym ios/",
+    "bugsnag:upload-rn-ios": "bugsnag-cli upload react-native-ios",
+    "bugsnag:upload": "bugsnag-cli upload android-ndk android/ && bugsnag-cli upload android-proguard android/ && bugsnag-cli upload react-native-android && bugsnag-cli upload dsym ios/ && bugsnag-cli upload react-native-ios"
   },
   "dependencies": {
     "@bam.tech/react-native-image-resizer": "*",
@@ -87,7 +94,6 @@
   "devDependencies": {
     "@bugsnag/cli": "*",
     "@bugsnag/source-maps": "*",
-    "@rnx-kit/align-deps": "^2.0.3",
     "@types/crypto-js": "^3.1.47",
     "@types/react-native-uuid-generator": "^4.0.0",
     "@types/react-native-vector-icons": "^6.4.17",
@@ -100,28 +106,6 @@
   },
   "engines": {
     "node": ">=20"
-  },
-  "rnx-kit": {
-    "reactNativeVersion": "^0.71.0",
-    "kitType": "app",
-    "capabilities": [
-      "animation",
-      "babel-preset-react-native",
-      "core",
-      "core-android",
-      "core-ios",
-      "filesystem",
-      "gestures",
-      "jest",
-      "masked-view",
-      "navigation/native",
-      "navigation/stack",
-      "react",
-      "react-test-renderer",
-      "safe-area",
-      "screens",
-      "storage"
-    ]
   },
   "packageManager": "yarn@3.6.4"
 }

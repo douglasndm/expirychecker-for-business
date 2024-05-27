@@ -1657,7 +1657,7 @@ DEPENDENCIES:
   - React-Mapbuffer (from `../../../node_modules/react-native/ReactCommon`)
   - "react-native-blur (from `../../../node_modules/@react-native-community/blur`)"
   - react-native-config (from `../../../node_modules/react-native-config`)
-  - react-native-date-picker (from `../../../node_modules/react-native-date-picker`)
+  - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-document-picker (from `../../../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../../../node_modules/react-native-image-picker`)
   - "react-native-image-resizer (from `../../../node_modules/@bam.tech/react-native-image-resizer`)"
@@ -1831,7 +1831,7 @@ EXTERNAL SOURCES:
   react-native-config:
     :path: "../../../node_modules/react-native-config"
   react-native-date-picker:
-    :path: "../../../node_modules/react-native-date-picker"
+    :path: "../node_modules/react-native-date-picker"
   react-native-document-picker:
     :path: "../../../node_modules/react-native-document-picker"
   react-native-image-picker:
