@@ -12,6 +12,8 @@ import { showMessage } from 'react-native-flash-message';
 
 import strings from '@teams/Locales';
 
+import { captureException } from '@services/ExceptionsHandler';
+
 import { useTeam } from '@teams/Contexts/TeamContext';
 
 import { exportToExcel } from '@utils/Excel/Export';
@@ -97,11 +99,14 @@ const StoreView: React.FC = () => {
 
 			setProducts(response);
 		} catch (err) {
-			if (err instanceof Error)
+			if (err instanceof Error) {
+				captureException(err);
+
 				showMessage({
 					message: err.message,
 					type: 'danger',
 				});
+			}
 		} finally {
 			setIsLoading(false);
 		}

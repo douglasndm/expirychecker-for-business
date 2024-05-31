@@ -23,10 +23,15 @@ interface getAllProductsProps {
 	page?: number;
 }
 
-function convertDate(date: string): Date {
+function convertDate(date: string): Date | undefined {
 	if (isDate(date)) {
 		return date as Date;
 	}
+
+	if (!date) {
+		return undefined;
+	}
+
 	return parseISO(date);
 }
 
