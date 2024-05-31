@@ -25,8 +25,18 @@ const Brand: React.FC<Props> = ({
 		return null;
 	});
 
+	const sortedBrands = brands.sort((a, b) => {
+		if (a.label.toLowerCase() < b.label.toLowerCase()) {
+			return -1;
+		}
+		if (a.label.toLowerCase() > b.label.toLowerCase()) {
+			return 1;
+		}
+		return 0;
+	});
+
 	const handleOnChange = useCallback(
-		value => {
+		(value: string) => {
 			setSelectedBrand(value);
 
 			// call on change on parent to update value their
@@ -38,7 +48,7 @@ const Brand: React.FC<Props> = ({
 	return (
 		<PickerContainer style={containerStyle}>
 			<Picker
-				items={brands}
+				items={sortedBrands}
 				onValueChange={handleOnChange}
 				value={selectedBrand}
 				placeholder={{

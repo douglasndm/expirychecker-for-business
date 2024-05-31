@@ -27,8 +27,18 @@ const CategorySelect: React.FC<Props> = ({
 		}
 	);
 
+	const sortedCategories = categories.sort((a, b) => {
+		if (a.label.toLowerCase() < b.label.toLowerCase()) {
+			return -1;
+		}
+		if (a.label.toLowerCase() > b.label.toLowerCase()) {
+			return 1;
+		}
+		return 0;
+	});
+
 	const handleOnChange = useCallback(
-		value => {
+		(value: string) => {
 			setSelectedCategory(value);
 
 			// call on change on parent to update value their
@@ -40,7 +50,7 @@ const CategorySelect: React.FC<Props> = ({
 	return (
 		<PickerContainer style={containerStyle}>
 			<Picker
-				items={categories}
+				items={sortedCategories}
 				onValueChange={handleOnChange}
 				value={selectedCategory}
 				placeholder={{
