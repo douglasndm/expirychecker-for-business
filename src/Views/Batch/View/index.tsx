@@ -6,7 +6,7 @@ import { showMessage } from 'react-native-flash-message';
 import Share from 'react-native-share';
 import {  format, parseISO } from 'date-fns';//eslint-disable-line
 import { ptBR, enUS } from 'date-fns/locale' // eslint-disable-line
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 
 import strings from '@teams/Locales';
 
@@ -208,7 +208,7 @@ const View: React.FC = () => {
 					{!!batch.price && (
 						<BatchPrice>
 							{`Preço unitário `}
-							<NumberFormat
+							<NumericFormat
 								value={batch.price}
 								displayType="text"
 								thousandSeparator
@@ -222,7 +222,7 @@ const View: React.FC = () => {
 					{!!batch.price_tmp && (
 						<BatchPrice>
 							{`Preço temporário `}
-							<NumberFormat
+							<NumericFormat
 								value={batch.price_tmp}
 								displayType="text"
 								thousandSeparator
@@ -246,7 +246,7 @@ const View: React.FC = () => {
 						{(userRole === 'manager' ||
 							userRole === 'supervisor') && (
 							<Button
-								text="Enviar notificação para o time"
+								title="Enviar notificação para o time"
 								onPress={handleSendNotification}
 								isLoading={isSendingNotification}
 								contentStyle={{ width: 250 }}
@@ -254,7 +254,7 @@ const View: React.FC = () => {
 						)}
 
 						<Button
-							text="Compartilhar com outros apps"
+							title="Compartilhar com outros apps"
 							onPress={handleShare}
 							isLoading={isSharing}
 							contentStyle={{ marginTop: -5, width: 250 }}
@@ -262,7 +262,7 @@ const View: React.FC = () => {
 
 						{!!batch.price && (
 							<Button
-								text="Adicionar desconto"
+								title="Adicionar desconto"
 								onPress={handleNavigateToDiscount}
 								contentStyle={{ marginTop: -5, width: 250 }}
 							/>
