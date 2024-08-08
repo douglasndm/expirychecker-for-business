@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ActivityIndicator } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { ThemeProvider } from 'styled-components';
 import FlashMessage from 'react-native-flash-message';
@@ -19,8 +20,6 @@ import DeepLinking from '@teams/Services/DeepLinking';
 import '@teams/Functions/Team/Subscriptions';
 import '@teams/Functions/PushNotifications';
 import { getAllUserPreferences } from '@teams/Functions/UserPreferences';
-
-import BugSnagContainer from '@shared/BugsnagContainer';
 
 import Routes from '@teams/routes';
 
@@ -58,7 +57,7 @@ const App: React.FC = () => {
 	return isLoading ? (
 		<ActivityIndicator size="large" />
 	) : (
-		<BugSnagContainer DeepLinking={DeepLinking}>
+		<NavigationContainer linking={DeepLinking}>
 			<PreferencesContext.Provider value={prefes}>
 				<ThemeProvider theme={preferences.appTheme}>
 					<PaperProvider>
@@ -74,7 +73,7 @@ const App: React.FC = () => {
 					</PaperProvider>
 				</ThemeProvider>
 			</PreferencesContext.Provider>
-		</BugSnagContainer>
+		</NavigationContainer>
 	);
 };
 

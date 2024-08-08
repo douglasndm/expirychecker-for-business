@@ -1,6 +1,5 @@
 import { AppRegistry } from 'react-native';
 
-import '@services/Bugsnag';
 // import '@services/PushNotificationHandler';
 
 import { name as appName } from './app.json';

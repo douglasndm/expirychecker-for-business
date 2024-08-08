@@ -106,7 +106,7 @@ const Home: React.FC = () => {
 
 	useEffect(() => {
 		initialLoad();
-	}, [initialLoad]);
+	}, []);
 
 	const handleDeleteMany = useCallback(
 		async (idsToDelete: string[] | number[]) => {

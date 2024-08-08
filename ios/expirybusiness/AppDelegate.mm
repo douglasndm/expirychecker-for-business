@@ -1,8 +1,6 @@
 #import "AppDelegate.h"
 #import "RNBootSplash.h"
 
-#import <Bugsnag/Bugsnag.h>
-
 #import "RNFBAppCheckModule.h"
 #import <Firebase.h>
 
@@ -11,8 +9,6 @@
 @implementation AppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Bugsnag start];
-
     // FIREBASE
     [RNFBAppCheckModule sharedInstance];
     [FIRApp configure];

@@ -1,7 +1,7 @@
 {
   "name": "expirybusiness",
   "version": "1.10.13",
-  "build": "148",
+  "build": "149",
   "private": true,
   "scripts": {
     "build": "./build.sh",
@@ -9,20 +9,10 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "lint": "eslint .",
-    "test": "jest",
-    "bugsnag:upload-android": "bugsnag-cli upload android-aab android/app/build/outputs/bundle/release/app-release.aab && bugsnag-cli upload react-native-android",
-    "bugsnag:create-build": "bugsnag-cli create-build",
-    "bugsnag:upload-android-ndk": "bugsnag-cli upload android-ndk android/",
-    "bugsnag:upload-android-proguard": "bugsnag-cli upload android-proguard android/",
-    "bugsnag:upload-rn-android": "bugsnag-cli upload react-native-android",
-    "bugsnag:upload-dsym": "bugsnag-cli upload dsym ios/",
-    "bugsnag:upload-rn-ios": "bugsnag-cli upload react-native-ios",
-    "bugsnag:upload": "bugsnag-cli upload android-ndk android/ && bugsnag-cli upload android-proguard android/ && bugsnag-cli upload react-native-android && bugsnag-cli upload dsym ios/ && bugsnag-cli upload react-native-ios"
+    "test": "jest"
   },
   "dependencies": {
     "@bam.tech/react-native-image-resizer": "*",
-    "@bugsnag/plugin-react-navigation": "*",
-    "@bugsnag/react-native": "*",
     "@notifee/react-native": "*",
     "@react-native-async-storage/async-storage": "*",
     "@react-native-clipboard/clipboard": "*",
@@ -92,8 +82,6 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@bugsnag/cli": "*",
-    "@bugsnag/source-maps": "*",
     "@types/crypto-js": "^3.1.47",
     "@types/react-native-uuid-generator": "^4.0.0",
     "@types/react-native-vector-icons": "^6.4.17",
