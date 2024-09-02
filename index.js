@@ -7,8 +7,5 @@ import App from './src';
 
 import './src/Functions/OpenAppTimes';
 
-if (__DEV__) {
-	require('@services/Reactotron');
-}
 
 AppRegistry.registerComponent(appName, () => App);
