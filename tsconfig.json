@@ -85,7 +85,8 @@
     "include": [
       "src",
       "../shared",
-      "../teams"
+      "../teams",
+      "../teams/app.json"
     ],
     "exclude": [
       "node_modules",

@@ -19,7 +19,9 @@ buildscript {
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
 
-        classpath("com.google.gms:google-services:4.3.14")
+        classpath("com.google.gms:google-services:4.4.0")
+
+        classpath("io.sentry:sentry-android-gradle-plugin:4.11.0")
     }
 }
 

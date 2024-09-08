@@ -216,7 +216,6 @@
     "View_TeamView_Subscription_Title": "Assinaturas",
     "View_TeamView_Subscription_Description": "Com uma assinatura você pode manter um time e adicionar pessoas a ele. Todas as mudanças feitas serão refletidas em todos os dispositivos",
     "View_TeamView_Subscription_Button_SeePlans": "Ver planos",
-    "View_TeamView_Subscription_Button_ChangePlans": "Mudar plano",
     "View_TeamView_Subscription_CurrentSubscription_Title": "Sua assinatura",
     "View_TeamView_Subscription_CurrentSubscription_Description": "Sua assinatura possui {MEMBERS} membros e está ativa até {DATE}",
     "View_TeamView_Members_Title": "Gerenciamento de Equipe",

@@ -218,7 +218,6 @@
     "View_TeamView_Subscription_Title": "Subscriptions",
     "View_TeamView_Subscription_Description": "With a subscription you can keep a team a manager it. All products will be syncronized between all members of the team",
     "View_TeamView_Subscription_Button_SeePlans": "See plans",
-    "View_TeamView_Subscription_Button_ChangePlans": "Change plan",
     "View_TeamView_Subscription_CurrentSubscription_Title": "Your subscription",
     "View_TeamView_Subscription_CurrentSubscription_Description": "Your current subscription has a limit of {MEMBERS} members and it is active util {DATE}",
     "View_TeamView_Members_Title": "Team Management",

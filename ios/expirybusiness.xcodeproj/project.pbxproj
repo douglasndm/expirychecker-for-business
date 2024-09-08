@@ -278,6 +278,7 @@
 				86BB179A2173564BC9A7A4C2 /* [CP-User] [RNFB] Core Configuration */,
 				4F8410B82B660286009BB9D3 /* Set Info.plist version from package.json */,
 				2F801DFBBC554744B170C969 /* Upload source maps to Bugsnag */,
+				682B76F0DF7D44E488B47C21 /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -377,7 +378,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export EXTRA_PACKAGER_ARGS=\"--sourcemap-output $TMPDIR/$(md5 -qs \"$CONFIGURATION_BUILD_DIR\")-main.jsbundle.map\"\nexport PROJECT_ROOT=$PWD/..\n$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\n";
+			shellScript = "export EXTRA_PACKAGER_ARGS=\"--sourcemap-output $TMPDIR/$(md5 -qs \"$CONFIGURATION_BUILD_DIR\")-main.jsbundle.map\"\nexport PROJECT_ROOT=$PWD/..\n/bin/sh `\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('@sentry/react-native/package.json')) + '/scripts/sentry-xcode.sh'\"` $REACT_NATIVE_PATH/scripts/react-native-xcode.sh\n";
 		};
 		2F801DFBBC554744B170C969 /* Upload source maps to Bugsnag */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -535,6 +536,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-expirybusiness/Pods-expirybusiness-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		682B76F0DF7D44E488B47C21 /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Upload Debug Symbols to Sentry";
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh ../node_modules/@sentry/react-native/scripts/sentry-xcode-debug-files.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 

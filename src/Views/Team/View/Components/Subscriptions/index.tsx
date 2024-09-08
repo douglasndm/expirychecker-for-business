@@ -98,14 +98,17 @@ const Subscriptions: React.FC = () => {
 				{strings.View_TeamView_Subscription_Description}
 			</SubscriptionDescription>
 
-			<Button
-				title={
-					!subscription
-						? strings.View_TeamView_Subscription_Button_SeePlans
-						: strings.View_TeamView_Subscription_Button_ChangePlans
-				}
-				onPress={handleNavigatePurchase}
-			/>
+			{!subscription ? (
+				<Button
+					title={strings.View_TeamView_Subscription_Button_SeePlans}
+					onPress={handleNavigatePurchase}
+				/>
+			) : (
+				<SubscriptionInformations>
+					Caso queira atualizar seu plano você deve cancelar o plano
+					atual na loja de aplicativos do seu telefone
+				</SubscriptionInformations>
+			)}
 
 			{subscription && !!subExpDate && (
 				<>

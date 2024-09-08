@@ -1,7 +1,7 @@
 {
   "name": "expirybusiness",
-  "version": "1.10.13",
-  "build": "149",
+  "version": "1.10.14",
+  "build": "150",
   "private": true,
   "scripts": {
     "build": "./build.sh",
@@ -33,6 +33,7 @@
     "@react-navigation/drawer": "6.6.6",
     "@react-navigation/native": "*",
     "@react-navigation/stack": "*",
+    "@sentry/react-native": "^5.27.0",
     "axios": "*",
     "crypto-js": "^3.3.0",
     "date-fns": "*",
