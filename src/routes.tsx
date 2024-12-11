@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Drawer } from 'react-native-drawer-layout';
-import remoteConfig from '@react-native-firebase/remote-config';
 
 import DrawerContext from '@shared/Contexts/Drawer';
 
@@ -71,8 +70,6 @@ const Routes: React.FC = () => {
 	const [draweOpen, setDrawerOpen] = useState(false);
 
 	const [currentRoute, setCurrentRoute] = useState('Home');
-
-	const enableTabBar = remoteConfig().getValue('enable_app_bar');
 
 	const handleRouteChange = useCallback(navRoutes => {
 		setDrawerOpen(false);
@@ -217,12 +214,10 @@ const Routes: React.FC = () => {
 					<Stack.Screen name="Test" component={Test} />
 				</Stack.Navigator>
 
-				{enableTabBar.asBoolean() === true && (
-					<TabMenu
-						currentRoute={currentRoute}
-						enableMultiplesStores={false}
-					/>
-				)}
+				<TabMenu
+					currentRoute={currentRoute}
+					enableMultiplesStores={false}
+				/>
 			</DrawerContext.Provider>
 		</Drawer>
 	);

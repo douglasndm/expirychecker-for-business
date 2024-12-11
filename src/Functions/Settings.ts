@@ -43,16 +43,6 @@ async function getSetting({
 	return setting;
 }
 
-export async function getHowManyDaysToBeNextExp(): Promise<number> {
-	const setting = await getSetting({ type: 'HowManyDaysToBeNextExp' });
-
-	if (!setting) {
-		return 30;
-	}
-
-	return Number(setting);
-}
-
 export async function getAutoComplete(): Promise<boolean> {
 	const setting = await getSetting({ type: 'AutoComplete' });
 

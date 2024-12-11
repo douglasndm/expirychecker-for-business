@@ -5,6 +5,7 @@ import React, {
 	useRef,
 	memo,
 	useMemo,
+	useContext,
 } from 'react';
 import BootSplash from 'react-native-bootsplash';
 import { FlatList } from 'react-native';
@@ -14,6 +15,7 @@ import { format, isValid, parseISO } from 'date-fns';
 import { showMessage } from 'react-native-flash-message';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
+import PreferencesContext from '@teams/Contexts/PreferencesContext';
 
 import AppError from '@teams/Errors/AppError';
 import {
@@ -29,7 +31,9 @@ import { Container } from '@views/Home/styles';
 
 const Home: React.FC = () => {
 	const { reset } = useNavigation<StackNavigationProp<RoutesParams>>();
+
 	const teamContext = useTeam();
+	const { preferences } = useContext(PreferencesContext);
 
 	interface listProdsRefProps {
 		switchDeleteModal: () => void;
@@ -218,6 +222,7 @@ const Home: React.FC = () => {
 				setSelectModeOnParent={
 					hasPermission ? setSelectMode : undefined
 				}
+				daysToBeNext={preferences?.howManyDaysToBeNextToExpire}
 				disableImage={false}
 			/>
 		</Container>
