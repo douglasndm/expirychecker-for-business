@@ -30,15 +30,12 @@ import { TeamProvider } from '@teams/Contexts/TeamContext';
 
 const App: React.FC = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-
 	const [preferences, setPreferences] =
 		useState<IUserPreferences>(DefaultPrefs);
 
 	const loadInitialData = useCallback(async () => {
 		const prefs = await getAllUserPreferences();
-
 		setPreferences(prefs);
-
 		setIsLoading(false);
 	}, []);
 
@@ -53,7 +50,6 @@ const App: React.FC = () => {
 		}),
 		[preferences]
 	);
-
 	return isLoading ? (
 		<ActivityIndicator size="large" />
 	) : (
@@ -65,7 +61,6 @@ const App: React.FC = () => {
 							<TeamProvider>
 								<StatusBar />
 								<Routes />
-
 								<AskReview />
 							</TeamProvider>
 						</AuthProvider>
