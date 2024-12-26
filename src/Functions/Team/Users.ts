@@ -6,54 +6,6 @@ import api from '@teams/Services/API';
 
 import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 
-interface getUserTeamsResponse {
-	id: string;
-	fid: string;
-	email: string;
-	name?: string;
-	last_name?: string;
-	role?: {
-		role: string;
-		code: string | null;
-		status: string | null;
-		team: {
-			id: string;
-			name: string;
-			isActive?: boolean;
-			subscriptions?: [
-				{
-					expireIn: Date;
-					membersLimit: number;
-					isActive: boolean;
-				}
-			];
-		};
-	};
-	store: {
-		id: string;
-		name: string;
-	} | null;
-}
-
-export async function getUserTeams(): Promise<getUserTeamsResponse> {
-	const { data } = await api.get<getUserTeamsResponse>(`/users`);
-
-	if (data.role && data.role.team.isActive) {
-		const fixed = {
-			...data,
-			role: {
-				team: {
-					isActive: data.role?.team.isActive,
-				},
-			},
-		};
-
-		return fixed;
-	}
-
-	return data;
-}
-
 export async function getAllUsersFromTeam(): Promise<Array<IUserInTeam>> {
 	const currentTeam = await getCurrentTeam();
 

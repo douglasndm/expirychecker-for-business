@@ -8,7 +8,6 @@ import strings from '@teams/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
-import { getUserTeams } from '@teams/Functions/Team/Users';
 import {
 	clearSelectedteam,
 	setSelectedTeam,
@@ -20,6 +19,7 @@ import { getUser } from '@teams/Functions/User/List';
 import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 import { getCurrentSubscription } from '@teams/Utils/Subscriptions/GetCurrent';
 import { getUserTeam } from '@teams/Utils/User/GetTeam';
+import { getUserStore } from '@teams/Utils/User/GetStore';
 
 import Loading from '@components/Loading';
 import Button from '@components/Button';
@@ -35,6 +35,7 @@ import {
 	TeamItemRole,
 	Footer,
 } from './styles';
+import { isPast } from 'date-fns';
 
 const List: React.FC = () => {
 	const { navigate, reset, addListener } =
@@ -47,22 +48,34 @@ const List: React.FC = () => {
 	const [isQuiting, setIsQuiting] = useState(false);
 
 	const [team, setTeam] = useState<IUserRoles | null>(null);
+	const [teamSub, setTeamSub] = useState<ITeamSubscription | null>(null);
 
 	const loadData = useCallback(async () => {
 		try {
 			setIsLoading(true);
 
-			// We use a try catch because this route throw an exeption if team doesn't have
-			// a subscription, so it breaks the rest of the function
-			try {
-				await getCurrentSubscription();
-			} catch (error) {
-				console.log(error);
-			}
 			const userRole = await getUserTeam();
 
 			if (userRole) {
-				setTeam(userRole);
+				const teamSubscription = await getCurrentSubscription({
+					team_id: userRole.team.id,
+				});
+
+				setTeamSub(teamSubscription);
+
+				const userStore = await getUserStore();
+
+				if (userStore) {
+					setTeam({
+						...userRole,
+						store: userStore,
+					});
+				} else {
+					setTeam({
+						...userRole,
+						store: null,
+					});
+				}
 			}
 		} catch (err) {
 			if (err instanceof Error) {
@@ -124,16 +137,14 @@ const List: React.FC = () => {
 	}, [role, status, team]);
 
 	const isActive = useMemo(() => {
-		if (team) {
-			const { subscriptions: sub } = team.team;
+		if (teamSub) {
+			const expDate = teamSub.expireIn;
 
-			if (sub && sub.length > 0) {
-				return sub[0].isActive;
-			}
+			return !isPast(expDate);
 		}
 
 		return false;
-	}, [team]);
+	}, [teamSub]);
 
 	const handleNavigateCreateTeam = useCallback(() => {
 		navigate('CreateTeam');
@@ -152,18 +163,14 @@ const List: React.FC = () => {
 	const handleSelectTeam = useCallback(async () => {
 		if (!team) return;
 
-		const { subscriptions: sub } = team.team;
-
-		if (sub && sub.length > 0) {
-			if (sub[0].isActive !== true) {
-				if (role !== 'manager') {
-					showMessage({
-						message:
-							strings.View_TeamList_Error_ManagerShouldActiveTeam,
-						type: 'warning',
-					});
-					return;
-				}
+		if (isActive !== true) {
+			if (role !== 'manager') {
+				showMessage({
+					message:
+						strings.View_TeamList_Error_ManagerShouldActiveTeam,
+					type: 'warning',
+				});
+				return;
 			}
 		}
 
@@ -177,17 +184,11 @@ const List: React.FC = () => {
 				team_id: team.team.id,
 			});
 
-			const activeSub = sub && sub.length > 0 && sub[0].isActive;
-
 			const userResponse = await getUser();
 
 			await setSelectedTeam({
 				userRole: {
 					...team,
-					team: {
-						...team.team,
-						isActive: activeSub || false,
-					},
 					store: userResponse.store,
 				},
 				teamPreferences,
@@ -208,7 +209,7 @@ const List: React.FC = () => {
 				],
 			});
 		}
-	}, [navigate, reset, role, status, team, teamContext]);
+	}, [isActive, navigate, reset, role, status, team, teamContext]);
 
 	const switchShowMenu = useCallback(() => {
 		setShowMenu(prevValue => {
