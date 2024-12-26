@@ -1,4 +1,4 @@
 interface IStore {
-    id: string;
-    name: string;
+	id: string;
+	name: string;
 }

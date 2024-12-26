@@ -19,6 +19,7 @@ import { getUser } from '@teams/Functions/User/List';
 
 import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 import { getCurrentSubscription } from '@teams/Utils/Subscriptions/GetCurrent';
+import { getUserTeam } from '@teams/Utils/User/GetTeam';
 
 import Loading from '@components/Loading';
 import Button from '@components/Button';
@@ -58,10 +59,10 @@ const List: React.FC = () => {
 			} catch (error) {
 				console.log(error);
 			}
-			const response = await getUserTeams();
+			const userRole = await getUserTeam();
 
-			if (response.role) {
-				setTeam(response.role);
+			if (userRole) {
+				setTeam(userRole);
 			}
 		} catch (err) {
 			if (err instanceof Error) {
