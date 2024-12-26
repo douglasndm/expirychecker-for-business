@@ -17,6 +17,7 @@ import { removeItSelfFromTeam } from '@teams/Functions/Team/User/Remove';
 import { getUser } from '@teams/Functions/User/List';
 
 import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
+import { setCurrentTeamSubscription } from '@teams/Utils/Settings/CurrentTeamSubscription';
 import { getCurrentSubscription } from '@teams/Utils/Subscriptions/GetCurrent';
 import { getUserTeam } from '@teams/Utils/User/GetTeam';
 import { getUserStore } from '@teams/Utils/User/GetStore';
@@ -195,6 +196,10 @@ const List: React.FC = () => {
 			});
 			await setCurrentTeam(team.team);
 
+			if (teamSub) {
+				await setCurrentTeamSubscription(teamSub);
+			}
+
 			if (teamContext.reload) {
 				teamContext.reload();
 			} else {
@@ -209,7 +214,7 @@ const List: React.FC = () => {
 				],
 			});
 		}
-	}, [isActive, navigate, reset, role, status, team, teamContext]);
+	}, [isActive, navigate, reset, role, status, team, teamContext, teamSub]);
 
 	const switchShowMenu = useCallback(() => {
 		setShowMenu(prevValue => {

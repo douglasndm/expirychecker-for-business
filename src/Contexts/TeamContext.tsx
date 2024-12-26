@@ -12,18 +12,16 @@ import {
 	getSelectedTeam,
 	clearSelectedteam,
 } from '@teams/Functions/Team/SelectedTeam';
+import { getCurrentSubscription } from '@teams/Utils/Settings/CurrentTeamSubscription';
 
 interface ITeamContext {
 	name: string | null;
-	active: boolean | null;
 	roleInTeam: {
 		role: 'repositor' | 'supervisor' | 'manager';
 		status: 'pending' | 'completed' | null;
-		store: {
-			id: string;
-			name: string;
-		} | null;
+		store: IStore | null;
 	} | null;
+	subscription: ITeamSubscription | null;
 	reload: () => void;
 	clearTeam: () => void;
 	isLoading: boolean;
@@ -37,7 +35,9 @@ interface TeamProviderProps {
 
 const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 	const [name, setName] = useState<ITeamContext['name']>(null);
-	const [active, setActive] = useState<ITeamContext['active']>(null);
+	const [subscription, setSubscription] = useState<ITeamSubscription | null>(
+		null
+	);
 	const [roleInTeam, setRoleInTeam] =
 		useState<ITeamContext['roleInTeam']>(null);
 
@@ -45,17 +45,21 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 
 	const reloadTeam = useCallback(async () => {
 		const response = await getSelectedTeam();
+		const sub = await getCurrentSubscription();
 
 		if (response) {
 			const { team, role, status } = response.userRole;
 
 			setName(team.name);
-			setActive(team.isActive);
 			setRoleInTeam({
 				role,
 				status,
 				store: response.userRole.store,
 			});
+
+			if (sub) {
+				setSubscription(sub);
+			}
 		}
 
 		setIsLoading(false);
@@ -74,7 +78,7 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 		Promise.all([
 			await clearSelectedteam(),
 			setName(null),
-			setActive(null),
+			setSubscription(null),
 			setRoleInTeam(null),
 		]);
 	}, []);
@@ -82,13 +86,13 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 	const contextValue = useMemo(
 		() => ({
 			name,
-			active,
+			subscription,
 			roleInTeam,
 			reload,
 			isLoading,
 			clearTeam,
 		}),
-		[name, active, roleInTeam, reload, isLoading, clearTeam]
+		[name, subscription, roleInTeam, reload, isLoading, clearTeam]
 	);
 
 	return (

@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { isPast } from 'date-fns';
 
 import strings from '@teams/Locales';
 
@@ -36,6 +37,14 @@ const ViewTeam: React.FC = () => {
 		return false;
 	}, [teamContext.roleInTeam]);
 
+	const isTeamActive = useMemo(() => {
+		if (teamContext.subscription) {
+			return !isPast(teamContext.subscription.expireIn);
+		}
+
+		return false;
+	}, [teamContext.subscription]);
+
 	const handleNavigateToMembers = useCallback(() => {
 		navigate('ListUsersFromTeam');
 	}, [navigate]);
@@ -65,9 +74,9 @@ const ViewTeam: React.FC = () => {
 			<Header
 				title={strings.View_TeamView_PageTitle}
 				noDrawer
-				disableBackButton={!teamContext.active}
+				disableBackButton={!isTeamActive}
 				appBarActions={
-					isManager && teamContext.active
+					isManager && isTeamActive
 						? [
 								{
 									icon: 'square-edit-outline',
@@ -109,7 +118,7 @@ const ViewTeam: React.FC = () => {
 
 				{isManager && <Subscriptions />}
 
-				{teamContext.active && (
+				{isTeamActive && (
 					<>
 						<Section>
 							<SectionTitle>
@@ -146,7 +155,7 @@ const ViewTeam: React.FC = () => {
 					</>
 				)}
 
-				{!teamContext.active && (
+				{!isTeamActive && (
 					<Button
 						title={strings.View_TeamView_Button_GoToSettings}
 						onPress={handleNavigateToSettings}
