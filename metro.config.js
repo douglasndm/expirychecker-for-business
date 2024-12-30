@@ -1,11 +1,7 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { withSentryConfig } = require('@sentry/react-native/metro');
 
 const path = require('path');
-
-const {
-    withSentryConfig
-} = require("@sentry/react-native/metro");
-
 /**
  * Metro configuration
  * https://reactnative.dev/docs/metro
@@ -19,4 +15,8 @@ const config = {
 	],
 };
 
-module.exports = withSentryConfig(mergeConfig(getDefaultConfig(__dirname), config));
+const defaultConfig = mergeConfig(getDefaultConfig(__dirname), config);
+
+module.exports = withSentryConfig(defaultConfig, {
+    enableSourceContextInDevelopment: false,
+});

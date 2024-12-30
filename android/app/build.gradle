@@ -153,6 +153,11 @@ dependencies {
 apply from: "../../../../node_modules/@sentry/react-native/sentry.gradle"
 
 sentry {
+
+    autoInstallation {
+        enabled = true
+        sentryVersion = "7.16.0"
+    }
     // Enables or disables the automatic configuration of Native Symbols
     // for Sentry. This executes sentry-cli automatically so
     // you don't need to do it manually.
