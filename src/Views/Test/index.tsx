@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { ScrollView } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import appCheck from '@react-native-firebase/app-check';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -31,11 +32,25 @@ const Test: React.FC = () => {
 		navigate('NoInternet');
 	}, [navigate]);
 
+	const testAppCheck = useCallback(async () => {
+		try {
+			const { token } = await appCheck().getToken(true);
+
+			if (token.length > 0) {
+				console.log('AppCheck verification passed');
+			}
+		} catch (error) {
+			console.log(error);
+			console.log('AppCheck verification failed');
+		}
+	}, []);
+
 	return (
 		<Container>
 			<ScrollView>
 				<Category>
 					<Button title="Log user token" onPress={handleToken} />
+					<Button title="Test app check" onPress={testAppCheck} />
 
 					<Button title="Delete subscription" onPress={deleteSub} />
 

@@ -20,7 +20,6 @@ export interface SessionResponse {
 		team: {
 			id: string;
 			name: string;
-			isActive: boolean;
 		};
 	};
 }

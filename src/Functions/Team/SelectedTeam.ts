@@ -1,7 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+interface Role extends IRole {
+	team: ITeam;
+}
+
 interface getSelectedTeamResponse {
-	userRole: IUserRoles;
+	userRole: Role;
 	teamPreferences: ITeamPreferences;
 }
 

@@ -10,82 +10,44 @@ import strings from '@teams/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
+import { organizedInfo } from '@teams/Utils/User/Login/organizedInfo';
+
 import { login } from '@teams/Functions/Auth';
 import { getTeamPreferences } from '@teams/Functions/Team/Preferences';
-import {
-	setSelectedTeam,
-	getSelectedTeam,
-} from '@teams/Functions/Team/SelectedTeam';
+import { setSelectedTeam } from '@teams/Functions/Team/SelectedTeam';
 
 import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 
 import Loading from '@components/Loading';
-import Input from '@components/InputText';
-import Button from '@components/Button';
 
+import Form from './Form';
 import Footer from './Footer';
 
-import {
-	Container,
-	Content,
-	LogoContainer,
-	Logo,
-	LogoTitle,
-	FormContainer,
-	FormTitle,
-	LoginForm,
-	ForgotPasswordText,
-} from './styles';
+import { Container, Content, LogoContainer, Logo, LogoTitle } from './styles';
 
 const Login: React.FC = () => {
-	const { navigate, reset } =
-		useNavigation<StackNavigationProp<RoutesParams>>();
+	const { reset } = useNavigation<StackNavigationProp<RoutesParams>>();
 
 	const teamContext = useTeam();
 
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
+	const [email, setEmail] = useState<string>('suporte@douglasndm.dev');
+	const [password, setPassword] = useState<string>('123456');
 
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isLoging, setIsLoging] = useState<boolean>(false);
 
-	const handleNavigate = useCallback(async () => {
-		try {
-			setIsLoading(true);
-
-			let routeName: 'Home' | 'ViewTeam' | 'TeamList' = 'Home';
-
-			const user = auth().currentUser;
-
-			const selectedTeam = await getSelectedTeam();
-
-			if (user) {
-				if (selectedTeam) {
-					const { team, role } = selectedTeam.userRole;
-
-					if (!team.isActive) {
-						if (role === 'manager') {
-							routeName = 'ViewTeam';
-						} else {
-							routeName = 'TeamList';
-						}
-					}
-				} else {
-					routeName = 'TeamList';
-				}
-
-				reset({
-					routes: [
-						{
-							name: routeName,
-						},
-					],
-				});
-			}
-		} finally {
-			setIsLoading(false);
-		}
-	}, [reset]);
+	const resetNavigation = useCallback(
+		(value: 'Home' | 'ViewTeam' | 'TeamList') => {
+			reset({
+				routes: [
+					{
+						name: value,
+					},
+				],
+			});
+		},
+		[reset]
+	);
 
 	const handleLogin = useCallback(async () => {
 		const schema = Yup.object().shape({
@@ -109,37 +71,74 @@ const Login: React.FC = () => {
 			// Makes login with Firebase after that the subscriber event will handle
 			const user = await login({ email, password });
 
-			if (user) {
-				const userRole = user.localUser.team;
+			const response = await organizedInfo(user);
 
-				// user has a role in a team
-				if (userRole && Object.keys(userRole).length > 0) {
-					const { status, role } = userRole;
-					const { team } = userRole;
+			// if user has no team
+			if (!response.team) {
+				resetNavigation('TeamList');
+				return;
+			} else {
+				// if user has a team but it didn't enter the code yet
+				if (response.team.role.status !== 'completed') {
+					reset({
+						routes: [
+							{
+								name: 'EnterTeam',
+								params: {
+									userRole: {
+										team: response.team,
+										code: response.team.role.code,
+									},
+								},
+							},
+						],
+					});
+					return;
+				}
 
-					const onTeam =
-						status && status.toLowerCase() === 'completed';
-					const teamRole = role ? role.toLowerCase() : null;
+				// Now we are setting the current team
+				const teamPreferences = await getTeamPreferences({
+					team_id: response.team.id,
+				});
 
-					if (onTeam || teamRole === 'manager') {
-						const teamPreferences = await getTeamPreferences({
-							team_id: team.id,
-						});
+				await setSelectedTeam({
+					userRole: {
+						role: response.team.role,
+						status: response.team.role.status,
+						code: response.team.role.code,
+						team: {
+							id: response.team.id,
+							name: response.team.name,
+						},
+					},
+					teamPreferences,
+				});
 
-						await setSelectedTeam({
-							userRole,
-							teamPreferences,
-						});
+				await setCurrentTeam({
+					id: response.team.id,
+					name: response.team.name,
+				});
 
-						await setCurrentTeam(team);
+				if (teamContext.reload) {
+					teamContext.reload();
+				}
 
-						if (teamContext.reload) {
-							teamContext.reload();
-						}
+				// Check subscription and if user is manager
+				if (!response.team.subscription) {
+					if (response.team.role.role === 'manager') {
+						// Redirect to ViewTeam to manager active the team with a subscription
+						resetNavigation('ViewTeam');
+						return;
+					} else {
+						// Redirect to TeamList to users wait manager to active the team
+						resetNavigation('TeamList');
+						return;
 					}
 				}
+
+				// team has a active subscription
+				resetNavigation('Home');
 			}
-			handleNavigate();
 		} catch (err) {
 			if (err instanceof Error) {
 				showMessage({
@@ -150,21 +149,7 @@ const Login: React.FC = () => {
 		} finally {
 			setIsLoging(false);
 		}
-	}, [email, handleNavigate, password, teamContext]);
-
-	const handleEmailChange = useCallback(
-		(value: string) => setEmail(value.trim()),
-		[]
-	);
-
-	const handlePasswordChange = useCallback(
-		(value: string) => setPassword(value),
-		[]
-	);
-
-	const handleNavigateToForgotPass = useCallback(() => {
-		navigate('ForgotPassword');
-	}, [navigate]);
+	}, [email, password, reset, resetNavigation, teamContext]);
 
 	useEffect(() => {
 		try {
@@ -173,12 +158,12 @@ const Login: React.FC = () => {
 			BootSplash.hide({ fade: true });
 
 			if (user) {
-				handleNavigate();
+				console.log("User's already logged in");
 			}
 		} finally {
 			setIsLoading(false);
 		}
-	}, [handleNavigate]);
+	}, []);
 
 	return isLoading ? (
 		<Loading />
@@ -191,44 +176,14 @@ const Login: React.FC = () => {
 				</LogoTitle>
 			</LogoContainer>
 			<Content>
-				<FormContainer>
-					<FormTitle>{strings.View_Login_FormLogin_Title}</FormTitle>
-					<LoginForm>
-						<Input
-							value={email}
-							onChangeText={handleEmailChange}
-							placeholder={
-								strings.View_Login_InputText_Email_Placeholder
-							}
-							autoCorrect={false}
-							autoCapitalize="none"
-							contentStyle={{ marginBottom: 10 }}
-						/>
-
-						<Input
-							value={password}
-							onChangeText={handlePasswordChange}
-							placeholder={
-								strings.View_Login_InputText_Password_Placeholder
-							}
-							autoCorrect={false}
-							autoCapitalize="none"
-							isPassword
-						/>
-
-						<ForgotPasswordText
-							onPress={handleNavigateToForgotPass}
-						>
-							{strings.View_Login_Label_ForgotPassword}
-						</ForgotPasswordText>
-					</LoginForm>
-
-					<Button
-						title={strings.View_Login_Button_SignIn}
-						onPress={handleLogin}
-						isLoading={isLoging}
-					/>
-				</FormContainer>
+				<Form
+					email={email}
+					password={password}
+					isLoging={isLoging}
+					setEmail={setEmail}
+					setPassword={setPassword}
+					handleLogin={handleLogin}
+				/>
 			</Content>
 
 			<Footer />

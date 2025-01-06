@@ -1,0 +1,83 @@
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+
+import { getCurrentSubscription } from '@teams/Utils/Subscriptions/GetCurrent';
+
+import { SessionResponse } from '@teams/Functions/Auth/Session';
+
+import AppError from '@shared/Errors/AppError';
+
+interface Request {
+	firebaseUser: FirebaseAuthTypes.User;
+	localUser: SessionResponse;
+}
+
+interface ITeamRole extends ITeam {
+	subscription: TeamSubscription | null;
+	role: IRole;
+}
+
+interface Response {
+	id: string;
+	name?: string | null;
+	lastName?: string | null;
+	email: string;
+
+	team?: ITeamRole;
+}
+
+async function organizedInfo(info: Request): Promise<Response> {
+	const { team } = info.localUser;
+
+	let response: Response = {
+		id: info.localUser.id,
+		email: info.localUser.email,
+		name: info.localUser.name,
+		lastName: info.localUser.lastName,
+	};
+
+	if (!team) {
+		return response;
+	}
+
+	let subscription: TeamSubscription | null = null;
+
+	if (Object.keys(team).length > 0) {
+		try {
+			const sub = await getCurrentSubscription({
+				team_id: team.team.id,
+			});
+
+			subscription = sub;
+		} catch (error) {
+			if (error instanceof AppError) {
+				if (error.errorCode === 19) {
+					subscription = null;
+				} else {
+					throw error;
+				}
+			} else {
+				throw error;
+			}
+		}
+
+		const teamResponse: ITeamRole = {
+			id: team.team.id,
+			name: team.team.name,
+			subscription,
+			role: {
+				role: team.role.toLowerCase(),
+				status: team.status.toLowerCase(),
+				code: team.code,
+			},
+		};
+
+		response = {
+			...response,
+			team: teamResponse,
+		};
+	}
+
+	return response;
+}
+
+export { organizedInfo };

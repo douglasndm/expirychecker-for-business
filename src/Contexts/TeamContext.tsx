@@ -52,8 +52,11 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 
 			setName(team.name);
 			setRoleInTeam({
-				role,
-				status,
+				role: role.toLowerCase() as
+					| 'repositor'
+					| 'supervisor'
+					| 'manager',
+				status: status,
 				store: response.userRole.store,
 			});
 
