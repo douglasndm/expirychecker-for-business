@@ -60,7 +60,7 @@
         "react-native-localization": "^2.3.2",
         "react-native-localize": "^3.3.0",
         "react-native-paper": "^5.12.5",
-        "react-native-permissions": "5.2.1",
+        "react-native-permissions": "5.2.2",
         "react-native-picker-select": "^9.3.1",
         "react-native-purchases": "^7.28.1",
         "react-native-purchases-ui": "^7.28.1",
