@@ -17,7 +17,7 @@ import { showMessage } from 'react-native-flash-message';
 import { useTeam } from '@teams/Contexts/TeamContext';
 import PreferencesContext from '@teams/Contexts/PreferencesContext';
 
-import AppError from '@teams/Errors/AppError';
+import AppError from '@shared/Errors/AppError';
 import {
 	deleteManyProducts,
 	getAllProducts,

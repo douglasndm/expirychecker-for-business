@@ -7,7 +7,15 @@ import navigationRef from '@teams/References/Navigation';
 import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
 import { clearCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 
-import AppError from '@teams/Errors/AppError';
+import AppError from '@shared/Errors/AppError';
+
+function launchAppError(err: string, statusCode?: number, errorCode?: number) {
+	throw new AppError({
+		message: err,
+		statusCode: statusCode,
+		internalErrorCode: errorCode,
+	});
+}
 
 async function errorsHandler(error: any): Promise<void> {
 	let err = '';
@@ -40,31 +48,25 @@ async function errorsHandler(error: any): Promise<void> {
 			);
 
 			switch (errorCode) {
-				case 3:
+				case 3: // Should make login again
 					navigationRef.reset('Logout');
 					break;
 
-				case 7:
-					// User was not found
-
+				case 7: // User was not found
 					navigationRef.reset('Logout');
 					break;
 
-				case 17:
-					// User is not in team
-					// could be removed or manager deleted the team
+				case 17: // User is not in team (could be removed or manager deleted the team)
 					await clearSelectedteam();
 					await clearCurrentTeam();
 					navigationRef.reset('TeamList');
 
 					break;
 
-				case 22:
-					// Device not allowed, login anywhere else
+				case 22: // Device not allowed, login anywhere else
 					await destroySession();
 
 					navigationRef.reset('Login');
-
 					break;
 
 				default:
@@ -84,6 +86,8 @@ async function errorsHandler(error: any): Promise<void> {
 		if (error.response.status && error.response.status === 403) {
 			await destroySession();
 		}
+
+		launchAppError(err, error.response.status, code);
 	} else if (error.request) {
 		err = 'Falha ao tentar se conectar ao servidor';
 
@@ -94,7 +98,7 @@ async function errorsHandler(error: any): Promise<void> {
 	if (!!err && err !== '') {
 		throw new AppError({
 			message: err,
-			errorCode: code,
+			internalErrorCode: code,
 		});
 	} else if (error instanceof Error) {
 		throw new Error(error.message);

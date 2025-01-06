@@ -46,17 +46,18 @@
       "moduleResolution": "NodeNext",               /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
       "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
       "paths": {
-          "@shared/*": ["../shared/src/*"],
-          "@assets/*": ["../shared/src/Assets/*"],
-          "@components/*": ["../shared/src/Components/*"],
-          "@views/*": ["../shared/src/Views/*"],
-          "@themes/*": ["../shared/src/Themes/*"],
-          "@services/*": ["../shared/src/Services/*"],
-          "@styles/*": ["../shared/src/Styles/*"],
-          "@utils/*": ["../shared/src/Utils/*"],
-          "@teams/*": ["./src/*"],
-          "~/*": ["src/*"],
-          "react": [ "../../node_modules/@types/react" ]
+            "@shared/*": ["../shared/src/*"],
+            "@assets/*": ["../shared/src/Assets/*"],
+            "@components/*": ["../shared/src/Components/*"],
+            "@views/*": ["../shared/src/Views/*"],
+            "@themes/*": ["../shared/src/Themes/*"],
+            "@services/*": ["../shared/src/Services/*"],
+            "@styles/*": ["../shared/src/Styles/*"],
+            "@utils/*": ["../shared/src/Utils/*"],
+            "@errors/*": ["../shared/src/Errors/*"],
+            "@teams/*": ["./src/*"],
+            "~/*": ["src/*"],
+            "react": [ "../../node_modules/@types/react" ]
       },                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
       // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
       "typeRoots": [
