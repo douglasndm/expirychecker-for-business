@@ -17,7 +17,6 @@ interface getUserResponse {
 				{
 					expireIn: string;
 					membersLimit: number;
-					isActive: boolean;
 				}
 			];
 		};
