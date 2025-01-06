@@ -23,7 +23,7 @@ interface getAllProductsProps {
 	page?: number;
 }
 
-function convertDate(date: string): Date | undefined {
+function convertDate(date: string | Date): Date | undefined {
 	if (isDate(date)) {
 		return date as Date;
 	}

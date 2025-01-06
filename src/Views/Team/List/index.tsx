@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, memo, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, memo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
@@ -8,38 +8,29 @@ import strings from '@teams/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
-import {
-	clearSelectedteam,
-	setSelectedTeam,
-} from '@teams/Functions/Team/SelectedTeam';
-import { getTeamPreferences } from '@teams/Functions/Team/Preferences';
+import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
 import { removeItSelfFromTeam } from '@teams/Functions/Team/User/Remove';
-import { getUser } from '@teams/Functions/User/List';
 
-import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
-import { setCurrentTeamSubscription } from '@teams/Utils/Settings/CurrentTeamSubscription';
 import { getCurrentSubscription } from '@teams/Utils/Subscriptions/GetCurrent';
 import { getUserTeam } from '@teams/Utils/User/GetTeam';
 import { getUserStore } from '@teams/Utils/User/GetStore';
 
 import Loading from '@components/Loading';
 import Button from '@components/Button';
-import Header from '@components/Header';
+
+import Header from './Header';
+import TeamItem from './Team';
 
 import {
 	Container,
 	Content,
 	EmptyText,
 	ListTeamsTitle,
-	TeamItemContainer,
-	TeamItemTitle,
-	TeamItemRole,
 	Footer,
 } from './styles';
-import { isPast } from 'date-fns';
 
 const List: React.FC = () => {
-	const { navigate, reset, addListener } =
+	const { navigate, addListener } =
 		useNavigation<StackNavigationProp<RoutesParams>>();
 	const teamContext = useTeam();
 
@@ -57,12 +48,25 @@ const List: React.FC = () => {
 
 			const userRole = await getUserTeam();
 
-			if (userRole) {
-				const teamSubscription = await getCurrentSubscription({
-					team_id: userRole.team.id,
-				});
+			if (Object.keys(Object(userRole)).length > 0 && userRole) {
+				try {
+					const teamSubscription = await getCurrentSubscription({
+						team_id: userRole.team.id,
+					});
 
-				setTeamSub(teamSubscription);
+					setTeamSub(teamSubscription);
+				} catch (error) {
+					console.log(error);
+					if (error instanceof Error) {
+						if (
+							!error.message.includes(
+								"doesn't have a subscription"
+							)
+						) {
+							// error handler
+						}
+					}
+				}
 
 				const userStore = await getUserStore();
 
@@ -90,63 +94,6 @@ const List: React.FC = () => {
 		}
 	}, []);
 
-	const role = useMemo(() => {
-		if (team && team.role) {
-			const userRole = team.role.toLowerCase();
-
-			if (userRole === 'manager') {
-				return strings.UserInfo_Role_Manager.toLowerCase();
-			}
-			if (userRole === 'supervisor') {
-				return strings.UserInfo_Role_Supervisor.toLowerCase();
-			}
-			if (userRole === 'repositor') {
-				return strings.UserInfo_Role_Repositor.toLowerCase();
-			}
-		}
-
-		return strings.UserInfo_Role_Repositor.toLowerCase();
-	}, [team]);
-
-	const status = useMemo(() => {
-		if (team) {
-			if (team.role.toLowerCase() === 'manager') {
-				return 'completed';
-			}
-			if (!!team.status) {
-				return team.status.toLowerCase();
-			}
-		}
-
-		return 'pending';
-	}, [team]);
-
-	const isPending = useMemo(() => {
-		if (team) {
-			if (status) {
-				if (status === 'completed') {
-					return false;
-				}
-			}
-
-			if (role && role === 'manager') {
-				return false;
-			}
-		}
-
-		return true;
-	}, [role, status, team]);
-
-	const isActive = useMemo(() => {
-		if (teamSub) {
-			const expDate = teamSub.expireIn;
-
-			return !isPast(expDate);
-		}
-
-		return false;
-	}, [teamSub]);
-
 	const handleNavigateCreateTeam = useCallback(() => {
 		navigate('CreateTeam');
 	}, [navigate]);
@@ -160,61 +107,6 @@ const List: React.FC = () => {
 
 		return unsubscribe;
 	}, [addListener, loadData]);
-
-	const handleSelectTeam = useCallback(async () => {
-		if (!team) return;
-
-		if (isActive !== true) {
-			if (role !== 'manager') {
-				showMessage({
-					message:
-						strings.View_TeamList_Error_ManagerShouldActiveTeam,
-					type: 'warning',
-				});
-				return;
-			}
-		}
-
-		if (team.team) {
-			if (role !== 'manager' && status === 'pending') {
-				navigate('EnterTeam', { userRole: team });
-				return;
-			}
-
-			const teamPreferences = await getTeamPreferences({
-				team_id: team.team.id,
-			});
-
-			const userResponse = await getUser();
-
-			await setSelectedTeam({
-				userRole: {
-					...team,
-					store: userResponse.store,
-				},
-				teamPreferences,
-			});
-			await setCurrentTeam(team.team);
-
-			if (teamSub) {
-				await setCurrentTeamSubscription(teamSub);
-			}
-
-			if (teamContext.reload) {
-				teamContext.reload();
-			} else {
-				return;
-			}
-
-			reset({
-				routes: [
-					{
-						name: 'Home',
-					},
-				],
-			});
-		}
-	}, [isActive, navigate, reset, role, status, team, teamContext, teamSub]);
 
 	const switchShowMenu = useCallback(() => {
 		setShowMenu(prevValue => {
@@ -248,30 +140,15 @@ const List: React.FC = () => {
 		}
 	}, [team, teamContext]);
 
-	return isLoading ? (
-		<Loading />
-	) : (
+	return (
 		<Container>
 			<Header
-				title={strings.View_TeamList_PageTitle}
-				noDrawer
-				appBarActions={[
-					{
-						icon: 'update',
-						onPress: loadData,
-						disabled: isLoading,
-					},
-				]}
-				moreMenuItems={[
-					{
-						title: strings.View_TeamList_Button_Settings,
-						onPress: handleSettings,
-						leadingIcon: 'cog',
-					},
-				]}
+				isLoading={isLoading || isQuiting}
+				loadData={loadData}
+				handleSettings={handleSettings}
 			/>
 
-			{isQuiting ? (
+			{isLoading || isQuiting ? (
 				<Loading />
 			) : (
 				<Content>
@@ -291,20 +168,12 @@ const List: React.FC = () => {
 									<ListTeamsTitle>
 										{strings.View_TeamList_ListTitle}
 									</ListTeamsTitle>
-									<TeamItemContainer
-										isPending={isPending || !isActive}
-										onPress={handleSelectTeam}
-										onLongPress={switchShowMenu}
-									>
-										<TeamItemTitle>
-											{team?.team.name || ''}
-										</TeamItemTitle>
-										<TeamItemRole>
-											{isPending
-												? status.toUpperCase()
-												: role.toUpperCase()}
-										</TeamItemRole>
-									</TeamItemContainer>
+
+									<TeamItem
+										team={team}
+										teamSub={teamSub}
+										switchShowMenu={switchShowMenu}
+									/>
 								</>
 							}
 						>
