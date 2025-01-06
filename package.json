@@ -1,7 +1,7 @@
 {
     "name": "expirybusiness",
-    "version": "1.10.14",
-    "build": "150",
+    "version": "1.10.15",
+    "build": "151",
     "private": true,
     "scripts": {
         "build": "./build.sh",
@@ -41,7 +41,7 @@
         "react": "18.3.1",
         "react-native": "0.76.5",
         "react-native-app-intro-slider": "^4.0.4",
-        "react-native-bootsplash": "*",
+        "react-native-bootsplash": "^5.5.3",
         "react-native-bouncy-checkbox": "^4.1.2",
         "react-native-camera-kit": "^14.1.0",
         "react-native-config": "^1.5.3",
@@ -71,7 +71,7 @@
         "react-native-share": "^12.0.3",
         "react-native-uuid-generator": "^6.1.1",
         "react-native-vector-icons": "^10.2.0",
-        "react-native-zip-archive": "^6.1.2",
+        "react-native-zip-archive": "^7.0.1",
         "react-number-format": "^5.4.3",
         "shared": "^1.0.0",
         "styled-components": "^6.1.14",

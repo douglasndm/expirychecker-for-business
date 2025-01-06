@@ -1,3 +1,5 @@
+ENV['RCT_NEW_ARCH_ENABLED'] = '0'
+
 def node_require(script)
     # Resolve script with node to allow for hoisting
     require Pod::Executable.execute_command('node', ['-p',
@@ -10,7 +12,7 @@ def node_require(script)
   node_require('react-native/scripts/react_native_pods.rb')
   node_require('react-native-permissions/scripts/setup.rb')
 
-  platform :ios, min_ios_version_supported
+  platform :ios, 15.5
   prepare_react_native_project!
 
   # ⬇️ uncomment wanted permissions
