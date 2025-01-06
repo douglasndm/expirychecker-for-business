@@ -16,7 +16,7 @@ interface ITeamRole extends ITeam {
 	role: IRole;
 }
 
-interface Response {
+export interface IOrganizedResponse {
 	id: string;
 	name?: string | null;
 	lastName?: string | null;
@@ -25,10 +25,10 @@ interface Response {
 	team?: ITeamRole;
 }
 
-async function organizedInfo(info: Request): Promise<Response> {
+async function organizedInfo(info: Request): Promise<IOrganizedResponse> {
 	const { team } = info.localUser;
 
-	let response: Response = {
+	let response: IOrganizedResponse = {
 		id: info.localUser.id,
 		email: info.localUser.email,
 		name: info.localUser.name,
