@@ -60,14 +60,16 @@ async function organizedInfo(info: Request): Promise<IOrganizedResponse> {
 			}
 		}
 
+		const { status, code } = team;
+
 		const teamResponse: ITeamRole = {
 			id: team.team.id,
 			name: team.team.name,
 			subscription,
 			role: {
 				role: team.role.toLowerCase(),
-				status: team.status.toLowerCase(),
-				code: team.code,
+				status: status ? status.toLowerCase() : null,
+				code: code ? code : null,
 			},
 		};
 

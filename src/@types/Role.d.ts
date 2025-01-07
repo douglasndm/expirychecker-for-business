@@ -1,5 +1,5 @@
 interface IRole {
 	role: string;
-	code?: string;
-	status?: string;
+	code: string | null;
+	status: string | null;
 }
