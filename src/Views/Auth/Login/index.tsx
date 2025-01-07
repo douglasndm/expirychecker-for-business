@@ -180,7 +180,7 @@ const Login: React.FC = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [handleNavigationAfterLogin]);
+	}, []);
 
 	return (
 		<Container>
