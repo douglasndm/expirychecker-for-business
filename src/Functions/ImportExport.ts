@@ -1,6 +1,6 @@
 import DocumentPicker from 'react-native-document-picker';
 
-import api from '@teams/Services/API';
+import api from '@teams/Services/API/Config';
 
 import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 

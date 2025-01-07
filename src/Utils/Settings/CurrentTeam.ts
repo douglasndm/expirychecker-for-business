@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-async function getCurrentTeam(): Promise<ITeam | null> {
+async function getCurrentTeam(): Promise<ITeam> {
 	const selectedTeamAsString = await AsyncStorage.getItem('currentTeam');
 
 	if (selectedTeamAsString) {
 		return JSON.parse(selectedTeamAsString);
 	}
 
-	return null;
+	throw new Error('Team is not selected');
 }
 
 async function setCurrentTeam(currentTeam: ITeam): Promise<void> {

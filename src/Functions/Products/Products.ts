@@ -1,6 +1,7 @@
 import { startOfDay, parseISO, compareAsc, isDate } from 'date-fns';
 
-import API from '@teams/Services/API';
+import api from '@teams/Services/API/Config';
+import { queueRequest } from '@teams/Services/API/RequestQueue';
 
 import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 import { sortBatches } from '@utils/Product/Batches';
@@ -56,11 +57,7 @@ export async function getAllProducts({
 }: getAllProductsProps): Promise<IProduct[]> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
-	const { data } = await API.get<IAllTeamProducts>(
+	const data = await queueRequest<IAllTeamProducts>(
 		`/team/${currentTeam.id}/products`,
 		{
 			params: {
@@ -85,7 +82,7 @@ async function searchProducts(props: searchProductsProps): Promise<IProduct[]> {
 
 	const { removeCheckedBatches, query } = props;
 
-	const { data } = await API.get<ISearchResponse>(
+	const data = await queueRequest<ISearchResponse>(
 		`/team/${currentTeam.id}/products/search`,
 		{
 			params: {
@@ -164,7 +161,7 @@ export async function deleteManyProducts({
 		throw new Error('Team is not selected');
 	}
 
-	await API.delete(`/team/${currentTeam.id}/products`, {
+	await api.delete(`/team/${currentTeam.id}/products`, {
 		data: {
 			productsIds,
 		},

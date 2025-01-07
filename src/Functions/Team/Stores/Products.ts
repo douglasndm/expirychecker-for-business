@@ -1,4 +1,4 @@
-import api from '@teams/Services/API';
+import api from '@teams/Services/API/Config';
 
 import { fixProductsDates } from '@teams/Functions/Products/Products';
 import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';

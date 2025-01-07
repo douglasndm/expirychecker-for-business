@@ -2,7 +2,7 @@ import messaging from '@react-native-firebase/messaging';
 
 import { getDeviceId } from '@services/DeviceID';
 
-import api from '@teams/Services/API';
+import api from '@teams/Services/API/Config';
 
 import { clearSelectedteam } from '../Team/SelectedTeam';
 import { logoutFirebase } from './Firebase';

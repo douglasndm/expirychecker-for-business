@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-import api from '@teams/Services/API';
+import api from '@teams/Services/API/Config';
 
 import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 import { removeLocalImage } from '@utils/Images/RemoveLocally';

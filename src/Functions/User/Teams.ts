@@ -1,4 +1,4 @@
-import api from '@teams/Services/API';
+import api from '@teams/Services/API/Config';
 
 export interface UserTeamsResponse {
 	id: string;

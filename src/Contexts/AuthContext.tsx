@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
-import api from '@teams/Services/API';
+import api from '@teams/Services/API/Config';
 
 interface AuthContextData {
 	user: FirebaseAuthTypes.User | null;

@@ -1,21 +1,19 @@
-import api from '~/Services/API';
+import api from '@teams/Services/API/Config';
 
 interface INotificationsPreferences {
-    email_enabled: boolean;
+	email_enabled: boolean;
 }
 
-export async function getNotificationsPreferences(): Promise<
-    INotificationsPreferences
-> {
-    const response = await api.get<INotificationsPreferences>('/notifications');
+export async function getNotificationsPreferences(): Promise<INotificationsPreferences> {
+	const response = await api.get<INotificationsPreferences>('/notifications');
 
-    return response.data;
+	return response.data;
 }
 
 export async function updateNotificationsPreferences({
-    email_enabled,
+	email_enabled,
 }: INotificationsPreferences): Promise<void> {
-    await api.put<INotificationsPreferences>('/notifications', {
-        allowEmailNotification: email_enabled,
-    });
+	await api.put<INotificationsPreferences>('/notifications', {
+		allowEmailNotification: email_enabled,
+	});
 }

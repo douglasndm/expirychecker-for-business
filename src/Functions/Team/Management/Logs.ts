@@ -1,7 +1,7 @@
 import { getLocales } from 'react-native-localize';
 import { parseISO, format } from 'date-fns';
 
-import api from '@teams/Services/API';
+import api from '@teams/Services/API/Config';
 
 import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 

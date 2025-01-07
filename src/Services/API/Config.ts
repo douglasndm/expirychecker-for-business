@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth';
 
 import api from '@services/API';
 
-import errorsHandler from './API/Errors';
+import errorsHandler from './Errors';
 
 api.interceptors.request.use(async config => {
 	const userToken = await auth().currentUser?.getIdToken();
