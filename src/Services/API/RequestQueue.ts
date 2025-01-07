@@ -34,7 +34,7 @@ const processQueue = async (): Promise<void> => {
 	console.log('There is ' + requestQueue.length + ' requests in the queue.');
 
 	const { url, config, resolve, reject } = requestQueue.shift()!;
-	console.log('processing: ' + url);
+	console.log('processing: ' + api.getUri() + url);
 
 	try {
 		const response = await api.get(url, config);
