@@ -58,15 +58,9 @@ const DrawerMenu: React.FC = () => {
 	}, [navigate]);
 
 	const handleNavigateToFaq = useCallback(async () => {
-		if (
-			await Linking.canOpenURL(
-				'https://controledevalidades.com/perguntas-frequentes/'
-			)
-		) {
-			await Linking.openURL(
-				'https://controledevalidades.com/perguntas-frequentes/'
-			);
-		}
+		await Linking.openURL(
+			'https://controledevalidades.com/perguntas-frequentes'
+		);
 	}, []);
 
 	const handleNavigateToAbout = useCallback(() => {

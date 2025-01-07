@@ -60,8 +60,10 @@ const Login: React.FC = () => {
 			resetNavigation('TeamList');
 			return;
 		} else {
+			const { role, status } = response.team.role;
+
 			// if user has a team but it didn't enter the code yet
-			if (response.team.role.status !== 'completed') {
+			if (role !== 'manager' && status !== 'completed') {
 				reset({
 					routes: [
 						{
