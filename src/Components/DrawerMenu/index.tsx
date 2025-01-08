@@ -9,13 +9,13 @@ import { useTeam } from '@teams/Contexts/TeamContext';
 
 import {
 	Container,
+	Content,
 	MainMenuContainer,
 	MenuItemContainer,
 	MenuContent,
 	MenuItemText,
 	Icons,
 	DrawerSection,
-	PageContainer,
 } from '@components/Menu/Drawer/styles';
 
 import UserInfo from './UserInfo';
@@ -72,8 +72,8 @@ const DrawerMenu: React.FC = () => {
 	}, [navigate]);
 
 	return (
-		<PageContainer>
-			<Container>
+		<Container>
+			<Content>
 				<MainMenuContainer>
 					<UserInfo />
 
@@ -182,8 +182,8 @@ const DrawerMenu: React.FC = () => {
 						</MenuItemContainer>
 					)}
 				</DrawerSection>
-			</Container>
-		</PageContainer>
+			</Content>
+		</Container>
 	);
 };
 

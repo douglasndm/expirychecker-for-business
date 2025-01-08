@@ -1,7 +1,7 @@
 {
     "name": "expirybusiness",
     "version": "1.10.15",
-    "build": "152",
+    "build": "154",
     "private": true,
     "scripts": {
         "build": "./build.sh",

@@ -1818,7 +1818,7 @@ PODS:
   - RevenueCat (4.43.2)
   - RevenueCatUI (4.43.2):
     - RevenueCat (= 4.43.2)
-  - RNBootSplash (6.3.2):
+  - RNBootSplash (5.5.3):
     - React-Core
   - RNCAsyncStorage (2.1.0):
     - React-Core
@@ -2162,7 +2162,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../../../node_modules/react-native/ReactCommon`)
   - ReactNativeCameraKit (from `../../../node_modules/react-native-camera-kit`)
   - ReactNativeLocalization (from `../../../node_modules/react-native-localization`)
-  - RNBootSplash (from `../node_modules/react-native-bootsplash`)
+  - RNBootSplash (from `../../../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCClipboard (from `../../../node_modules/@react-native-clipboard/clipboard`)"
   - "RNCMaskedView (from `../../../node_modules/@react-native-masked-view/masked-view`)"
@@ -2381,7 +2381,7 @@ EXTERNAL SOURCES:
   ReactNativeLocalization:
     :path: "../../../node_modules/react-native-localization"
   RNBootSplash:
-    :path: "../node_modules/react-native-bootsplash"
+    :path: "../../../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../../../node_modules/@react-native-async-storage/async-storage"
   RNCClipboard:
@@ -2541,7 +2541,7 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   RevenueCat: 3d934653b7e8b09af88fd47e9e84cfaf5d0a89ba
   RevenueCatUI: 1417f375baf005eaf3afa8bc99724f567abfd6da
-  RNBootSplash: 3a44c2c3ebfce98254de887ceed22c4941c8c6c5
+  RNBootSplash: e025d4ee98d942ee6c8b495a6fe66339a6b5f6dd
   RNCAsyncStorage: cc6479c4acd84cc7004946946c8afe30b018184d
   RNCClipboard: 69ab8e51324d5b351f6ba72bbdb72478087a2c64
   RNCMaskedView: 7133577aa318952cac74dae97037a30cd33d73bf
