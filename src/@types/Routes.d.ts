@@ -6,6 +6,8 @@ type RoutesParams = {
 		brand?: string;
 		store?: string;
 	};
+	ProductsSortedByWeight;
+	ProductsSortedByLiters;
 	Settings;
 	About;
 	ProductDetails: {

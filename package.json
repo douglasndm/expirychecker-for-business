@@ -36,7 +36,7 @@
         "axios": "^1.7.9",
         "crypto-js": "^3.3.0",
         "date-fns": "^4.1.0",
-        "lottie-react-native": "^7.1.0",
+        "lottie-react-native": "^7.2.0",
         "polished": "^4.3.1",
         "react": "18.3.1",
         "react-native": "0.76.5",

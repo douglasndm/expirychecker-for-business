@@ -25,6 +25,9 @@ import About from '@teams/Views/About';
 import NoInternet from '@views/Information/Errors/NoInternet';
 import PhotoView from '@views/Product/PhotoView';
 
+import ProductsSortedByWeight from '@teams/Views/Product/Lists/SortedByWeight';
+import ProductsSortedByLiters from '@teams/Views/Product/Lists/SortedByLiters';
+
 import BatchView from '@teams/Views/Batch/View';
 import BatchDiscount from '@teams/Views/Batch/Discount';
 
@@ -144,6 +147,16 @@ const Routes: React.FC = () => {
 
 					<Stack.Screen name="Home" component={Home} />
 					<Stack.Screen name="AddProduct" component={AddProduct} />
+
+					<Stack.Screen
+						name="ProductsSortedByWeight"
+						component={ProductsSortedByWeight}
+					/>
+
+					<Stack.Screen
+						name="ProductsSortedByLiters"
+						component={ProductsSortedByLiters}
+					/>
 
 					<Stack.Screen name="Settings" component={Settings} />
 					<Stack.Screen name="About" component={About} />
