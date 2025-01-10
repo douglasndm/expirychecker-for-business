@@ -8,6 +8,8 @@ import React, {
 	ReactNode,
 } from 'react';
 
+import { captureException } from '@services/ExceptionsHandler';
+
 import {
 	getSelectedTeam,
 	clearSelectedteam,
@@ -44,28 +46,34 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	const reloadTeam = useCallback(async () => {
-		const response = await getSelectedTeam();
-		const sub = await getCurrentSubscription();
+		try {
+			const response = await getSelectedTeam();
+			const sub = await getCurrentSubscription();
 
-		if (response) {
-			const { team, role, status } = response.userRole;
+			if (response) {
+				const { team, role, status } = response.userRole;
 
-			setName(team.name);
-			setRoleInTeam({
-				role: role.toLowerCase() as
-					| 'repositor'
-					| 'supervisor'
-					| 'manager',
-				status: status,
-				store: response.userRole.store,
-			});
+				setName(team.name);
+				setRoleInTeam({
+					role: role.toLowerCase() as
+						| 'repositor'
+						| 'supervisor'
+						| 'manager',
+					status: status,
+					store: response.userRole.store,
+				});
 
-			if (sub) {
-				setSubscription(sub);
+				if (sub) {
+					setSubscription(sub);
+				}
 			}
+		} catch (error) {
+			if (error instanceof Error) {
+				captureException(error, { stack: error.stack });
+			}
+		} finally {
+			setIsLoading(false);
 		}
-
-		setIsLoading(false);
 	}, []);
 
 	useEffect(() => {
