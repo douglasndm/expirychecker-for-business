@@ -27,6 +27,7 @@ module.exports = {
 			},
 		],
 		'jest-hoist',
+        'babel-plugin-styled-components',
 		'react-native-reanimated/plugin',
 	],
 };
