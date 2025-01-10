@@ -15,7 +15,6 @@ import LitersIcon from '@assets/Icons/water-glass-half-full.png';
 import LitersIconDark from '@assets/Icons/water-glass-half-full-dark.png';
 
 import {
-	Container,
 	MainMenuContainer,
 	MenuItemContainer,
 	MenuContent,
@@ -23,6 +22,7 @@ import {
 	Icons,
 	DrawerSection,
 } from '@components/Menu/Drawer/styles';
+import { Container } from './styles';
 
 import UserInfo from './UserInfo';
 
