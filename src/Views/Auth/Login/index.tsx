@@ -11,6 +11,8 @@ import strings from '@teams/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
+import { captureException } from '@services/ExceptionsHandler';
+
 import {
 	IOrganizedResponse,
 	organizedInfo,
@@ -157,10 +159,7 @@ const Login: React.FC = () => {
 			await handleNavigationAfterLogin();
 		} catch (err) {
 			if (err instanceof Error) {
-				showMessage({
-					message: err.message,
-					type: 'danger',
-				});
+				captureException(err, { stack: err.stack });
 			}
 		} finally {
 			setIsLoging(false);
@@ -170,15 +169,16 @@ const Login: React.FC = () => {
 	useEffect(() => {
 		try {
 			setIsLoading(true);
+			setIsLoging(true);
 			const user = auth().currentUser;
-
-			BootSplash.hide({ fade: true });
 
 			if (user) {
 				handleNavigationAfterLogin();
 			}
 		} finally {
 			setIsLoading(false);
+			setIsLoging(false);
+			BootSplash.hide({ fade: true });
 		}
 	}, []);
 

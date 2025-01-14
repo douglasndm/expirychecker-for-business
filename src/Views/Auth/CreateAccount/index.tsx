@@ -13,7 +13,7 @@ import Header from '@components/Header';
 import Input from '@components/InputText';
 import Button from '@components/Button';
 
-import { FormContainer } from '../Login/styles';
+import { FormContainer } from '../Login/Form/styles';
 import { Container, PageContent } from './styles';
 
 const CreateAccount: React.FC = () => {

@@ -156,7 +156,7 @@ PODS:
     - hermes-engine/Pre-built (= 0.76.5)
   - hermes-engine/Pre-built (0.76.5)
   - lottie-ios (4.5.0)
-  - lottie-react-native (7.1.0):
+  - lottie-react-native (7.2.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1818,7 +1818,7 @@ PODS:
   - RevenueCat (4.43.2)
   - RevenueCatUI (4.43.2):
     - RevenueCat (= 4.43.2)
-  - RNBootSplash (6.3.2):
+  - RNBootSplash (5.5.3):
     - React-Core
   - RNCAsyncStorage (2.1.0):
     - React-Core
@@ -1912,7 +1912,7 @@ PODS:
   - RNPaywalls (7.28.1):
     - PurchasesHybridCommonUI (= 11.1.1)
     - React-Core
-  - RNPermissions (5.2.2):
+  - RNPermissions (5.2.1):
     - React-Core
   - RNPurchases (7.28.1):
     - PurchasesHybridCommon (= 11.1.1)
@@ -2162,11 +2162,11 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../../../node_modules/react-native/ReactCommon`)
   - ReactNativeCameraKit (from `../../../node_modules/react-native-camera-kit`)
   - ReactNativeLocalization (from `../../../node_modules/react-native-localization`)
-  - RNBootSplash (from `../node_modules/react-native-bootsplash`)
+  - RNBootSplash (from `../../../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCClipboard (from `../../../node_modules/@react-native-clipboard/clipboard`)"
   - "RNCMaskedView (from `../../../node_modules/@react-native-masked-view/masked-view`)"
-  - "RNCPicker (from `../../../node_modules/@react-native-picker/picker`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNCPushNotificationIOS (from `../../../node_modules/@react-native-community/push-notification-ios`)"
   - RNDeviceInfo (from `../../../node_modules/react-native-device-info`)
   - "RNFBAnalytics (from `../../../node_modules/@react-native-firebase/analytics`)"
@@ -2381,7 +2381,7 @@ EXTERNAL SOURCES:
   ReactNativeLocalization:
     :path: "../../../node_modules/react-native-localization"
   RNBootSplash:
-    :path: "../node_modules/react-native-bootsplash"
+    :path: "../../../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../../../node_modules/@react-native-async-storage/async-storage"
   RNCClipboard:
@@ -2389,7 +2389,7 @@ EXTERNAL SOURCES:
   RNCMaskedView:
     :path: "../../../node_modules/@react-native-masked-view/masked-view"
   RNCPicker:
-    :path: "../../../node_modules/@react-native-picker/picker"
+    :path: "../node_modules/@react-native-picker/picker"
   RNCPushNotificationIOS:
     :path: "../../../node_modules/@react-native-community/push-notification-ios"
   RNDeviceInfo:
@@ -2464,7 +2464,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 923b710231ad3d6f3f0495ac1ced35421e07d9a6
   hermes-engine: 06a9c6900587420b90accc394199527c64259db4
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
-  lottie-react-native: 58fa6241bbcfe68180c3aebfb9e497d0d87e912e
+  lottie-react-native: 039828a70d7299a794ca879982915c0b3fa13878
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PurchasesHybridCommon: 73f4f2c6e4ec3487b4219bf60e1661100fb85da3
@@ -2541,7 +2541,7 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   RevenueCat: 3d934653b7e8b09af88fd47e9e84cfaf5d0a89ba
   RevenueCatUI: 1417f375baf005eaf3afa8bc99724f567abfd6da
-  RNBootSplash: 3a44c2c3ebfce98254de887ceed22c4941c8c6c5
+  RNBootSplash: e025d4ee98d942ee6c8b495a6fe66339a6b5f6dd
   RNCAsyncStorage: cc6479c4acd84cc7004946946c8afe30b018184d
   RNCClipboard: 69ab8e51324d5b351f6ba72bbdb72478087a2c64
   RNCMaskedView: 7133577aa318952cac74dae97037a30cd33d73bf
@@ -2560,7 +2560,7 @@ SPEC CHECKSUMS:
   RNLocalize: 298e85ce16540a11de40c1a588ead39fc5e9a072
   RNNotifee: 4a6ee5c7deaf00e005050052d73ee6315dff7ec9
   RNPaywalls: 3b1f151f7bbd00dea0aeb4ecb3bd60d243ec5d9e
-  RNPermissions: fe5f20e3413e73be154c9f20e2f0e9238b0c36a9
+  RNPermissions: e1164855b2a3f60639b4fcd9a402bbaa94c73644
   RNPurchases: 4305de02b902d3c1e56a50295dc0a6e758b73095
   RNReanimated: 8e273440b1bc17a812b6fda5775348f20adde14e
   RNScreens: 986bbf29f6a45771dc0dc7007d922c94f4a9fb25
@@ -2572,6 +2572,6 @@ SPEC CHECKSUMS:
   SSZipArchive: c69881e8ac5521f0e622291387add5f60f30f3c4
   Yoga: d2b3aca40280e37f5eac5e3b02ddedffb8db7471
 
-PODFILE CHECKSUM: c40457dc07e3e9b68448ebc1000db2ee9a4945bf
+PODFILE CHECKSUM: 7b9182e27aef1136e0a3496aa4da4b722ccc5134
 
 COCOAPODS: 1.15.2
