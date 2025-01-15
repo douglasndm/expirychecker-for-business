@@ -7,14 +7,14 @@ import React, {
 	createContext,
 	ReactNode,
 } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { captureException } from '@services/ExceptionsHandler';
 
-import {
-	getSelectedTeam,
-	clearSelectedteam,
-} from '@teams/Functions/Team/SelectedTeam';
 import { getCurrentSubscription } from '@teams/Utils/Settings/CurrentTeamSubscription';
+import { IOrganizedInfoResponse } from '@teams/Utils/User/Login/organizedInfo';
+
+import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
 
 interface ITeamContext {
 	name: string | null;
@@ -47,20 +47,22 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 
 	const reloadTeam = useCallback(async () => {
 		try {
-			const response = await getSelectedTeam();
+			const data = await AsyncStorage.getItem('organizedUserInfo');
+			const teamResponse = JSON.parse(
+				String(data)
+			) as IOrganizedInfoResponse;
+
 			const sub = await getCurrentSubscription();
 
-			if (response) {
-				const { team, role, status } = response.userRole;
+			if (teamResponse.role) {
+				const { team, status, store } = teamResponse.role;
 
 				setName(team.name);
+
 				setRoleInTeam({
-					role: role.toLowerCase() as
-						| 'repositor'
-						| 'supervisor'
-						| 'manager',
-					status: status,
-					store: response.userRole.store,
+					role: teamResponse.role.name,
+					status,
+					store,
 				});
 
 				if (sub) {

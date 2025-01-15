@@ -1,5 +1,5 @@
 interface IRole {
-	role: string;
+	name: 'repositor' | 'supervisor' | 'manager';
+	status: 'completed' | 'pending' | null;
 	code: string | null;
-	status: string | null;
 }

@@ -2,8 +2,9 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import strings from '@teams/Locales';
 
+import { createSeassion, AuthResponse } from '@teams/Utils/Auth/Session';
+
 import { loginFirebase } from './Firebase';
-import { SessionResponse, createSeassion } from './Session';
 
 interface loginProps {
 	email: string;
@@ -12,7 +13,7 @@ interface loginProps {
 
 interface IResponse {
 	firebaseUser: FirebaseAuthTypes.User;
-	localUser: SessionResponse;
+	localUser: AuthResponse;
 }
 
 export async function login({
@@ -35,19 +36,20 @@ export async function login({
 
 		return response;
 	} catch (err) {
-		let error = err;
+		if (err instanceof Error) {
+			let message = err.message;
 
-		if (
-			err.code === 'auth/wrong-password' ||
-			err.code === 'auth/user-not-found'
-		) {
-			error = strings.View_Login_Error_WrongEmailOrPassword;
-		} else if (err.code === 'auth/network-request-failed') {
-			error = strings.View_Login_Error_NetworkError;
-		} else if (error === 'request error') {
-			error = 'Erro de conexão';
+			if (message.includes('auth/wrong-password')) {
+				message = strings.View_Login_Error_WrongEmailOrPassword;
+			} else if (message.includes('auth/user-not-found')) {
+				message = strings.View_Login_Error_WrongEmailOrPassword;
+			} else if (message.includes('auth/network-request-failed')) {
+				message = strings.View_Login_Error_NetworkError;
+			}
+
+			throw new Error(message);
 		}
 
-		throw new Error(error);
+		throw err;
 	}
 }

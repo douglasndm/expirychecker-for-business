@@ -14,7 +14,7 @@ import { useTeam } from '@teams/Contexts/TeamContext';
 import { captureException } from '@services/ExceptionsHandler';
 
 import {
-	IOrganizedResponse,
+	IOrganizedInfoResponse,
 	organizedInfo,
 } from '@teams/Utils/User/Login/organizedInfo';
 
@@ -54,26 +54,29 @@ const Login: React.FC = () => {
 	);
 
 	const handleNavigationAfterLogin = useCallback(async () => {
-		const setting = await AsyncStorage.getItem('organizedUserInfo');
-		const response = JSON.parse(String(setting)) as IOrganizedResponse;
+		const setting = await AsyncStorage.getItem('userInfo');
+		const response = JSON.parse(String(setting)) as IOrganizedInfoResponse;
 
 		// if user has no team
-		if (!response.team) {
+		if (!response.role) {
 			resetNavigation('TeamList');
 			return;
 		} else {
-			const { role, status } = response.team.role;
+			const { name, status, code, team } = response.role;
 
 			// if user has a team but it didn't enter the code yet
-			if (role !== 'manager' && status !== 'completed') {
+			if (name !== 'manager' && status !== 'completed') {
 				reset({
 					routes: [
+						{
+							name: 'TeamList',
+						},
 						{
 							name: 'EnterTeam',
 							params: {
 								userRole: {
-									team: response.team,
-									code: response.team.role.code,
+									team: response.role.team,
+									code: response.role.code,
 								},
 							},
 						},
@@ -84,25 +87,22 @@ const Login: React.FC = () => {
 
 			// Now we are setting the current team
 			const teamPreferences = await getTeamPreferences({
-				team_id: response.team.id,
+				team_id: response.role.team.id,
 			});
 
 			await setSelectedTeam({
 				userRole: {
-					role: response.team.role,
-					status: response.team.role.status,
-					code: response.team.role.code,
-					team: {
-						id: response.team.id,
-						name: response.team.name,
-					},
+					name,
+					status,
+					code,
+					team,
 				},
 				teamPreferences,
 			});
 
 			await setCurrentTeam({
-				id: response.team.id,
-				name: response.team.name,
+				id: team.id,
+				name: team.name,
 			});
 
 			if (teamContext.reload) {
@@ -110,8 +110,8 @@ const Login: React.FC = () => {
 			}
 
 			// Check subscription and if user is manager
-			if (!response.team.subscription) {
-				if (response.team.role.role === 'manager') {
+			if (!response.teamSubscription) {
+				if (response.role.name === 'manager') {
 					// Redirect to ViewTeam to manager active the team with a subscription
 					resetNavigation('ViewTeam');
 					return;
@@ -151,10 +151,7 @@ const Login: React.FC = () => {
 
 			const response = await organizedInfo(user);
 
-			await AsyncStorage.setItem(
-				'organizedUserInfo',
-				JSON.stringify(response)
-			);
+			await AsyncStorage.setItem('userInfo', JSON.stringify(response));
 
 			await handleNavigationAfterLogin();
 		} catch (err) {

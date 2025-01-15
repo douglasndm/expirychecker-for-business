@@ -2,49 +2,45 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import { getCurrentSubscription } from '@teams/Utils/Subscriptions/GetCurrent';
 
-import { SessionResponse } from '@teams/Functions/Auth/Session';
+import { AuthResponse } from '@teams/Utils/Auth/Session';
 
 import AppError from '@shared/Errors/AppError';
 
 interface Request {
 	firebaseUser: FirebaseAuthTypes.User;
-	localUser: SessionResponse;
+	localUser: AuthResponse;
 }
 
-interface ITeamRole extends ITeam {
-	subscription: TeamSubscription | null;
-	role: IRole;
+interface IRoleTeam extends IRole {
+	team: ITeam;
+	store: IStore | null;
 }
 
-export interface IOrganizedResponse {
-	id: string;
-	name?: string | null;
-	lastName?: string | null;
-	email: string;
-
-	team?: ITeamRole;
+export interface IOrganizedInfoResponse extends AuthResponse {
+	teamSubscription: TeamSubscription | null;
 }
 
-async function organizedInfo(info: Request): Promise<IOrganizedResponse> {
-	const { team } = info.localUser;
+async function organizedInfo(info: Request): Promise<IOrganizedInfoResponse> {
+	const { id, name, lastName, email, role } = info.localUser;
 
-	let response: IOrganizedResponse = {
-		id: info.localUser.id,
-		email: info.localUser.email,
-		name: info.localUser.name,
-		lastName: info.localUser.lastName,
+	let response: IOrganizedInfoResponse = {
+		id,
+		name,
+		lastName,
+		email,
+		teamSubscription: null,
 	};
 
-	if (!team) {
+	if (!role) {
 		return response;
 	}
 
 	let subscription: TeamSubscription | null = null;
 
-	if (Object.keys(team).length > 0) {
+	if (Object.keys(role).length > 0) {
 		try {
 			const sub = await getCurrentSubscription({
-				team_id: team.team.id,
+				team_id: role.team.id,
 			});
 
 			subscription = sub;
@@ -60,22 +56,20 @@ async function organizedInfo(info: Request): Promise<IOrganizedResponse> {
 			}
 		}
 
-		const { status, code } = team;
+		const { status, code } = role;
 
-		const teamResponse: ITeamRole = {
-			id: team.team.id,
-			name: team.team.name,
-			subscription,
-			role: {
-				role: team.role.toLowerCase(),
-				status: status ? status.toLowerCase() : null,
-				code: code ? code : null,
-			},
+		const teamResponse: IRoleTeam = {
+			name: role.name,
+			status: status,
+			code: code,
+			team: role.team,
+			store: role.store,
 		};
 
 		response = {
 			...response,
-			team: teamResponse,
+			role: teamResponse,
+			teamSubscription: subscription,
 		};
 	}
 

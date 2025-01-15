@@ -1,4 +1,4 @@
-import { destroySession } from '@teams/Functions/Auth/Session';
+import { destroySession } from '@teams/Utils/Auth/Session';
 
 import strings from '@teams/Locales';
 
