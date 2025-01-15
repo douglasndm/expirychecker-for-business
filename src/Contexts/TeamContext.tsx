@@ -47,7 +47,7 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 
 	const reloadTeam = useCallback(async () => {
 		try {
-			const data = await AsyncStorage.getItem('organizedUserInfo');
+			const data = await AsyncStorage.getItem('userInfo');
 			const teamResponse = JSON.parse(
 				String(data)
 			) as IOrganizedInfoResponse;
