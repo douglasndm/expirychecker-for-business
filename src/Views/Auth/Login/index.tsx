@@ -24,10 +24,12 @@ import { setSelectedTeam } from '@teams/Functions/Team/SelectedTeam';
 
 import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 
+import Container from '@components/ScrollView';
+
 import Form from './Form';
 import Footer from './Footer';
 
-import { Container, Content, LogoContainer, Logo, LogoTitle } from './styles';
+import { Content, LogoContainer, Logo, LogoTitle } from './styles';
 
 const Login: React.FC = () => {
 	const { reset } = useNavigation<StackNavigationProp<RoutesParams>>();

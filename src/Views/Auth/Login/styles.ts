@@ -1,14 +1,6 @@
 import styled, { css } from 'styled-components/native';
 import { Platform } from 'react-native';
-
 import LogoImg from '@assets/Images/Logo.png';
-
-export const Container = styled.ScrollView.attrs(() => ({
-	contentContainerStyle: { flexGrow: 1 },
-}))`
-	flex: 1;
-	background-color: ${props => props.theme.colors.background};
-`;
 
 export const Content = styled.View`
 	flex: 1;
