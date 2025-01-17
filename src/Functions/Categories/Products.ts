@@ -18,10 +18,6 @@ export async function getAllProductsFromCategory({
 }: getAllProductsFromCategoryProps): Promise<getAllProductsFromCategoryResponse> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
 	const { data } = await api.get<getAllProductsFromCategoryResponse>(
 		`/team/${currentTeam.id}/categories/${category_id}/products`
 	);
@@ -30,6 +26,6 @@ export async function getAllProductsFromCategory({
 
 	return {
 		category_name: data.category_name,
-		products,
+		products: products,
 	};
 }

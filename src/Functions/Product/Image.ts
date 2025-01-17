@@ -12,10 +12,6 @@ interface uploadImageProps {
 async function uploadImage(props: uploadImageProps): Promise<void> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
 	const { product_id, path } = props;
 
 	// Verificar a plataforma para construir o objeto Blob ou FormData corretamente

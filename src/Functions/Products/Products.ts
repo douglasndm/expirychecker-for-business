@@ -28,8 +28,7 @@ function convertDate(date: string | Date): Date {
 	if (isDate(date)) {
 		return date as Date;
 	}
-
-	return parseISO(date);
+	return parseISO(String(date));
 }
 
 export function fixProductsDates(products: Array<IProduct>): Array<IProduct> {

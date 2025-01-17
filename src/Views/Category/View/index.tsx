@@ -123,16 +123,13 @@ const CategoryView: React.FC = () => {
 	const handleExportExcel = useCallback(async () => {
 		try {
 			setIsLoading(true);
-
 			const getProducts = async () =>
 				getAllProducts({
 					removeCheckedBatches: false,
 				});
-
 			const getBrands = async () => getAllBrands();
 			const getCategories = async () => getAllCategoriesFromTeam();
 			const getStores = async () => getAllStoresFromTeam();
-
 			await exportToExcel({
 				category: routeParams.id,
 				getProducts,
@@ -140,10 +137,8 @@ const CategoryView: React.FC = () => {
 				getCategories,
 				getStores,
 			});
-
 			if (!__DEV__)
 				Analytics().logEvent('Exported_To_Excel_From_CategoryView');
-
 			showMessage({
 				message: strings.View_Category_View_ExcelExportedSuccess,
 				type: 'info',
@@ -179,16 +174,13 @@ const CategoryView: React.FC = () => {
 	const handleSearch = useCallback(
 		(value?: string) => {
 			const query = value && value.trim() !== '' ? value : searchQuery;
-
 			let prods: IProduct[] = [];
-
 			if (query && query !== '') {
 				prods = searchProducts({
 					products,
 					query,
 				});
 			}
-
 			setProductsSearch(prods);
 		},
 		[products, searchQuery]
