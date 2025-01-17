@@ -169,6 +169,7 @@ const Edit: React.FC = () => {
 				confirmText={strings.View_Brand_Edit_DeleteModal_Confirm}
 				onConfirm={handleDeleteBrand}
 				onDismiss={handleSwitchShowDelete}
+				onCancel={handleSwitchShowDelete}
 			/>
 		</Container>
 	);

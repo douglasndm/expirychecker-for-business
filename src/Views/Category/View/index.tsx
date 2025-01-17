@@ -134,7 +134,6 @@ const CategoryView: React.FC = () => {
 			const getStores = async () => getAllStoresFromTeam();
 
 			await exportToExcel({
-				sortBy: 'expire_date',
 				category: routeParams.id,
 				getProducts,
 				getBrands,

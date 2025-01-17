@@ -11,10 +11,6 @@ interface getExtraInformationsForProductResponse {
 async function getExtraInfoForProducts(): Promise<getExtraInformationsForProductResponse> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
 	const response = await api.get<getExtraInformationsForProductResponse>(
 		`/team/${currentTeam.id}/products/extrainfo`
 	);

@@ -1,24 +1,14 @@
 import api from '@teams/Services/API/Config';
 
-import { getSelectedTeam } from '@teams/Functions/Team/SelectedTeam';
-
-import AppError from '@shared/Errors/AppError';
+import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 
 export async function getBatch({
 	batch_id,
 }: getBatchProps): Promise<getBatchResponse> {
-	const selectedTeam = await getSelectedTeam();
-
-	if (!selectedTeam) {
-		throw new AppError({
-			message: 'Team is not selected',
-		});
-	}
-
-	const team_id = selectedTeam.userRole.team.id;
+	const currentTeam = await getCurrentTeam();
 
 	const response = await api.get<IBatchResponse>(
-		`/team/${team_id}/batches/${batch_id}`
+		`/team/${currentTeam.id}/batches/${batch_id}`
 	);
 
 	const responseData: getBatchResponse = {
@@ -46,17 +36,13 @@ export async function createBatch({
 			price: batch.price,
 		};
 	}
-	const selectedTeam = await getSelectedTeam();
 
-	if (!selectedTeam) {
-		throw new AppError({
-			message: 'Team is not selected',
-		});
-	}
+	const currentTeam = await getCurrentTeam();
 
-	const team_id = selectedTeam.userRole.team.id;
-
-	const response = await api.post<IBatch>(`/team/${team_id}/batches`, body);
+	const response = await api.post<IBatch>(
+		`/team/${currentTeam.id}/batches`,
+		body
+	);
 
 	return response.data;
 }
@@ -64,17 +50,10 @@ export async function createBatch({
 export async function updateBatch({
 	batch,
 }: updatebatchProps): Promise<IBatch> {
-	const selectedTeam = await getSelectedTeam();
+	const currentTeam = await getCurrentTeam();
 
-	if (!selectedTeam) {
-		throw new AppError({
-			message: 'Team is not selected',
-		});
-	}
-
-	const team_id = selectedTeam.userRole.team.id;
 	const response = await api.put<IBatch>(
-		`/team/${team_id}/batches/${batch.id}`,
+		`/team/${currentTeam.id}/batches/${batch.id}`,
 		{
 			name: batch.name,
 			exp_date: batch.exp_date,
@@ -90,15 +69,7 @@ export async function updateBatch({
 export async function deleteBatch({
 	batch_id,
 }: deleteBatchProps): Promise<void> {
-	const selectedTeam = await getSelectedTeam();
+	const currentTeam = await getCurrentTeam();
 
-	if (!selectedTeam) {
-		throw new AppError({
-			message: 'Team is not selected',
-		});
-	}
-
-	const team_id = selectedTeam.userRole.team.id;
-
-	await api.delete<IBatch>(`/team/${team_id}/batches/${batch_id}`);
+	await api.delete<IBatch>(`/team/${currentTeam.id}/batches/${batch_id}`);
 }

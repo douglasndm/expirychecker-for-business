@@ -6,6 +6,7 @@ import React, {
 	useState,
 } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import Analytics from '@react-native-firebase/analytics';
 import { showMessage } from 'react-native-flash-message';
 
@@ -41,7 +42,7 @@ interface Props {
 
 const View: React.FC = () => {
 	const { params } = useRoute();
-	const { navigate } = useNavigation();
+	const { navigate } = useNavigation<StackNavigationProp<RoutesParams>>();
 
 	const teamContext = useTeam();
 
@@ -126,7 +127,6 @@ const View: React.FC = () => {
 			const getStores = async () => getAllStoresFromTeam();
 
 			await exportToExcel({
-				sortBy: 'expire_date',
 				brand: routeParams.brand_id,
 				getProducts,
 				getBrands,
@@ -247,7 +247,7 @@ const View: React.FC = () => {
 			</TitleContainer>
 
 			<ListProds
-				ref={listProdsRef}
+				listRef={listProdsRef}
 				products={productsSearch}
 				isRefreshing={isLoading}
 				onRefresh={loadData}

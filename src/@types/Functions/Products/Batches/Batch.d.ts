@@ -9,14 +9,14 @@ interface getBatchResponse {
 interface IBatchResponse {
 	id: string;
 	name: string;
-	exp_date: string;
+	exp_date: Date;
 	amount: number;
 	price: number;
 	price_tmp: number;
 	status: 'checked' | 'unchecked';
 	product: IProduct;
-	created_at: string;
-	updated_at: string;
+	created_at: Date;
+	updated_at: Date;
 }
 
 interface createBatchProps {

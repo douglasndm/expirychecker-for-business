@@ -69,12 +69,22 @@ import Test from '@teams/Views/Test';
 
 const Stack = createStackNavigator();
 
+interface NavRoutes {
+	data: {
+		state: {
+			routes: {
+				name: string;
+			}[];
+		};
+	};
+}
+
 const Routes: React.FC = () => {
 	const [draweOpen, setDrawerOpen] = useState(false);
 
 	const [currentRoute, setCurrentRoute] = useState('Home');
 
-	const handleRouteChange = useCallback(navRoutes => {
+	const handleRouteChange = useCallback((navRoutes: NavRoutes) => {
 		setDrawerOpen(false);
 
 		if (navRoutes) {

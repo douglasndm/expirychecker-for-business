@@ -1,5 +1,7 @@
 import Purchases from '@services/RevenueCat';
+
 import api from '@teams/Services/API/Config';
+import { queueRequest } from '@teams/Services/API/RequestQueue';
 
 import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 
@@ -9,8 +11,10 @@ async function setup() {
 	const selectedTeam = await getSelectedTeam();
 
 	if (!selectedTeam) return;
-	if (selectedTeam && selectedTeam.userRole.role.toLowerCase() !== 'manager')
-		return;
+
+	const { name } = selectedTeam.userRole;
+
+	if (name !== 'manager') return;
 
 	if (selectedTeam) {
 		await Purchases.logIn(selectedTeam.userRole.team.id);
@@ -20,23 +24,15 @@ async function setup() {
 async function getTeamSubscription(): Promise<ITeamSubscription> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
-	const response = await api.get<ITeamSubscription>(
+	const response = await queueRequest<ITeamSubscription>(
 		`/team/${currentTeam.id}/subscriptions`
 	);
 
-	return response.data;
+	return response;
 }
 
 async function deleteTeamSubscription(): Promise<void> {
 	const currentTeam = await getCurrentTeam();
-
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
 
 	await api.delete(`/team/${currentTeam.id}/subscriptions`);
 }
@@ -44,15 +40,11 @@ async function deleteTeamSubscription(): Promise<void> {
 async function isSubscriptionActive(): Promise<boolean> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
-	const response = await api.get<Subscription[]>(
+	const response = await queueRequest<Subscription[]>(
 		`/team/${currentTeam.id}/subscriptions/store`
 	);
 
-	const anyActive = response.data.find(
+	const anyActive = response.find(
 		sub => sub.subscription.unsubscribe_detected_at === null
 	);
 

@@ -120,7 +120,7 @@ const EditBatch: React.FC = () => {
 
 	const handleUpdate = useCallback(async () => {
 		if (batch.trim() === '') {
-			Alert.alert(strings.View_EditBatch_Error_BatchWithNoName);
+			Alert.alert(strings.View_EditBatch_Error_EmptyName);
 			return;
 		}
 
@@ -302,6 +302,7 @@ const EditBatch: React.FC = () => {
 				visible={deleteComponentVisible}
 				onConfirm={handleDelete}
 				onDismiss={switchShowDeleteModal}
+				onCancel={switchShowDeleteModal}
 			/>
 		</Container>
 	);

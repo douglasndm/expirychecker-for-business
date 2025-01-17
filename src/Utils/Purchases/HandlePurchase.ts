@@ -34,7 +34,7 @@ async function handlePurchase(): Promise<boolean> {
 			await clearSubscription();
 
 			// This is to force server to update the subscription
-			await getCurrentSubscription();
+			await getCurrentSubscription({});
 
 			if (!__DEV__) {
 				Analytics().logEvent('user_subscribed_successfully');

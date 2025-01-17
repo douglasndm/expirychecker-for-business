@@ -169,6 +169,7 @@
     "View_EditBatch_WarningDelete_Message": "If you continue you will delete this batch",
     "View_EditBatch_WarningDelete_Button_Confirm": "I'm sure",
     "View_EditBatch_WarningDelete_Button_Cancel": "Keep batch",
+    "View_EditBatch_Error_EmptyName": "Enter the name of the batch",
 
     "View_EditProduct_Error_ProductNotFound": "The product was not found",
     "View_EditProduct_PageTitle": "Edit Product",

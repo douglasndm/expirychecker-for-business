@@ -20,10 +20,6 @@ async function findDuplicate({
 }: isProductDuplicateProps): Promise<isProductDuplicateResponse> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
 	const response = await api.get<isProductDuplicateResponse>(
 		`/team/${currentTeam.id}/products/duplicate`,
 		{

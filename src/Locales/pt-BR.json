@@ -168,6 +168,7 @@
     "View_EditBatch_WarningDelete_Message": "Se você continuar você vai apagar este lote",
     "View_EditBatch_WarningDelete_Button_Confirm": "Tenho certeza",
     "View_EditBatch_WarningDelete_Button_Cancel": "Manter o lote",
+    "View_EditBatch_Error_EmptyName": "Digite o nome do lote",
 
     "View_EditProduct_Error_ProductNotFound": "Produto não encontrado",
     "View_EditProduct_PageTitle": "Editar produto",

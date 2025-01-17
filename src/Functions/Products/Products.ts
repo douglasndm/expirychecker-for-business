@@ -24,13 +24,9 @@ interface getAllProductsProps {
 	page?: number;
 }
 
-function convertDate(date: string | Date): Date | undefined {
+function convertDate(date: string | Date): Date {
 	if (isDate(date)) {
 		return date as Date;
-	}
-
-	if (!date) {
-		return undefined;
 	}
 
 	return parseISO(date);
@@ -121,8 +117,8 @@ export function sortProductsByBatchesExpDate({
 			return 1;
 		}
 
-		const batch1ExpDate = startOfDay(parseISO(batches1[0].exp_date));
-		const batch2ExpDate = startOfDay(parseISO(batches2[0].exp_date));
+		const batch1ExpDate = startOfDay(batches1[0].exp_date);
+		const batch2ExpDate = startOfDay(batches2[0].exp_date);
 
 		if (
 			batches1[0].status === 'unchecked' &&
