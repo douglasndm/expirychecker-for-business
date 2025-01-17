@@ -53,7 +53,7 @@ const slides: ISlide[] = [
 ];
 
 const Intro: React.FC = () => {
-	const { navigate } = useNavigation<StackNavigationProp<AuthRoutes>>();
+	const { navigate } = useNavigation<StackNavigationProp<RoutesParams>>();
 
 	const [showIntro, setShowIntro] = useState(false);
 

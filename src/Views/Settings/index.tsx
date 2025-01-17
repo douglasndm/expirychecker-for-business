@@ -8,6 +8,7 @@ import React, {
 import { Platform, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { DefaultTheme } from 'styled-components/native';
 
 import strings from '@teams/Locales';
 

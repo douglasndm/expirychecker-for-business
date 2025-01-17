@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 
+import { captureException } from '@services/ExceptionsHandler';
+
 import { deleteUser } from '@teams/Functions/User';
 import { UserTeamsResponse, getUserTeams } from '@teams/Functions/User/Teams';
 
@@ -63,10 +65,9 @@ const User: React.FC = () => {
 
 			navigate('Logout');
 		} catch (err) {
-			showMessage({
-				message: err.message,
-				type: 'danger',
-			});
+			if (err instanceof Error) {
+				captureException(err);
+			}
 		} finally {
 			setIsDeleting(false);
 		}
@@ -141,7 +142,6 @@ const User: React.FC = () => {
 					<CheckBox
 						isChecked={agreeConsequence}
 						onPress={handleChangeAgreeConsequence}
-						disableBuiltInState
 						bounceFriction={10}
 						text="Entendo o que estou fazendo"
 					/>

@@ -49,7 +49,6 @@ import {
 	InputCodeTextContainer,
 	InputCodeText,
 	InputTextIconContainer,
-	Icon,
 } from '../Add/styles';
 import { Icons } from './styles';
 

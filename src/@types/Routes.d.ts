@@ -17,7 +17,7 @@ type RoutesParams = {
 		productId: string;
 	};
 	EditProduct: {
-		product: string;
+		productId: string;
 	};
 	EditBatch: {
 		productId: string;
