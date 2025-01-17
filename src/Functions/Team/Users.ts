@@ -9,10 +9,6 @@ import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 export async function getAllUsersFromTeam(): Promise<Array<IUserInTeam>> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
 	const response = await api.get<Array<IUserInTeam>>(
 		`/team/${currentTeam.id}/users`
 	);

@@ -82,8 +82,8 @@ const UserDetails: React.FC<UserDetailsProps> = ({
 	});
 
 	const [selectedStore, setSelectedStore] = useState<string>(() => {
-		if (user.stores && user.stores.length > 0) {
-			return user.stores[0].id;
+		if (user.store) {
+			return user.store.id;
 		}
 		return 'noStore';
 	});
@@ -171,20 +171,17 @@ const UserDetails: React.FC<UserDetailsProps> = ({
 	const handleUpdate = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			if (user.stores.length > 0) {
+			if (user.store) {
 				if (selectedStore === null) {
 					await removeUserFromStore({
-						store_id: user.stores[0].id,
+						store_id: user.store.id,
 						user_id: user.id,
 					});
 				}
 			}
 
 			if (selectedStore !== null) {
-				if (
-					user.stores.length <= 0 ||
-					selectedStore !== user.stores[0].id
-				) {
+				if (!user.store || selectedStore !== user.store.id) {
 					if (selectedStore.toLowerCase() !== 'nostore') {
 						await addUserToStore({
 							user_id: user.id,
