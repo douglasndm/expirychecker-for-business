@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ImageSourcePropType, View } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -17,7 +17,7 @@ interface ISlide {
 	key: string;
 	title: string;
 	text: string;
-	image: NodeRequire;
+	image: ImageSourcePropType;
 	backgroundColor: string;
 }
 

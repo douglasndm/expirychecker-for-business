@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
@@ -11,8 +12,6 @@ import Dialog from '@components/Dialog';
 
 import PreferencesContext from '@teams/Contexts/PreferencesContext';
 import { useTeam } from '@teams/Contexts/TeamContext';
-
-import { saveLocally } from '@utils/Images/SaveLocally';
 
 import { createProduct } from '@teams/Functions/Products/Product';
 import { createBatch } from '@teams/Functions/Products/Batches/Batch';
