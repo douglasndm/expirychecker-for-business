@@ -133,7 +133,6 @@ const StoreView: React.FC = () => {
 			const getStores = async () => getAllStoresFromTeam();
 
 			await exportToExcel({
-				sortBy: 'expire_date',
 				store: routeParams.store_id,
 				getProducts,
 				getBrands,

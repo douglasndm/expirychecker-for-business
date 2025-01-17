@@ -205,11 +205,12 @@
     "View_Settings_SettingName_HowManyDaysToBeNextToExp": "Quantos dias para produto está próximo ao vencimento?",
     "View_Settings_SettingName_EnableNotification": "Ativar notificações?",
     "View_Settings_SettingName_AppTheme": "Tema do aplicativo",
-    "View_Settings_SettingName_ExportAndInmport": "Com esta função você pode salvar todos os seus produtos em um dispositivo externo ou serviço para mante-los seguros caso você precise restaurar este telefone ou troca-lo.",
-    "View_Settings_Button_ImportFile": "Importar aquivo de backup",
     "View_Settings_AccountDescription": "Gerencie sua conta associada ao aplicativo.",
     "View_Settings_Button_SignOut": "Sair",
     "View_Settings_Button_DeleteAccount": "Apagar conta",
+
+    "View_Settings_Component_MailNotification_Title": "Notificações por e-mail",
+    "View_Settings_Component_MailNotification_Description": "Receber resumo semanal",
 
     "View_TeamView_PageTitle": "Seu time",
     "View_TeamView_ActionButton_Change": "Trocar time",
@@ -259,13 +260,6 @@
     "View_Settings_Appearance_Theme_OceanBlue": "Azul oceano",
     "View_Settings_Appearance_Theme_Relax": "Relaxado",
     "View_Settings_Appearance_Theme_Florest": "Floresta",
-
-    "View_Settings_Notifications_Title": "Frequência das notificações",
-    "View_Settings_Notifications_Cadency_Hour": "A cada hora",
-    "View_Settings_Notifications_Cadency_Day": "Diariamente",
-    "View_Settings_Notifications_Cadency_Week": "Semanalmente",
-    "View_Settings_Notifications_Cadency_Month": "Mensalmente",
-    "View_Settings_Notifications_Cadency_Never": "Nunca",
 
     "View_Success_BatchCreated": "Lote criado",
     "View_Success_ProductCreated": "Produto criado",

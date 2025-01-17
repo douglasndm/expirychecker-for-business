@@ -207,11 +207,12 @@
     "View_Settings_SettingName_HowManyDaysToBeNextToExp": "How many days to product be next to expire",
     "View_Settings_SettingName_EnableNotification": "Enable notifications?",
     "View_Settings_SettingName_AppTheme": "Application theme",
-    "View_Settings_SettingName_ExportAndInmport": "With this function you can save all your products in a external device or service to keep it save and you also can import them later",
-    "View_Settings_Button_ImportFile": "Import backup file",
     "View_Settings_AccountDescription": "Manage your account linked to the app",
     "View_Settings_Button_SignOut": "Sign out",
     "View_Settings_Button_DeleteAccount": "Delete account",
+
+    "View_Settings_Component_MailNotification_Title": "Mail notifications",
+    "View_Settings_Component_MailNotification_Description": "Receive summary weekly",
 
     "View_TeamView_PageTitle": "Your team",
     "View_TeamView_ActionButton_Change": "Change team",
@@ -261,13 +262,6 @@
     "View_Settings_Appearance_Theme_OceanBlue": "Ocean Blue",
     "View_Settings_Appearance_Theme_Relax": "Relax",
     "View_Settings_Appearance_Theme_Florest": "Florest",
-
-    "View_Settings_Notifications_Title": "Notification frequency",
-    "View_Settings_Notifications_Cadency_Hour": "Every hour",
-    "View_Settings_Notifications_Cadency_Day": "Daily",
-    "View_Settings_Notifications_Cadency_Week": "Weekly",
-    "View_Settings_Notifications_Cadency_Month": "Monthly",
-    "View_Settings_Notifications_Cadency_Never": "Never",
 
     "View_Success_BatchCreated": "Batch created",
     "View_Success_ProductCreated": "Product created",

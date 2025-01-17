@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { RefreshControl } from 'react-native';
+import { ListRenderItem, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
@@ -186,60 +186,49 @@ const ListUsers: React.FC = () => {
 		return unsubscribe;
 	}, [addListener, loadData]);
 
-	interface renderProps {
-		item: IUserInTeam;
-		index: string;
-	}
+	const renderItem: ListRenderItem<IUserInTeam> = ({ item }) => {
+		const isPending =
+			!!item.status && item.status.toLowerCase() === 'pending';
 
-	const renderCategory = useCallback(
-		(props: renderProps) => {
-			const params = props as renderProps;
-			const { item } = params;
-
-			const isPending =
-				!!item.status && item.status.toLowerCase() === 'pending';
-
-			const userRole = () => {
-				if (item.role) {
-					if (item.role.toLowerCase() === 'manager')
-						return strings.UserInfo_Role_Manager;
-					if (item.role.toLowerCase() === 'supervisor') {
-						return strings.UserInfo_Role_Supervisor;
-					}
+		const userRole = () => {
+			if (item.role) {
+				if (item.role.toLowerCase() === 'manager')
+					return strings.UserInfo_Role_Manager;
+				if (item.role.toLowerCase() === 'supervisor') {
+					return strings.UserInfo_Role_Supervisor;
 				}
+			}
 
-				return strings.UserInfo_Role_Repositor;
-			};
+			return strings.UserInfo_Role_Repositor;
+		};
 
-			return (
-				<TeamItemContainer
-					onPress={() => handleNavigateToUser(item)}
-					isPending={isPending}
-				>
-					<UserInfoContainer>
-						{!!item.name && (
-							<TeamItemTitle>
-								{item.name.trim()}{' '}
-								{!!item.lastName && item.lastName.trim()}
-							</TeamItemTitle>
-						)}
+		return (
+			<TeamItemContainer
+				onPress={() => handleNavigateToUser(item)}
+				isPending={isPending}
+			>
+				<UserInfoContainer>
+					{!!item.name && (
+						<TeamItemTitle>
+							{item.name.trim()}{' '}
+							{!!item.lastName && item.lastName.trim()}
+						</TeamItemTitle>
+					)}
 
-						{!item.name && <UserEmail>{item.email}</UserEmail>}
-						<TeamItemRole>
-							{isPending
-								? strings.View_UsersInTeam_List_PendingStatus
-								: userRole().toUpperCase()}
-						</TeamItemRole>
+					{!item.name && <UserEmail>{item.email}</UserEmail>}
+					<TeamItemRole>
+						{isPending
+							? strings.View_UsersInTeam_List_PendingStatus
+							: userRole().toUpperCase()}
+					</TeamItemRole>
 
-						{item.store && (
-							<TeamItemRole>{item.store.name}</TeamItemRole>
-						)}
-					</UserInfoContainer>
-				</TeamItemContainer>
-			);
-		},
-		[handleNavigateToUser]
-	);
+					{item.store && (
+						<TeamItemRole>{item.store.name}</TeamItemRole>
+					)}
+				</UserInfoContainer>
+			</TeamItemContainer>
+		);
+	};
 
 	return (
 		<Container>
@@ -286,7 +275,7 @@ const ListUsers: React.FC = () => {
 				<ListCategories
 					data={users}
 					keyExtractor={(item, index) => String(index)}
-					renderItem={renderCategory}
+					renderItem={renderItem as ListRenderItem<unknown>}
 					refreshControl={
 						<RefreshControl
 							refreshing={isLoading}

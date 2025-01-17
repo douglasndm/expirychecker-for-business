@@ -1,6 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
+
 import strings from '@teams/Locales';
 
 import { getAllStoresFromTeam } from '@teams/Functions/Team/Stores/AllStores';
@@ -24,7 +26,7 @@ interface Props {
 }
 const Edit: React.FC = () => {
 	const { params } = useRoute();
-	const { reset } = useNavigation();
+	const { reset } = useNavigation<StackNavigationProp<RoutesParams>>();
 
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -175,6 +177,7 @@ const Edit: React.FC = () => {
 				confirmText={strings.View_Store_Edit_DeleteModal_Confirm}
 				onConfirm={handleDeleteStore}
 				onDismiss={handleSwitchShowDelete}
+				onCancel={handleSwitchShowDelete}
 			/>
 		</Container>
 	);
