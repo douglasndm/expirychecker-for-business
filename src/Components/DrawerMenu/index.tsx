@@ -22,7 +22,7 @@ import {
 	Icons,
 	DrawerSection,
 } from '@components/Menu/Drawer/styles';
-import { Container } from './styles';
+import Container from '@components/ScrollView';
 
 import UserInfo from './UserInfo';
 
@@ -88,7 +88,7 @@ const DrawerMenu: React.FC = () => {
 	}, [navigate]);
 
 	return (
-		<Container>
+		<Container alwaysBounceVertical>
 			<MainMenuContainer>
 				<UserInfo />
 
