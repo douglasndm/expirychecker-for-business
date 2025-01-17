@@ -6,8 +6,10 @@ import * as Yup from 'yup';
 
 import strings from '@teams/Locales';
 
+import { captureException } from '@services/ExceptionsHandler';
+
 import { createAccount } from '@teams/Functions/Auth/Account';
-import { createSeassion } from '@teams/Functions/Auth/Session';
+import { createSeassion } from '@teams/Utils/Auth/Session';
 
 import Header from '@components/Header';
 import Input from '@components/InputText';
@@ -68,7 +70,7 @@ const CreateAccount: React.FC = () => {
 				.required(strings.View_CreateAccount_Alert_Error_EmptyPassword)
 				.min(6),
 			passwordConfirm: Yup.string().oneOf(
-				[Yup.ref('password'), null],
+				[Yup.ref('password'), undefined],
 				strings.View_CreateAccount_Alert_Error_InvalidPassConfirm
 			),
 		});
@@ -102,7 +104,6 @@ const CreateAccount: React.FC = () => {
 				lastName,
 				email,
 				password,
-				passwordConfirm,
 			});
 
 			// Here we register the user device
@@ -119,10 +120,14 @@ const CreateAccount: React.FC = () => {
 			});
 		} catch (err) {
 			if (err instanceof Error)
-				showMessage({
-					message: err.message,
-					type: 'warning',
-				});
+				if (err.message.includes('auth/email-already-in-use')) {
+					showMessage({
+						message: strings.API_Error_Code40,
+						type: 'warning',
+					});
+				} else {
+					captureException(err);
+				}
 		} finally {
 			setIsCreating(false);
 		}

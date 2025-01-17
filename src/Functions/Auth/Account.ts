@@ -7,7 +7,6 @@ interface createAccountProps {
 	lastName: string;
 	email: string;
 	password: string;
-	passwordConfirm: string;
 }
 
 export async function createAccount({
@@ -15,40 +14,27 @@ export async function createAccount({
 	lastName,
 	email,
 	password,
-	passwordConfirm,
 }: createAccountProps): Promise<IUser> {
-	try {
-		if (password !== passwordConfirm) {
-			throw new Error('Password confirmation is invalid');
-		}
+	const { user } = await auth().createUserWithEmailAndPassword(
+		email,
+		password
+	);
 
-		const { user } = await auth().createUserWithEmailAndPassword(
-			email,
-			password
-		);
+	await user.sendEmailVerification();
 
-		await user.sendEmailVerification();
+	await user.updateProfile({
+		displayName: `${name} ${lastName}`,
+	});
 
-		await user.updateProfile({
-			displayName: `${name} ${lastName}`,
-		});
+	const response = await api.post<IUser>('/users', {
+		firebaseUid: user.uid,
+		email,
+		name,
+		lastName,
+		password,
+	});
 
-		const response = await api.post<IUser>('/users', {
-			firebaseUid: user.uid,
-			email,
-			name,
-			lastName,
-			password,
-		});
-
-		return response.data;
-	} catch (err) {
-		if (err.code === 'auth/email-already-in-use') {
-			throw new Error('This e-mail is already in use');
-		} else if (err instanceof Error) {
-			throw new Error(err.message);
-		}
-	}
+	return response.data;
 }
 
 export async function isEmailConfirmed(): Promise<boolean> {

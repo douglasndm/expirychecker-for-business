@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 
 import strings from '@teams/Locales';
 
+import { captureException } from '@services/ExceptionsHandler';
+
 import { updateUser, updatePassword } from '@teams/Functions/Auth/Account';
 import { getUser } from '@teams/Functions/User/List';
 
@@ -47,11 +49,9 @@ const User: React.FC = () => {
 			if (user.name) setName(user.name);
 			if (user.last_name) setLastName(user.last_name);
 		} catch (err) {
-			if (err instanceof Error)
-				showMessage({
-					message: err.message,
-					type: 'danger',
-				});
+			if (err instanceof Error) {
+				captureException(err);
+			}
 		} finally {
 			setIsLoading(false);
 		}
@@ -78,7 +78,7 @@ const User: React.FC = () => {
 						)
 						.min(6),
 					newPasswordConfi: Yup.string().oneOf(
-						[Yup.ref('newPassword'), null],
+						[Yup.ref('newPassword'), undefined],
 						strings.View_Profile_Alert_Error_WrongPasswordConfirmation
 					),
 				});
@@ -104,10 +104,12 @@ const User: React.FC = () => {
 			} catch (err) {
 				if (err instanceof Error) {
 					let error = err.message;
-					if (err.code === 'auth/wrong-password') {
+
+					if (err.message.includes('auth/wrong-password')) {
 						error =
 							strings.View_Profile_Alert_Error_WrongCurrentPassword;
 					}
+
 					showMessage({
 						message: error,
 						type: 'danger',
