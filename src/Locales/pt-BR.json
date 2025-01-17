@@ -366,6 +366,22 @@
     "View_Profile_Alert_Tip_EmptyPassword": "Digite sua nova senha",
     "View_Profile_Alert_Tip_EmptyPasswordConfirm": "Confirme sua nova senha",
 
+    "View_Information_Team_Delete_PageTitle": "Apagar time",
+    "View_Information_Team_Delete_Atention": "ATENÇÃO ⚠️",
+    "View_Information_Team_Delete_Description": "Todos os produtos, lotes e categorias do time serão permanemente removidos, você precisa ter absuluta certeza do que está fazendo.",
+    "View_Information_Team_Delete_Consequence": "Está ação não pode ser desfeita",
+    "View_Information_Team_Delete_CheckBox_Confirm": "Entendo o que estou fazendo",
+    "View_Information_Team_Delete_Export_Title": "Exportar produtos",
+    "View_Information_Team_Delete_Export_Description": "Antes de ir, é recomendando gerar um arquivo Excel com todos os seus produtos",
+    "View_Information_Team_Delete_Export_Button": "Gerar Excel",
+    "View_Information_Team_Delete_Export_CheckBox_Confirm": "Já exportei ou não quero exportar",
+    "View_Information_Team_Delete_Subscription_Title": "Sua assinatura",
+    "View_Information_Team_Delete_Subscription_Description": "Você tem assinaturas pendentes. Você terá que cancelar a sua assinatura manualmente na loja de aplicativos. Não haverá reembolso caso sua assinatura não tenha acabado o prazo. É recomendado usar todo o periodo da assinatura antes de apagar o time",
+    "View_Information_Team_Delete_Subscription_Button": "Ir para a loja",
+    "View_Information_Team_Delete_Subscription_Button_Check_Subscription": "Checar se assinatura foi cancelada",
+    "View_Information_Team_Delete_Finish_Title": "Concluir",
+    "View_Information_Team_Delete_Finish_Description": "ATENÇÃO: CONTINUANDO O TIME, SEUS PRODUTOS, LOTES E CATEGORIAS SERÃO PERMANEMENTE APAGADOS. TODOS OS USUÁRIOS DO TIME SERÃO REMOVIDOS. ESSA AÇÃO NÃO PODE SER DESFEITA",
+
     "Function_Category_AddCategory_Error_AlreadyExists": "Categoria já existe",
 
     "Function_Export_FileName": "controledevalidade_backup",

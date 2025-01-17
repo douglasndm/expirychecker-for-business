@@ -343,6 +343,22 @@
     "View_Profile_Alert_Tip_EmptyPassword": "Enter your new password",
     "View_Profile_Alert_Tip_EmptyPasswordConfirm": "Confirm your new password",
 
+    "View_Information_Team_Delete_PageTitle": "Delete team",
+    "View_Information_Team_Delete_Atention": "Warning ⚠️",
+    "View_Information_Team_Delete_Description": "All products, batches and categories of the team will be permanently removed, you need to have absolute certainty of what you are doing.",
+    "View_Information_Team_Delete_Consequence": "This action can not be undone",
+    "View_Information_Team_Delete_CheckBox_Confirm": "I understand what I'm doing",
+    "View_Information_Team_Delete_Export_Title": "Export products",
+    "View_Information_Team_Delete_Export_Description": "Before going, it is recommended to generate an Excel file with all your products",
+    "View_Information_Team_Delete_Export_Button": "Generate Excel",
+    "View_Information_Team_Delete_Export_CheckBox_Confirm": "I already exported or don't want to export",
+    "View_Information_Team_Delete_Subscription_Title": "Your subscription",
+    "View_Information_Team_Delete_Subscription_Description": "You have pending subscriptions. You will have to cancel the subscription manually in the app store. There will be no refund if the subscription has not expired.",
+    "View_Information_Team_Delete_Subscription_Button": "Go to the store",
+    "View_Information_Team_Delete_Subscription_Button_Check_Subscription": "Check if subscription was canceled",
+    "View_Information_Team_Delete_Finish_Title": "Finish",
+    "View_Information_Team_Delete_Finish_Description": "ATTENTION: CONTINUING THE TEAM, YOUR PRODUCTS, BATCHES AND CATEGORIES WILL BE PERMANENTLY REMOVED. ALL USERS OF THE TEAM WILL BE REMOVED. THIS ACTION CANNOT BE UNDONE",
+
     "View_PhotoView_PageTitle": "Photo View",
     "View_PhotoView_Button_Back": "Go back",
 

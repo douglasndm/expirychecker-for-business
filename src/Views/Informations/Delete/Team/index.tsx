@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 
-import { useTeam } from '@teams/Contexts/TeamContext';
+import strings from '@teams/Locales';
 
 import { isSubscriptionActive } from '@teams/Functions/Team/Subscriptions';
 import { deleteTeam } from '@teams/Functions/Team';
@@ -30,7 +30,6 @@ import {
 const Team: React.FC = () => {
 	const { navigate, reset } =
 		useNavigation<StackNavigationProp<RoutesParams>>();
-	const teamContext = useTeam();
 
 	const [activesSubs, setActivesSubs] = useState<boolean>(false);
 
@@ -119,67 +118,88 @@ const Team: React.FC = () => {
 
 	return (
 		<Container>
-			<Header title="Apagar time" noDrawer />
+			<Header
+				title={strings.View_Information_Team_Delete_PageTitle}
+				noDrawer
+			/>
 
 			<Content>
-				<ActionTitle>ATENÇÃO ⚠️</ActionTitle>
+				<ActionTitle>
+					{strings.View_Information_Team_Delete_Atention}
+				</ActionTitle>
 
 				<ActionDescription>
-					Todos os produtos, lotes e categorias do time serão
-					permanemente removidos, você precisa ter absuluta certeza do
-					que está fazendo.
+					{strings.View_Information_Team_Delete_Description}
 				</ActionDescription>
 				<ActionConsequence>
-					Está ação não pode ser desfeita
+					{strings.View_Information_Team_Delete_Consequence}
 				</ActionConsequence>
 
 				<CheckBoxContainer>
 					<CheckBox
 						isChecked={enableExcel}
 						onPress={handleChangeAgree}
-						disableBuiltInState
 						bounceFriction={10}
-						text="Entendo o que estou fazendo"
+						text={
+							strings.View_Information_Team_Delete_CheckBox_Confirm
+						}
 					/>
 				</CheckBoxContainer>
 
 				<BlockContainer isEnable={enableExcel}>
-					<BlockTitle>Exportar produtos</BlockTitle>
+					<BlockTitle>
+						{strings.View_Information_Team_Delete_Export_Title}
+					</BlockTitle>
 					<BlockDescription>
-						Antes de ir, é recomendando gerar um arquivo Excel com
-						todos os seus produtos
+						{
+							strings.View_Information_Team_Delete_Export_Description
+						}
 					</BlockDescription>
 
-					<Button title="Gerar arquivo" onPress={handleExcelExport} />
+					<Button
+						title={
+							strings.View_Information_Team_Delete_Export_Button
+						}
+						onPress={handleExcelExport}
+					/>
 
 					<CheckBoxContainer>
 						<CheckBox
 							isChecked={agreeConsequence}
 							onPress={handleChangeSubs}
-							disableBuiltInState
 							bounceFriction={10}
 							style={{ marginTop: -15 }}
-							text="Já exportei ou não quero exportar"
+							text={
+								strings.View_Information_Team_Delete_Export_CheckBox_Confirm
+							}
 						/>
 					</CheckBoxContainer>
 				</BlockContainer>
 
 				<BlockContainer isEnable={agreeConsequence && enableExcel}>
-					<BlockTitle>Suas assinaturas</BlockTitle>
+					<BlockTitle>
+						{
+							strings.View_Information_Team_Delete_Subscription_title
+						}
+					</BlockTitle>
 					<BlockDescription>
-						Você tem assinaturas pendentes. Você terá que cancelar a
-						sua assinatura manualmente na loja de aplicativos. Não
-						haverá reembolso caso sua assinatura não tenha acabado o
-						prazo. É recomendado usar todo o periodo da assinatura
-						antes de apagar o time
+						{
+							strings.View_Information_Team_Delete_Subscription_description
+						}
 					</BlockDescription>
 
 					{activesSubs && (
-						<Link onPress={handleGoToStore}>Ir para a loja</Link>
+						<Link onPress={handleGoToStore}>
+							{
+								strings.View_Information_Team_Delete_Subscription_Button
+							}
+						</Link>
 					)}
 
 					<Button
-						title="Checar se assinatura foi cancelada"
+						title={
+							strings.View_Information_Team_Delete_Subscription_Button_Check_Subscription
+						}
 						isLoading={isCheckingSub}
 						onPress={handleCheckSubscription}
 					/>
@@ -193,12 +213,13 @@ const Team: React.FC = () => {
 						!activesSubs
 					}
 				>
-					<BlockTitle>Concluir</BlockTitle>
+					<BlockTitle>
+						{strings.View_Information_Team_Delete_Finish_Title}
+					</BlockTitle>
 					<BlockDescription>
-						ATENÇÃO: CONTINUANDO O TIME, SEUS PRODUTOS, LOTES E
-						CATEGORIAS SERÃO PERMANEMENTE APAGADOS. TODOS OS
-						USUÁRIOS DO TIME SERÃO REMOVIDOS. ESSA AÇÃO NÃO PODE SER
-						DESFEITA
+						{
+							strings.View_Information_Team_Delete_Finish_Description
+						}
 					</BlockDescription>
 
 					<Button
