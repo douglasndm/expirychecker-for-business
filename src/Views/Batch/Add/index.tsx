@@ -53,7 +53,7 @@ const AddBatch: React.FC<Props> = ({ route }: Props) => {
 	const handleSave = useCallback(async () => {
 		if (lote.trim() === '') {
 			showMessage({
-				message: strings.View_AddBatch_AlertTypeBatchName,
+				message: strings.View_AddBatch_Error_EmptyName,
 				type: 'danger',
 			});
 			return;

@@ -146,8 +146,6 @@
     "View_RecoveryPassword_Button_Recovery": "Recovery",
     "View_RecoveryPassword_Alert_Success": "An e-mail was sent to you for recovery your password",
 
-    "View_AddBatch_PageTitle": "Add new batch",
-
     "View_AddProduct_PageTitle": "Add new product",
     "View_AddProduct_InputPlacehoder_Code": "Code",
     "View_AddProduct_InputPlaceholder_SelectCategory": "Select the category",
@@ -159,6 +157,9 @@
     "View_AddProduct_FillInfo_Modal_Description": "This product has some informations that can be filled, do you want to fill it?",
     "View_AddProduct_FillInfo_Modal_Yes": "Yes",
     "View_AddProduct_FillInfo_Modal_No": "No",
+
+    "View_AddBatch_PageTitle": "Add new batch",
+    "View_AddBatch_Error_EmptyName": "Enter the name of the batch",
 
     "View_EditBatch_Error_BatchDidntFound": "Batch wasn't found",
     "View_EditBatch_PageTitle": "Update batch",

@@ -145,8 +145,6 @@
     "View_RecoveryPassword_Button_Recovery": "Recuperar",
     "View_RecoveryPassword_Alert_Success": "Um email foi enviado com um link para recuperar sua senha",
 
-    "View_AddBatch_PageTitle": "Adicionar lote",
-
     "View_AddProduct_PageTitle": "Adicionar produto",
     "View_AddProduct_InputPlacehoder_Code": "Código do produto",
     "View_AddProduct_InputPlaceholder_SelectCategory": "Selecione a categoria",
@@ -158,6 +156,9 @@
     "View_AddProduct_FillInfo_Modal_Description": "Este produto pode ser algumas informações completadas automáticamente, gostaria de completar as informações?",
     "View_AddProduct_FillInfo_Modal_Yes": "Sim",
     "View_AddProduct_FillInfo_Modal_No": "Não",
+
+    "View_AddBatch_PageTitle": "Adicionar lote",
+    "View_AddBatch_Error_EmptyName": "Digite o nome do lote",
 
     "View_EditBatch_Error_BatchDidntFound": "Lote não encontrado",
     "View_EditBatch_PageTitle": "Atualizar lote",
