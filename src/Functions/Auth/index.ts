@@ -37,17 +37,19 @@ export async function login({
 		return response;
 	} catch (err) {
 		if (err instanceof Error) {
-			let message = err.message;
+			let message: string | null = null;
 
-			if (message.includes('auth/wrong-password')) {
+			if (err.message.includes('auth/wrong-password')) {
 				message = strings.View_Login_Error_WrongEmailOrPassword;
-			} else if (message.includes('auth/user-not-found')) {
+			} else if (err.message.includes('auth/user-not-found')) {
 				message = strings.View_Login_Error_WrongEmailOrPassword;
-			} else if (message.includes('auth/network-request-failed')) {
+			} else if (err.message.includes('auth/network-request-failed')) {
 				message = strings.View_Login_Error_NetworkError;
 			}
 
-			throw new Error(message);
+			if (message !== null) {
+				throw new Error(message);
+			}
 		}
 
 		throw err;
