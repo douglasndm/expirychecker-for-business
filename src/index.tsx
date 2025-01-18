@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { ThemeProvider } from 'styled-components';
@@ -28,15 +27,15 @@ import DefaultPrefs from '@teams/Contexts/DefaultPreferences';
 import { AuthProvider } from '@teams/Contexts/AuthContext';
 import { TeamProvider } from '@teams/Contexts/TeamContext';
 
+import { IUserPreferences } from './@types/userPreference';
+
 const App: React.FC = () => {
-	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [preferences, setPreferences] =
 		useState<IUserPreferences>(DefaultPrefs);
 
 	const loadInitialData = useCallback(async () => {
 		const prefs = await getAllUserPreferences();
 		setPreferences(prefs);
-		setIsLoading(false);
 	}, []);
 
 	useEffect(() => {
@@ -50,9 +49,8 @@ const App: React.FC = () => {
 		}),
 		[preferences]
 	);
-	return isLoading ? (
-		<ActivityIndicator size="large" />
-	) : (
+
+	return (
 		<NavigationContainer linking={DeepLinking}>
 			<PreferencesContext.Provider value={prefes}>
 				<ThemeProvider theme={preferences.appTheme}>
