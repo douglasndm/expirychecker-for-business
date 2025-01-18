@@ -58,16 +58,19 @@ const Intro: React.FC = () => {
 	const [showIntro, setShowIntro] = useState(false);
 
 	const handleFirstRun = useCallback(async () => {
-		const runTimes = await getHowManyTimesAppWasOpen();
+		try {
+			const runTimes = await getHowManyTimesAppWasOpen();
 
-		if (runTimes) {
-			if (runTimes > 1) {
-				navigate('Login');
-				return;
+			if (runTimes) {
+				if (runTimes > 1) {
+					navigate('Login');
+					return;
+				}
 			}
+			setShowIntro(true);
+		} finally {
 			await BootSplash.hide({ fade: true });
 		}
-		setShowIntro(true);
 	}, [navigate]);
 
 	useEffect(() => {
