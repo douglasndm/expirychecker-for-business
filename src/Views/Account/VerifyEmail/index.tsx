@@ -8,6 +8,8 @@ import strings from '@teams/Locales';
 
 import { useAuth } from '@teams/Contexts/AuthContext';
 
+import { captureException } from '@services/ExceptionsHandler';
+
 import {
 	isEmailConfirmed,
 	resendConfirmationEmail,
@@ -71,14 +73,13 @@ const VerifyEmail: React.FC = () => {
 				type: 'info',
 			});
 		} catch (err) {
-			if (err.code !== 'auth/too-many-requests') {
-				setResendedEmail(false);
+			if (err instanceof Error) {
+				if (err.message.includes('auth/too-many-requests')) {
+					setResendedEmail(false);
+				} else {
+					captureException(err);
+				}
 			}
-			if (err instanceof Error)
-				showMessage({
-					message: err.message,
-					type: 'danger',
-				});
 		}
 	}, []);
 
