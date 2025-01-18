@@ -67,7 +67,7 @@ import DeleteUser from '@teams/Views/Informations/Delete/User';
 
 import Test from '@teams/Views/Test';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RoutesParams>();
 
 interface NavRoutes {
 	data: {

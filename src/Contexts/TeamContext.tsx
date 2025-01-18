@@ -54,17 +54,14 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 
 			const sub = await getCurrentSubscription();
 
-			if (teamResponse.role) {
+			if (teamResponse && teamResponse.role) {
 				const { team, status, store } = teamResponse.role;
-
 				setName(team.name);
-
 				setRoleInTeam({
 					role: teamResponse.role.name,
 					status,
 					store,
 				});
-
 				if (sub) {
 					setSubscription(sub);
 				}
