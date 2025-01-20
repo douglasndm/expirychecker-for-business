@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 
 import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
-import { logoutFirebase } from '@teams/Functions/Auth/Firebase';
+import { logoutFirebase } from '@teams/Utils/Auth/Firebase';
 
 import Loading from '@components/Loading';
 
