@@ -9,6 +9,10 @@ import App from './src';
 
 import './src/Functions/OpenAppTimes';
 
+if (__DEV__) {
+    require("./src/Services/Reactotron");
+  }
+
 const reactNavigationIntegration =  Sentry.reactNavigationIntegration();
 
 Sentry.init({
