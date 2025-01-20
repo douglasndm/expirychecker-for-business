@@ -5,7 +5,7 @@ import { getDeviceId } from '@services/DeviceID';
 import api from '@teams/Services/API/Config';
 
 import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
-import { logoutFirebase } from '@teams/Functions/Auth/Firebase';
+import { logoutFirebase } from '@teams/Utils/Auth/Firebase';
 
 export interface AuthResponse {
 	id: string;

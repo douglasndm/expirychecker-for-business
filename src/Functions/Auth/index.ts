@@ -3,8 +3,7 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import strings from '@teams/Locales';
 
 import { createSeassion, AuthResponse } from '@teams/Utils/Auth/Session';
-
-import { loginFirebase } from './Firebase';
+import { loginFirebase } from '@teams/Utils/Auth/Firebase';
 
 interface loginProps {
 	email: string;
