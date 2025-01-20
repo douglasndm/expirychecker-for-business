@@ -126,6 +126,9 @@ const Login: React.FC = () => {
 
 			// team has a active subscription
 			resetNavigation('Home');
+		} else {
+			resetNavigation('TeamList');
+			return;
 		}
 	}, [reset, resetNavigation, teamContext]);
 
@@ -158,7 +161,6 @@ const Login: React.FC = () => {
 			await handleNavigationAfterLogin();
 		} catch (err) {
 			if (err instanceof Error) {
-				console.log(err);
 				captureException(err, { stack: err.stack });
 			}
 		} finally {
