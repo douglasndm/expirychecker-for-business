@@ -6,23 +6,22 @@ import { showMessage } from 'react-native-flash-message';
 
 import strings from '@teams/Locales';
 
-import BarCodeReader from '@components/BarCodeReader';
-import Header from '@components/Header';
-import Dialog from '@components/Dialog';
-
 import PreferencesContext from '@teams/Contexts/PreferencesContext';
 import { useTeam } from '@teams/Contexts/TeamContext';
 
 import { createProduct } from '@teams/Functions/Products/Product';
 import { createBatch } from '@teams/Functions/Products/Batches/Batch';
 import { uploadImage } from '@teams/Functions/Product/Image';
-
-import { findProductByCode } from '@teams/Functions/Products/FindByCode';
 import { getExtraInfoForProducts } from '@teams/Functions/Products/ExtraInfo';
 import { findDuplicate } from '@teams/Functions/Products/FindDuplicate';
 
+import { findProductByCode } from '@utils/Product/FindByEAN';
+
 import Loading from '@components/Loading';
 import Camera from '@components/Camera';
+import BarCodeReader from '@components/BarCodeReader';
+import Header from '@components/Header';
+import Dialog from '@components/Dialog';
 import PaddingComponent from '@components/PaddingComponent';
 
 import ProductName from '@views/Product/Add/Components/Inputs/ProductName';
