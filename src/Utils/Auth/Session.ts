@@ -25,7 +25,7 @@ async function createSeassion(): Promise<AuthResponse> {
 	const deviceId = await getDeviceId();
 	const token = await messaging().getToken();
 
-	const response = await api.post<AuthResponse>(`/user/session`, {
+	const response = await api.post<AuthResponse>(`/session`, {
 		deviceId,
 		firebaseToken: token,
 	});
