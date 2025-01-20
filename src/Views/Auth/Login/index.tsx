@@ -60,10 +60,10 @@ const Login: React.FC = () => {
 		const response = JSON.parse(String(setting)) as IOrganizedInfoResponse;
 
 		// if user has no team
-		if (!response.role) {
+		if (!response) {
 			resetNavigation('TeamList');
 			return;
-		} else {
+		} else if (response.role) {
 			const { name, status, code, team } = response.role;
 
 			// if user has a team but it didn't enter the code yet
@@ -158,6 +158,7 @@ const Login: React.FC = () => {
 			await handleNavigationAfterLogin();
 		} catch (err) {
 			if (err instanceof Error) {
+				console.log(err);
 				captureException(err, { stack: err.stack });
 			}
 		} finally {
