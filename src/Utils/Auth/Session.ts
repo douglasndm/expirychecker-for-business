@@ -1,7 +1,5 @@
 import messaging from '@react-native-firebase/messaging';
 
-import { getDeviceId } from '@services/DeviceID';
-
 import api from '@teams/Services/API/Config';
 
 import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
@@ -22,11 +20,9 @@ export interface AuthResponse {
 }
 
 async function createSeassion(): Promise<AuthResponse> {
-	const deviceId = await getDeviceId();
 	const token = await messaging().getToken();
 
 	const response = await api.post<AuthResponse>(`/session`, {
-		deviceId,
 		firebaseToken: token,
 	});
 
