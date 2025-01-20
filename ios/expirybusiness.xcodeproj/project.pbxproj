@@ -278,6 +278,7 @@
 				86BB179A2173564BC9A7A4C2 /* [CP-User] [RNFB] Core Configuration */,
 				4F8410B82B660286009BB9D3 /* Set Info.plist version from package.json */,
 				682B76F0DF7D44E488B47C21 /* Upload Debug Symbols to Sentry */,
+				4FC637962D39BA9F006D6276 /* Upload dSYM to Sentry */,
 			);
 			buildRules = (
 			);
@@ -452,6 +453,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\n\n# Caminho para o arquivo package.json\nPACKAGE_JSON=\"../package.json\"\n\n# Verificar se o arquivo package.json existe\nif [ -e \"$PACKAGE_JSON\" ]; then\n   echo \"O arquivo package.json existe.\"\nelse\n   echo \"ERRO: O arquivo package.json não foi encontrado.\"\n   exit 1\nfi\n\n# Ler a versão do package.json\nVERSION=$(node -p \"require('$PACKAGE_JSON').version\")\nAPP_BUILD=$(node -p \"require('$PACKAGE_JSON').build\")\n\n# Imprimir a versão\necho \"Versão do aplicativo: $VERSION\"\necho \"Build: $APP_BUILD\"\n\n# Caminho para o pacote do aplicativo\nAPP_BUNDLE=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# Caminho para o arquivo Info.plist dentro do pacote\nINFO_PLIST=\"${APP_BUNDLE}/Info.plist\"\n\necho $INFO_PLIST\n\n# Verificar se o arquivo Info.plist existe\nif [ -e \"$INFO_PLIST\" ]; then\n   echo \"O arquivo Info.plist existe.\"\nelse\n   echo \"ERRO: O arquivo Info.plist não foi encontrado.\"\n   exit 1\nfi\n\n# Configurar a versão no Info.plist\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $VERSION\" \"$INFO_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $APP_BUILD\" \"$INFO_PLIST\"\n";
+		};
+		4FC637962D39BA9F006D6276 /* Upload dSYM to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Upload dSYM to Sentry";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\n${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n\nif which sentry-cli >/dev/null; then\nexport SENTRY_ORG=douglasndm\nexport SENTRY_PROJECT=expirychecker-teams\n\nERROR=$(sentry-cli debug-files upload \\\n\"$DWARF_DSYM_FOLDER_PATH\" --force-foreground 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"error: sentry-cli - $ERROR\"\nfi\nelse\necho \"error: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n\n";
 		};
 		63FEBD3DA0DA10437BA8B087 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -659,7 +678,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 134;
 				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = F3ZQ4BPF29;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = expirybusiness/Base.lproj/Info.plist;
@@ -707,7 +726,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 134;
 				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = F3ZQ4BPF29;
 				INFOPLIST_FILE = expirybusiness/Base.lproj/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
