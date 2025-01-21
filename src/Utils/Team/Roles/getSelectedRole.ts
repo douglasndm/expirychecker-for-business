@@ -6,6 +6,10 @@ async function getSelectedRole(): Promise<IUserRoles | null> {
 	const setting = await AsyncStorage.getItem('userInfo');
 	const response = JSON.parse(String(setting)) as IOrganizedInfoResponse;
 
+	if (!response) {
+		return null;
+	}
+
 	if (response.role) {
 		return {
 			role: response.role.name,
