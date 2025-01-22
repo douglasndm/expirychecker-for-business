@@ -4,8 +4,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { getLocales } from 'react-native-localize';
 import { showMessage } from 'react-native-flash-message';
 import Share from 'react-native-share';
-import {  format, parseISO } from 'date-fns';//eslint-disable-line
-import { ptBR, enUS } from 'date-fns/locale' // eslint-disable-line
+import { format, parseISO } from 'date-fns';
+import { ptBR, enUS } from 'date-fns/locale';
 import { NumericFormat } from 'react-number-format';
 
 import strings from '@teams/Locales';
@@ -83,13 +83,13 @@ const View: React.FC = () => {
 
 	const created_at = useMemo(() => {
 		if (batch.created_at) {
-			return format(parseISO(batch.created_at), dateFormat, {});
+			return format(parseISO(String(batch.created_at)), dateFormat, {});
 		}
 		return null;
 	}, [dateFormat, batch]);
 	const updated_at = useMemo(() => {
 		if (batch.updated_at) {
-			return format(parseISO(batch.updated_at), dateFormat, {});
+			return format(parseISO(String(batch.updated_at)), dateFormat, {});
 		}
 		return null;
 	}, [dateFormat, batch]);
@@ -133,7 +133,10 @@ const View: React.FC = () => {
 		try {
 			setIsSharing(true);
 
-			const expireDate = format(parseISO(batch.exp_date), dateFormat);
+			const expireDate = format(
+				parseISO(String(batch.exp_date)),
+				dateFormat
+			);
 
 			let text = '';
 
@@ -193,7 +196,7 @@ const View: React.FC = () => {
 
 					<BatchExpDate>
 						{`Vence em ${format(
-							parseISO(batch.exp_date),
+							parseISO(String(batch.exp_date)),
 							dateFormat,
 							{
 								locale: languageCode,

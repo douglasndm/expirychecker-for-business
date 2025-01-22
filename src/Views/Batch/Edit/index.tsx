@@ -106,7 +106,7 @@ const EditBatch: React.FC = () => {
 
 				setPrice(p);
 			}
-			setExpDate(parseISO(response.batch.exp_date));
+			setExpDate(parseISO(String(response.batch.exp_date)));
 		} catch (err) {
 			if (err instanceof Error)
 				showMessage({
