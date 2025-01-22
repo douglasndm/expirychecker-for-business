@@ -1,11 +1,24 @@
 import styled, { css } from 'styled-components/native';
 import { Platform } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import LogoImg from '@assets/Images/Logo.png';
 
 export const Content = styled.View`
 	flex: 1;
 	align-items: stretch;
 `;
+
+export const AboutContainer = styled.TouchableOpacity`
+	top: 7%;
+	right: 7%;
+	position: absolute;
+`;
+
+export const Icon = styled(Ionicons).attrs(() => ({
+	color: '#fff',
+	size: 30,
+}))``;
 
 export const LogoContainer = styled.View`
 	height: 300px;

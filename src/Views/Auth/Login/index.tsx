@@ -29,10 +29,18 @@ import Container from '@components/ScrollView';
 import Form from './Form';
 import Footer from './Footer';
 
-import { Content, LogoContainer, Logo, LogoTitle } from './styles';
+import {
+	Content,
+	AboutContainer,
+	Icon,
+	LogoContainer,
+	Logo,
+	LogoTitle,
+} from './styles';
 
 const Login: React.FC = () => {
-	const { reset } = useNavigation<StackNavigationProp<RoutesParams>>();
+	const { navigate, reset } =
+		useNavigation<StackNavigationProp<RoutesParams>>();
 
 	const teamContext = useTeam();
 
@@ -168,6 +176,10 @@ const Login: React.FC = () => {
 		}
 	}, [email, handleNavigationAfterLogin, password]);
 
+	const navigateToAbout = useCallback(() => {
+		navigate('About');
+	}, [navigate]);
+
 	useEffect(() => {
 		try {
 			setIsLoading(true);
@@ -192,6 +204,11 @@ const Login: React.FC = () => {
 					{strings.View_Login_Business_Title.toUpperCase()}
 				</LogoTitle>
 			</LogoContainer>
+
+			<AboutContainer onPress={navigateToAbout}>
+				<Icon name="help-circle-outline" />
+			</AboutContainer>
+
 			<Content>
 				<Form
 					email={email}

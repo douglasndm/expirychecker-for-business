@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const FormContainer = styled.View`
-	align-items: stretch;
 	margin-top: 14px;
 	padding: 0 15px;
 `;
