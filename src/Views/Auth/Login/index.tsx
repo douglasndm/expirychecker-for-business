@@ -12,6 +12,7 @@ import strings from '@teams/Locales';
 import { useTeam } from '@teams/Contexts/TeamContext';
 
 import { captureException } from '@services/ExceptionsHandler';
+import AppError from '@shared/Errors/AppError';
 
 import {
 	IOrganizedInfoResponse,
@@ -168,7 +169,12 @@ const Login: React.FC = () => {
 
 			await handleNavigationAfterLogin();
 		} catch (err) {
-			if (err instanceof Error) {
+			if (err instanceof AppError) {
+				showMessage({
+					message: err.message,
+					type: 'warning',
+				});
+			} else if (err instanceof Error) {
 				captureException(err, { stack: err.stack });
 			}
 		} finally {

@@ -2,6 +2,8 @@ import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import strings from '@teams/Locales';
 
+import AppError from '@shared/Errors/AppError';
+
 import { createSeassion, AuthResponse } from '@teams/Utils/Auth/Session';
 import { loginFirebase } from '@teams/Utils/Auth/Firebase';
 
@@ -47,7 +49,9 @@ export async function login({
 			}
 
 			if (message !== null) {
-				throw new Error(message);
+				throw new AppError({
+					message,
+				});
 			}
 		}
 
