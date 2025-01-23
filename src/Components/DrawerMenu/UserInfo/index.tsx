@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -6,12 +6,6 @@ import strings from '@teams/Locales';
 
 import { useAuth } from '@teams/Contexts/AuthContext';
 import { useTeam } from '@teams/Contexts/TeamContext';
-
-import { getUser } from '@teams/Functions/User/List';
-import {
-	getSelectedTeam,
-	setSelectedTeam,
-} from '@teams/Functions/Team/SelectedTeam';
 
 import {
 	Container,
@@ -46,41 +40,6 @@ const Info: React.FC = () => {
 		navigate('User');
 	}, [navigate]);
 
-	const loadData = useCallback(async () => {
-		try {
-			const userResponse = await getUser();
-
-			if (userResponse.role) {
-				const currentTeam = await getSelectedTeam();
-
-				if (currentTeam) {
-					await setSelectedTeam({
-						...currentTeam,
-						userRole: {
-							...currentTeam.userRole,
-							role: userResponse.role.role.toLowerCase(),
-							team: {
-								...currentTeam.userRole.team,
-								name: userResponse.role.team.name,
-							},
-							store: userResponse.store,
-						},
-					});
-
-					if (teamContext.reload) {
-						teamContext.reload();
-					}
-				}
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	}, [teamContext]);
-
-	useEffect(() => {
-		loadData();
-	}, []);
-
 	return (
 		<Container onPress={handleNavigateToProfile}>
 			{user && (
@@ -88,7 +47,7 @@ const Info: React.FC = () => {
 					{user?.photoURL ? (
 						<UserPhoto source={{ uri: user?.photoURL }} />
 					) : (
-						<DefaultUserPhoto />
+						<DefaultUserPhoto name="person-circle-outline" />
 					)}
 
 					<TextContainer>

@@ -37,6 +37,5 @@ export const UserPhoto = styled(Image)`
 
 export const DefaultUserPhoto = styled(Ionicons).attrs(props => ({
 	size: 42,
-	name: 'person-circle-outline',
 	color: props.theme.colors.text,
 }))``;
