@@ -7,6 +7,7 @@ import React, {
 	createContext,
 	ReactNode,
 } from 'react';
+import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { captureException } from '@services/ExceptionsHandler';
@@ -46,6 +47,9 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	const reloadTeam = useCallback(async () => {
+		const loggedUser = auth().currentUser;
+		if (loggedUser === null) return;
+
 		try {
 			const data = await AsyncStorage.getItem('userInfo');
 			const teamResponse = JSON.parse(
