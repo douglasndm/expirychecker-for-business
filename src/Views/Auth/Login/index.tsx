@@ -192,7 +192,7 @@ const Login: React.FC = () => {
 			setIsLoging(true);
 			const user = auth().currentUser;
 
-			if (user) {
+			if (user !== null) {
 				handleNavigationAfterLogin();
 			}
 		} finally {
