@@ -11,7 +11,6 @@ import AskReview from '@components/AskReview';
 import '@teams/Locales';
 
 import '@services/Firebase/AppCheck';
-import '@services/Firebase/RemoteConfig';
 
 import '@teams/Services/Analytics';
 import DeepLinking from '@teams/Services/DeepLinking';
