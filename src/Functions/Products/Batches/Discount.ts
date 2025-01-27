@@ -4,7 +4,7 @@ import { getSelectedTeam } from '@teams/Functions/Team/SelectedTeam';
 
 import AppError from '@shared/Errors/AppError';
 
-interface updateBatchDiscount {
+interface IUpdateBatchDiscount {
 	batch_id: string;
 	temp_price: number;
 }
@@ -12,7 +12,7 @@ interface updateBatchDiscount {
 export async function updateBatchDiscount({
 	batch_id,
 	temp_price,
-}: updateBatchDiscount): Promise<void> {
+}: IUpdateBatchDiscount): Promise<void> {
 	const selectedTeam = await getSelectedTeam();
 
 	if (!selectedTeam) {

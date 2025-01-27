@@ -1,5 +1,5 @@
 interface INotification {
-    title: string;
-    message: string;
-    amount?: number;
+	title: string;
+	message: string;
+	amount?: number;
 }

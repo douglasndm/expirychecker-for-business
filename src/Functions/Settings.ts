@@ -5,7 +5,6 @@ interface ISetSettingProps {
 		| 'HowManyDaysToBeNextExp'
 		| 'AutoComplete'
 		| 'EnableNotifications'
-		| 'NotificationCadency'
 		| 'HowManyTimesAppWasOpen';
 	value: string;
 }

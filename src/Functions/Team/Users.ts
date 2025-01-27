@@ -1,7 +1,5 @@
 import * as Yup from 'yup';
 
-import strings from '@teams/Locales';
-
 import api from '@teams/Services/API/Config';
 
 import { getCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';

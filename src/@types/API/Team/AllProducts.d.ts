@@ -1,4 +1,4 @@
 interface IAllTeamProducts {
-    team: ITeam;
-    products: Array<IProduct>;
+	team: ITeam;
+	products: Array<IProduct>;
 }

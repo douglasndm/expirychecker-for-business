@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { ViewStyle } from 'react-native';
 
-import strings from '@teams/Locales';
-
 import { PickerContainer, Picker } from '@components/Picker/styles';
 
 interface Props {

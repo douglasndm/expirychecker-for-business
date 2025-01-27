@@ -1,4 +1,4 @@
 interface ISessionResponse {
-    user: IUser;
-    token: string;
+	user: IUser;
+	token: string;
 }

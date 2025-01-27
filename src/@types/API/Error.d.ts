@@ -1,4 +1,4 @@
 interface IAPIError {
-    status: number;
-    error: string;
+	status: number;
+	error: string;
 }

@@ -1,4 +1,4 @@
 interface IStoreGroup {
-    name: string;
-    products: Array<IProduct>;
+	name: string;
+	products: Array<IProduct>;
 }
