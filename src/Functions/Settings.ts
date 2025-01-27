@@ -23,13 +23,6 @@ export async function setAutoComplete(value: boolean): Promise<void> {
 	});
 }
 
-export async function setEnableNotifications(enable: boolean): Promise<void> {
-	await setSetting({
-		type: 'EnableNotifications',
-		value: String(enable),
-	});
-}
-
 async function getSetting({
 	type,
 }: Omit<ISetSettingProps, 'value'>): Promise<string | undefined> {

@@ -83,14 +83,6 @@ export const InputTextContainer = styled.View<InputTextContainerProps>`
 		`}
 `;
 
-export const InputText = styled.TextInput.attrs(props => ({
-	placeholderTextColor: props.theme.colors.subText,
-}))`
-	padding: 15px 5px 15px 15px;
-	font-size: 18px;
-	color: ${props => props.theme.colors.text};
-`;
-
 export const AddCategoryButtonContainer = styled.TouchableOpacity`
 	background-color: ${props => props.theme.colors.accent};
 	padding: 13px 15px;
