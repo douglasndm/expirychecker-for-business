@@ -335,7 +335,7 @@ const Edit: React.FC<RequestParams> = ({ route }: RequestParams) => {
 
 		if (product.thumbnail) {
 			navigate('PhotoView', {
-				product_id: productId,
+				productId,
 			});
 		}
 	}, [navigate, product, productId]);

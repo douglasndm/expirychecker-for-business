@@ -10,7 +10,7 @@ import { useTeam } from '@teams/Contexts/TeamContext';
 import { createTeam } from '@teams/Functions/Team';
 
 import { handlePurchase } from '@teams/Utils/Purchases/HandlePurchase';
-import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
+import { setCurrentTeam } from '@teams/Utils/Team/CurrentTeam';
 
 import Header from '@components/Header';
 import Button from '@components/Button';
