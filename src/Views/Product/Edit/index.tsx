@@ -169,7 +169,7 @@ const Edit: React.FC<RequestParams> = ({ route }: RequestParams) => {
 				if (typeof prod.brand === 'object' && !!prod.brand.id) {
 					setSelectedBrand(prod.brand.id);
 				} else {
-					setSelectedBrand(prod.brand);
+					setSelectedBrand(String(prod.brand));
 				}
 			}
 			if (prod.store) {

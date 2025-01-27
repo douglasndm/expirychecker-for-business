@@ -55,7 +55,7 @@ interface IEnterTeamCode {
 export async function enterTeamCode({
 	code,
 	team_id,
-}: IEnterTeamCode): Promise<void> {
+}: IEnterTeamCode): Promise<putUserInTeamResponse> {
 	const schema = Yup.object().shape({
 		code: Yup.string().required().min(5),
 		team_id: Yup.string().required().uuid(),
@@ -65,17 +65,14 @@ export async function enterTeamCode({
 		throw new Error('Informations are not valid');
 	}
 
-	try {
-		await api.post<putUserInTeamResponse>(`/team/${team_id}/join`, {
+	const response = await api.post<putUserInTeamResponse>(
+		`/team/${team_id}/join`,
+		{
 			code,
-		});
-	} catch (err) {
-		if (err.response.data.message === 'Code is not valid') {
-			throw new Error(strings.Function_Team_JoinTeam_InvalidCode);
-		} else {
-			throw err;
 		}
-	}
+	);
+
+	return response.data;
 }
 
 interface removeUserFromTeamProps {

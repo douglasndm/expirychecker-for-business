@@ -172,10 +172,9 @@ const Login: React.FC = () => {
 			if (user !== null) {
 				handleNavigationAfterLogin();
 			}
-		} catch (error) {
-			setIsLoging(false);
 		} finally {
 			BootSplash.hide({ fade: true });
+			setIsLoging(false);
 		}
 	}, []);
 

@@ -8,6 +8,7 @@ import strings from '@teams/Locales';
 import { useTeam } from '@teams/Contexts/TeamContext';
 
 import { setCurrentTeam } from '@teams/Utils/Team/CurrentTeam';
+import { setCurrentRole } from '@teams/Utils/Team/CurrentRole';
 import { setTeamPreferences } from '@teams/Utils/Team/Preferences';
 
 import { enterTeamCode } from '@teams/Functions/Team/Users';
@@ -55,7 +56,7 @@ const EnterTeam: React.FC = () => {
 				return;
 			}
 
-			await enterTeamCode({
+			const response = await enterTeamCode({
 				code: userCode,
 				team_id: userRole.team.id,
 			});
@@ -70,7 +71,16 @@ const EnterTeam: React.FC = () => {
 				team_id: userRole.team.id,
 			});
 
-			await setCurrentTeam(userRole.team);
+			await setCurrentTeam({
+				id: response.team.id,
+				name: response.team.name,
+			});
+
+			await setCurrentRole({
+				name: response.role.toLowerCase() as IRole['name'],
+				status: response.status.toLowerCase() as IRole['status'],
+				code: response.code,
+			});
 			await setTeamPreferences(teamPreferences);
 
 			if (teamContext.reload) {
