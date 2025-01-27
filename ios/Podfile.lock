@@ -2143,7 +2143,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../../../node_modules/react-native/ReactCommon`)
   - ReactNativeCameraKit (from `../../../node_modules/react-native-camera-kit`)
   - ReactNativeLocalization (from `../../../node_modules/react-native-localization`)
-  - RNBootSplash (from `../node_modules/react-native-bootsplash`)
+  - RNBootSplash (from `../../../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCClipboard (from `../../../node_modules/@react-native-clipboard/clipboard`)"
   - "RNCMaskedView (from `../../../node_modules/@react-native-masked-view/masked-view`)"
@@ -2357,7 +2357,7 @@ EXTERNAL SOURCES:
   ReactNativeLocalization:
     :path: "../../../node_modules/react-native-localization"
   RNBootSplash:
-    :path: "../node_modules/react-native-bootsplash"
+    :path: "../../../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../../../node_modules/@react-native-async-storage/async-storage"
   RNCClipboard:
