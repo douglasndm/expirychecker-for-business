@@ -10,8 +10,8 @@ export const Content = styled.View`
 `;
 
 export const AboutContainer = styled.TouchableOpacity`
-	top: 7%;
-	right: 7%;
+	top: 6%;
+	right: 4%;
 	position: absolute;
 `;
 

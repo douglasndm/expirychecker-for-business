@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 
 import strings from '@teams/Locales';
@@ -26,15 +26,9 @@ import {
 	ProductCode,
 } from './styles';
 
-interface Props {
-	route: {
-		params: {
-			productId: string;
-		};
-	};
-}
+type ScreenProps = StackScreenProps<RoutesParams, 'AddBatch'>;
 
-const AddBatch: React.FC<Props> = ({ route }: Props) => {
+const AddBatch: React.FC<ScreenProps> = ({ route }) => {
 	const { productId } = route.params;
 
 	const { replace } = useNavigation<StackNavigationProp<RoutesParams>>();

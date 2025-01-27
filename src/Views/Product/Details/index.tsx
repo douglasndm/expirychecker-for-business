@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 
 import strings from '@teams/Locales';
@@ -26,15 +26,9 @@ import {
 	TableContainer,
 } from '@views/Product/View/styles';
 
-interface Request {
-	route: {
-		params: {
-			id: string;
-		};
-	};
-}
+type ScreenProps = StackScreenProps<RoutesParams, 'ProductDetails'>;
 
-const ProductDetails: React.FC<Request> = ({ route }: Request) => {
+const ProductDetails: React.FC<ScreenProps> = ({ route }) => {
 	const { navigate } = useNavigation<StackNavigationProp<RoutesParams>>();
 
 	const productId = useMemo(() => {

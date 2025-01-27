@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 
 import strings from '@teams/Locales';
@@ -55,18 +55,9 @@ import {
 	MoreInformationsTitle,
 } from './styles';
 
-interface Request {
-	route: {
-		params: {
-			code?: string;
-			category?: string;
-			brand?: string;
-			store?: string;
-		};
-	};
-}
+type ScreenProps = StackScreenProps<RoutesParams, 'AddProduct'>;
 
-const Add: React.FC<Request> = ({ route }: Request) => {
+const AddProduct: React.FC<ScreenProps> = ({ route }) => {
 	const { replace, navigate } =
 		useNavigation<StackNavigationProp<RoutesParams>>();
 
@@ -627,4 +618,4 @@ const Add: React.FC<Request> = ({ route }: Request) => {
 	);
 };
 
-export default Add;
+export default AddProduct;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 import { Menu } from 'react-native-paper';
 import * as Yup from 'yup';
@@ -52,15 +52,9 @@ import {
 } from '../Add/styles';
 import { Icons } from './styles';
 
-interface RequestParams {
-	route: {
-		params: {
-			productId: string;
-		};
-	};
-}
+type ScreenProps = StackScreenProps<RoutesParams, 'EditProduct'>;
 
-const Edit: React.FC<RequestParams> = ({ route }: RequestParams) => {
+const Edit: React.FC<ScreenProps> = ({ route }) => {
 	const { reset, navigate } =
 		useNavigation<StackNavigationProp<RoutesParams>>();
 

@@ -1,13 +1,11 @@
 type RoutesParams = {
 	Home;
-	AddProduct:
-		| {
-				code?: string;
-				category?: string;
-				brand?: string;
-				store?: string;
-		  }
-		| undefined;
+	AddProduct: {
+		code?: string;
+		category?: string;
+		brand?: string;
+		store?: string;
+	};
 	ProductsSortedByWeight;
 	ProductsSortedByLiters;
 	Settings;

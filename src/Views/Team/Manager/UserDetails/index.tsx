@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 import Clipboard from '@react-native-clipboard/clipboard';
 
@@ -38,17 +38,9 @@ import {
 	RadioButtonItem,
 } from './styles';
 
-interface UserDetailsProps {
-	route: {
-		params: {
-			user: string;
-		};
-	};
-}
+type ScreenProps = StackScreenProps<RoutesParams, 'UserDetails'>;
 
-const UserDetails: React.FC<UserDetailsProps> = ({
-	route,
-}: UserDetailsProps) => {
+const UserDetails: React.FC<ScreenProps> = ({ route }) => {
 	const { pop } = useNavigation<StackNavigationProp<RoutesParams>>();
 
 	const authContext = useAuth();

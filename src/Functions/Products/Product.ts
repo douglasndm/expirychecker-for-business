@@ -61,16 +61,12 @@ export async function updateProduct({
 }: updateProductProps): Promise<IProduct> {
 	const currentTeam = await getCurrentTeam();
 
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
-
 	const response = await api.put<IProduct>(
 		`/team/${currentTeam.id}/products/${product.id}`,
 		{
 			name: product.name,
 			code: product.code,
-			brand: product.brand?.id,
+			brand_id: product.brand?.id,
 			store_id: product.store?.id,
 			category_id: product.category?.id,
 		}
