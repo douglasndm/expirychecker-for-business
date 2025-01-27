@@ -5,7 +5,6 @@ import strings from '@teams/Locales';
 import navigationRef from '@teams/References/Navigation';
 
 import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
-import { clearCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 
 import AppError from '@shared/Errors/AppError';
 
@@ -58,7 +57,6 @@ async function errorsHandler(error: any): Promise<void> {
 
 				case 17: // User is not in team (could be removed or manager deleted the team)
 					await clearSelectedteam();
-					await clearCurrentTeam();
 					navigationRef.reset('TeamList');
 
 					break;

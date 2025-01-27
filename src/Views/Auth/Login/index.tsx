@@ -12,18 +12,15 @@ import strings from '@teams/Locales';
 import { useTeam } from '@teams/Contexts/TeamContext';
 
 import { captureException } from '@services/ExceptionsHandler';
-import AppError from '@shared/Errors/AppError';
 
 import {
 	IOrganizedInfoResponse,
 	organizedInfo,
 } from '@teams/Utils/User/Login/organizedInfo';
+import { setTeamPreferences } from '@teams/Utils/Team/Preferences';
 
 import { login } from '@teams/Functions/Auth';
 import { getTeamPreferences } from '@teams/Functions/Team/Preferences';
-import { setSelectedTeam } from '@teams/Functions/Team/SelectedTeam';
-
-import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
 
 import Container from '@components/ScrollView';
 
@@ -48,7 +45,6 @@ const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
-	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isLoging, setIsLoging] = useState<boolean>(false);
 
 	const resetNavigation = useCallback(
@@ -86,8 +82,8 @@ const Login: React.FC = () => {
 							name: 'EnterTeam',
 							params: {
 								userRole: {
-									team: response.role.team,
-									code: response.role.code,
+									team,
+									code,
 								},
 							},
 						},
@@ -101,20 +97,7 @@ const Login: React.FC = () => {
 				team_id: response.role.team.id,
 			});
 
-			await setSelectedTeam({
-				userRole: {
-					name,
-					status,
-					code,
-					team,
-				},
-				teamPreferences,
-			});
-
-			await setCurrentTeam({
-				id: team.id,
-				name: team.name,
-			});
+			await setTeamPreferences(teamPreferences);
 
 			if (teamContext.reload) {
 				teamContext.reload();
@@ -183,16 +166,15 @@ const Login: React.FC = () => {
 
 	useEffect(() => {
 		try {
-			setIsLoading(true);
 			setIsLoging(true);
 			const user = auth().currentUser;
 
 			if (user !== null) {
 				handleNavigationAfterLogin();
 			}
-		} finally {
-			setIsLoading(false);
+		} catch (error) {
 			setIsLoging(false);
+		} finally {
 			BootSplash.hide({ fade: true });
 		}
 	}, []);
@@ -214,7 +196,7 @@ const Login: React.FC = () => {
 				<Form
 					email={email}
 					password={password}
-					isLoging={isLoading || isLoging}
+					isLoging={isLoging}
 					setEmail={setEmail}
 					setPassword={setPassword}
 					handleLogin={handleLogin}

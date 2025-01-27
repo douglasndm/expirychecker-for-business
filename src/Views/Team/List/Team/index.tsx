@@ -8,15 +8,14 @@ import strings from '@teams/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
-import { setCurrentTeam } from '@teams/Utils/Settings/CurrentTeam';
+import { setCurrentTeam } from '@teams/Utils/Team/CurrentTeam';
 import { setCurrentTeamSubscription } from '@teams/Utils/Settings/CurrentTeamSubscription';
 
-import { getUser } from '@teams/Functions/User/List';
 import { getTeamPreferences } from '@teams/Functions/Team/Preferences';
-import { setSelectedTeam } from '@teams/Functions/Team/SelectedTeam';
 
 import { TeamItemContainer, TeamItemTitle, TeamItemRole } from './styles';
 import { getLocalizedRole } from '@teams/Utils/Team/Roles/getLocalizedRole';
+import { setTeamPreferences } from '@teams/Utils/Team/Preferences';
 
 interface Props {
 	team: IUserRoles | null;
@@ -96,16 +95,8 @@ const Team: React.FC<Props> = (props: Props) => {
 				team_id: team.team.id,
 			});
 
-			const userResponse = await getUser();
-
-			await setSelectedTeam({
-				userRole: {
-					...team,
-					store: userResponse.store,
-				},
-				teamPreferences,
-			});
 			await setCurrentTeam(team.team);
+			await setTeamPreferences(teamPreferences);
 
 			if (teamSub) {
 				await setCurrentTeamSubscription(teamSub);

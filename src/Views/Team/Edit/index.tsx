@@ -7,11 +7,10 @@ import strings from '@teams/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
+import { setCurrentTeam } from '@teams/Utils/Team/CurrentTeam';
+
 import { editTeam } from '@teams/Functions/Team';
-import {
-	getSelectedTeam,
-	setSelectedTeam,
-} from '@teams/Functions/Team/SelectedTeam';
+import { getSelectedTeam } from '@teams/Functions/Team/SelectedTeam';
 
 import Header from '@components/Header';
 import Input from '@components/InputText';
@@ -45,15 +44,9 @@ const Edit: React.FC = () => {
 			const settedTeam = await getSelectedTeam();
 
 			if (settedTeam) {
-				await setSelectedTeam({
-					...settedTeam,
-					userRole: {
-						...settedTeam.userRole,
-						team: {
-							...settedTeam.userRole.team,
-							name: name.trim(),
-						},
-					},
+				await setCurrentTeam({
+					id: settedTeam.userRole.team.id,
+					name: name.trim(),
 				});
 
 				if (teamContext.reload) {
