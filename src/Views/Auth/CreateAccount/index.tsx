@@ -118,15 +118,15 @@ const CreateAccount: React.FC = () => {
 			reset({
 				routes: [{ name: 'VerifyEmail' }],
 			});
-		} catch (err) {
-			if (err instanceof Error)
-				if (err.message.includes('auth/email-already-in-use')) {
+		} catch (error) {
+			if (error instanceof Error)
+				if (error.message.includes('auth/email-already-in-use')) {
 					showMessage({
 						message: strings.API_Error_Code40,
 						type: 'warning',
 					});
 				} else {
-					captureException(err);
+					captureException({ error });
 				}
 		} finally {
 			setIsCreating(false);

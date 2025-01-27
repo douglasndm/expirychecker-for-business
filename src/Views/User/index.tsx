@@ -48,9 +48,9 @@ const User: React.FC = () => {
 
 			if (user.name) setName(user.name);
 			if (user.last_name) setLastName(user.last_name);
-		} catch (err) {
-			if (err instanceof Error) {
-				captureException(err);
+		} catch (error) {
+			if (error instanceof Error) {
+				captureException({ error });
 			}
 		} finally {
 			setIsLoading(false);

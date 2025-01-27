@@ -72,12 +72,12 @@ const VerifyEmail: React.FC = () => {
 				message: strings.View_ConfirmEmail_Alert_Success,
 				type: 'info',
 			});
-		} catch (err) {
-			if (err instanceof Error) {
-				if (err.message.includes('auth/too-many-requests')) {
+		} catch (error) {
+			if (error instanceof Error) {
+				if (error.message.includes('auth/too-many-requests')) {
 					setResendedEmail(false);
 				} else {
-					captureException(err);
+					captureException({ error });
 				}
 			}
 		}

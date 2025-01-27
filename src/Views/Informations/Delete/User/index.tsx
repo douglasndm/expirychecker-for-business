@@ -64,9 +64,9 @@ const User: React.FC = () => {
 			});
 
 			navigate('Logout');
-		} catch (err) {
-			if (err instanceof Error) {
-				captureException(err);
+		} catch (error) {
+			if (error instanceof Error) {
+				captureException({ error });
 			}
 		} finally {
 			setIsDeleting(false);

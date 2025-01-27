@@ -98,14 +98,9 @@ const StoreView: React.FC = () => {
 			});
 
 			setProducts(response);
-		} catch (err) {
-			if (err instanceof Error) {
-				captureException(err);
-
-				showMessage({
-					message: err.message,
-					type: 'danger',
-				});
+		} catch (error) {
+			if (error instanceof Error) {
+				captureException({ error, showAlert: true });
 			}
 		} finally {
 			setIsLoading(false);

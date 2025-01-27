@@ -71,9 +71,9 @@ const Discount: React.FC = () => {
 			});
 
 			pop();
-		} catch (err) {
-			if (err instanceof Error) {
-				captureException(err);
+		} catch (error) {
+			if (error instanceof Error) {
+				captureException({ error });
 			}
 		} finally {
 			setApplyingDiscount(false);

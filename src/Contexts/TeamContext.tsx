@@ -72,7 +72,7 @@ const TeamProvider: React.FC<TeamProviderProps> = ({ children }) => {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				captureException(error, { stack: error.stack });
+				captureException({ error });
 			}
 		} finally {
 			setIsLoading(false);

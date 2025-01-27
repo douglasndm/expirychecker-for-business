@@ -168,14 +168,9 @@ const Login: React.FC = () => {
 			await AsyncStorage.setItem('userInfo', JSON.stringify(response));
 
 			await handleNavigationAfterLogin();
-		} catch (err) {
-			if (err instanceof AppError) {
-				showMessage({
-					message: err.message,
-					type: 'warning',
-				});
-			} else if (err instanceof Error) {
-				captureException(err, { stack: err.stack });
+		} catch (error) {
+			if (error instanceof Error) {
+				captureException({ error, showAlert: true });
 			}
 		} finally {
 			setIsLoging(false);
