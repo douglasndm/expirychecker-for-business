@@ -253,6 +253,12 @@
     "View_CreateTeam_Button_CreateTeam": "Criar time",
     "View_CreateTeam_Message_SuccessCreated": "Time criado",
 
+    "View_EnterTeam_Title": "Entrar no time",
+    "View_EnterTeam_Description": "Você foi convidado para entrar no time {TEAM_NAME}",
+    "View_EnterTeam_InputText_EnterCode_Placeholder": "Código para entrar no time",
+    "View_EnterTeam_Error_InvalidCode": "Código inválido",
+    "View_EnterTeam_Button_Enter": "Entrar no time",
+
     "View_Settings_Appearance_Theme_System": "Baseado no sistema (padrão)",
     "View_Settings_Appearance_Theme_Light": "Claro",
     "View_Settings_Appearance_Theme_Dark": "Escuro",

@@ -255,6 +255,12 @@
     "View_CreateTeam_Button_CreateTeam": "Create team",
     "View_CreateTeam_Message_SuccessCreated": "Team has been created",
 
+    "View_EnterTeam_Title": "Enter the team",
+    "View_EnterTeam_Description": "You have been invited to enter the team {TEAM_NAME}",
+    "View_EnterTeam_InputText_EnterCode_Placeholder": "Code to enter the team",
+    "View_EnterTeam_Error_InvalidCode": "Invalid code",
+    "View_EnterTeam_Button_Enter": "Enter the team",
+
     "View_Settings_Appearance_Theme_System": "System (Default)",
     "View_Settings_Appearance_Theme_Light": "Light",
     "View_Settings_Appearance_Theme_Dark": "Dark",

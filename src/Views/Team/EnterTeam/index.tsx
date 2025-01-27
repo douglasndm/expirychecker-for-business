@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, useEffect } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
@@ -7,9 +7,11 @@ import strings from '@teams/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
+import { setCurrentTeam } from '@teams/Utils/Team/CurrentTeam';
+import { setTeamPreferences } from '@teams/Utils/Team/Preferences';
+
 import { enterTeamCode } from '@teams/Functions/Team/Users';
 import { getTeamPreferences } from '@teams/Functions/Team/Preferences';
-import { setSelectedTeam } from '@teams/Functions/Team/SelectedTeam';
 
 import Header from '@components/Header';
 import Button from '@components/Button';
@@ -30,8 +32,6 @@ const EnterTeam: React.FC = () => {
 	const { reset } = useNavigation<StackNavigationProp<RoutesParams>>();
 	const { params } = useRoute<RouteProp<RoutesParams, 'EnterTeam'>>();
 
-	const [isMounted, setIsMounted] = useState(true);
-
 	const userRole = useMemo(() => {
 		return params.userRole || null;
 	}, [params]);
@@ -46,15 +46,12 @@ const EnterTeam: React.FC = () => {
 	}, []);
 
 	const handleSubmitCode = useCallback(async () => {
-		if (isMounted) return;
 		try {
 			setIsAddingCode(true);
 
 			if (userCode.trim() === '') {
 				setInputHasError(true);
-				setInputErrorMessage(
-					'Digite o seu código de entrada para o time'
-				);
+				setInputErrorMessage(strings.View_EnterTeam_Error_InvalidCode);
 				return;
 			}
 
@@ -73,10 +70,8 @@ const EnterTeam: React.FC = () => {
 				team_id: userRole.team.id,
 			});
 
-			await setSelectedTeam({
-				userRole,
-				teamPreferences,
-			});
+			await setCurrentTeam(userRole.team);
+			await setTeamPreferences(teamPreferences);
 
 			if (teamContext.reload) {
 				teamContext.reload();
@@ -94,19 +89,18 @@ const EnterTeam: React.FC = () => {
 		} finally {
 			setIsAddingCode(false);
 		}
-	}, [isMounted, reset, teamContext, userCode, userRole]);
-
-	useEffect(() => {
-		return () => setIsMounted(false);
-	});
+	}, [reset, teamContext, userCode, userRole]);
 
 	return (
 		<Container>
-			<Header title="Entrar no time" noDrawer />
+			<Header title={strings.View_EnterTeam_Title} noDrawer />
 
 			{!!userRole.team.name && (
 				<InviteText>
-					Você foi convidado para entrar no time {userRole.team.name}.
+					{strings.View_EnterTeam_Description.replace(
+						'{TEAM_NAME}',
+						userRole.team.name
+					)}
 				</InviteText>
 			)}
 
@@ -117,7 +111,7 @@ const EnterTeam: React.FC = () => {
 							value={userCode}
 							onChangeText={handleOnCodeChange}
 							placeholder={
-								strings.View_TeamList_InputText_EnterCode_Placeholder
+								strings.View_EnterTeam_InputText_EnterCode_Placeholder
 							}
 							autoCapitalize="none"
 							autoCorrect={false}
@@ -129,7 +123,7 @@ const EnterTeam: React.FC = () => {
 				</InputContainer>
 			</CodeContaider>
 			<Button
-				title="Entrar no time"
+				title={strings.View_EnterTeam_Button_Enter}
 				onPress={handleSubmitCode}
 				isLoading={isAddingCode}
 			/>
