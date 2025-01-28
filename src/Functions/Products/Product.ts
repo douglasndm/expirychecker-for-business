@@ -24,19 +24,13 @@ export async function getProduct({
 }
 
 interface createProductProps {
-	product: Omit<IProduct, 'id' | 'categories'>;
-	category: string | undefined;
+	product: Omit<IProduct, 'id' | 'categories' | 'created_at' | 'updated_at'>;
 }
 
 export async function createProduct({
 	product,
-	category,
 }: createProductProps): Promise<IProduct> {
 	const currentTeam = await getCurrentTeam();
-
-	if (!currentTeam) {
-		throw new Error('Team is not selected');
-	}
 
 	const response = await api.post<IProduct>(
 		`/team/${currentTeam.id}/products`,
@@ -44,8 +38,8 @@ export async function createProduct({
 			name: product.name,
 			code: product.code,
 			brand_id: product.brand,
+			category_id: product.category,
 			store_id: product.store,
-			category_id: category,
 		}
 	);
 
@@ -53,7 +47,7 @@ export async function createProduct({
 }
 
 interface updateProductProps {
-	product: Omit<IProduct, 'batches'>;
+	product: Omit<IProduct, 'batches' | 'created_at' | 'updated_at'>;
 }
 
 export async function updateProduct({

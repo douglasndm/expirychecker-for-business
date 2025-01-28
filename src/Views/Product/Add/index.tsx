@@ -194,11 +194,11 @@ const AddProduct: React.FC<ScreenProps> = ({ route }) => {
 
 			const brandsArray: Array<IBrandItem> = [];
 
-			response.availableBrands.forEach(brand =>
+			response.availableBrands.forEach(bra =>
 				brandsArray.push({
-					key: brand.id,
-					label: brand.name,
-					value: brand.id,
+					key: bra.id,
+					label: bra.name,
+					value: bra.id,
 				})
 			);
 
@@ -206,11 +206,11 @@ const AddProduct: React.FC<ScreenProps> = ({ route }) => {
 
 			const storesArray: Array<IPickerItem> = [];
 
-			response.availableStores.forEach(store =>
+			response.availableStores.forEach(sto =>
 				storesArray.push({
-					key: store.id,
-					label: store.name,
-					value: store.id,
+					key: sto.id,
+					label: sto.name,
+					value: sto.id,
 				})
 			);
 
@@ -221,11 +221,11 @@ const AddProduct: React.FC<ScreenProps> = ({ route }) => {
 			if (roleInTeam) {
 				if (roleInTeam.role.toLowerCase() !== 'manager') {
 					if (roleInTeam.store) {
-						const store = storesArray.find(
+						const localStore = storesArray.find(
 							sto => sto.key === roleInTeam.store?.id
 						);
 
-						if (store) setSelectedStore(store.value);
+						if (localStore) setSelectedStore(localStore.value);
 					}
 				}
 			}
@@ -322,21 +322,41 @@ const AddProduct: React.FC<ScreenProps> = ({ route }) => {
 		}
 		try {
 			setIsLoading(true);
-			let prodCategory: string | undefined;
+
+			let localBrand: IBrand | undefined;
+			let localCategory: ICategory | undefined;
+			let localStore: IStore | undefined;
+
+			if (selectedBrand && selectedBrand !== 'null') {
+				localBrand = {
+					id: selectedBrand,
+					name: '',
+				};
+			}
 
 			if (selectedCategory && selectedCategory !== 'null') {
-				prodCategory = selectedCategory;
+				localCategory = {
+					id: selectedCategory,
+					name: '',
+				};
+			}
+
+			if (selectedStore && selectedStore !== 'null') {
+				localStore = {
+					id: selectedStore,
+					name: '',
+				};
 			}
 
 			const createdProduct = await createProduct({
 				product: {
 					name,
 					code,
-					brand: selectedBrand || undefined,
-					store: selectedStore || undefined,
+					brand: localBrand,
+					category: localCategory,
+					store: localStore,
 					batches: [],
 				},
-				category: prodCategory,
 			});
 
 			await createBatch({

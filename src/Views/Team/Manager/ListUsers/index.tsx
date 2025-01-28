@@ -9,6 +9,7 @@ import strings from '@teams/Locales';
 import Header from '@components/Header';
 import Loading from '@components/Loading';
 import InputText from '@components/InputText';
+import Icons from '@components/Icon';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
@@ -30,7 +31,6 @@ import {
 	TeamItemRole,
 	AddCategoryContent,
 	AddCategoryButtonContainer,
-	Icons,
 	LoadingIcon,
 	InputTextTip,
 } from './styles';

@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { darken } from 'polished';
 
 export const Container = styled.View`
@@ -97,11 +96,6 @@ export const ListTitle = styled.Text`
 export const ListCategories = styled.FlatList`
 	margin: 0 10px;
 `;
-
-export const Icons = styled(Ionicons).attrs(() => ({
-	size: 22,
-	color: '#fff',
-}))``;
 
 export const LoadingIcon = styled.ActivityIndicator.attrs(() => ({
 	size: 22,

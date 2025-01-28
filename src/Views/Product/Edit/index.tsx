@@ -167,7 +167,11 @@ const Edit: React.FC<ScreenProps> = ({ route }) => {
 				}
 			}
 			if (prod.store) {
-				setSelectedStore(prod.store);
+				if (typeof prod.store === 'object' && !!prod.store.id) {
+					setSelectedStore(prod.store.id);
+				} else {
+					setSelectedStore(String(prod.store));
+				}
 			}
 
 			setProduct(prod);
@@ -234,28 +238,42 @@ const Edit: React.FC<ScreenProps> = ({ route }) => {
 			return;
 		}
 
-		const cate = selectedCategory === 'null' ? null : selectedCategory;
-
 		try {
 			setIsLoading(true);
+
+			let brand: IBrand | undefined;
+			let category: ICategory | undefined;
+			let store: IStore | undefined;
+
+			if (selectedBrand && selectedBrand !== 'null') {
+				brand = {
+					id: selectedBrand,
+					name: '',
+				};
+			}
+
+			if (selectedCategory && selectedCategory !== 'null') {
+				category = {
+					id: selectedCategory,
+					name: '',
+				};
+			}
+
+			if (selectedStore && selectedStore !== 'null') {
+				store = {
+					id: selectedStore,
+					name: '',
+				};
+			}
+
 			await updateProduct({
 				product: {
 					id: productId,
 					name,
 					code,
-					brand: selectedBrand
-						? {
-								id: selectedBrand,
-						  }
-						: null,
-					store: selectedStore
-						? {
-								id: selectedStore,
-						  }
-						: null,
-					category: {
-						id: cate,
-					},
+					brand,
+					category,
+					store,
 				},
 			});
 

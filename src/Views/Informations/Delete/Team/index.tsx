@@ -179,12 +179,12 @@ const Team: React.FC = () => {
 				<BlockContainer isEnable={agreeConsequence && enableExcel}>
 					<BlockTitle>
 						{
-							strings.View_Information_Team_Delete_Subscription_title
+							strings.View_Information_Team_Delete_Subscription_Title
 						}
 					</BlockTitle>
 					<BlockDescription>
 						{
-							strings.View_Information_Team_Delete_Subscription_description
+							strings.View_Information_Team_Delete_Subscription_Description
 						}
 					</BlockDescription>
 

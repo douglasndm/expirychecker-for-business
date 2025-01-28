@@ -45,14 +45,13 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>We need your permission to access the device's camera to user barcode reader.</string>
+	<string>We need your permission to access the device&apos;s camera to user barcode reader.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to help to understand where the app is most used</string>
 	<key>NSPhotoLibraryUsageDescription</key>
