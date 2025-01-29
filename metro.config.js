@@ -18,6 +18,9 @@ const config = {
 
 const defaultConfig = mergeConfig(getDefaultConfig(__dirname), config);
 
-module.exports = withSentryConfig(withSentryConfig(defaultConfig, {
-    enableSourceContextInDevelopment: false,
-}));
+module.exports = withSentryConfig(
+    mergeConfig(getDefaultConfig(__dirname), config),
+    {
+        annotateReactComponents: true,
+    }
+);
