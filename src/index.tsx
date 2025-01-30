@@ -4,9 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { ThemeProvider } from 'styled-components';
 import FlashMessage from 'react-native-flash-message';
-
-import StatusBar from '@components/StatusBar';
-import AskReview from '@components/AskReview';
+import * as Sentry from '@sentry/react-native';
 
 import '@teams/Locales';
 
@@ -25,6 +23,11 @@ import PreferencesContext from '@teams/Contexts/PreferencesContext';
 import DefaultPrefs from '@teams/Contexts/DefaultPreferences';
 import { AuthProvider } from '@teams/Contexts/AuthContext';
 import { TeamProvider } from '@teams/Contexts/TeamContext';
+
+import StatusBar from '@components/StatusBar';
+import AskReview from '@components/AskReview';
+
+import RenderErrors from '@views/Information/Errors/Render';
 
 import { IUserPreferences } from './@types/userPreference';
 
@@ -51,20 +54,25 @@ const App: React.FC = () => {
 
 	return (
 		<NavigationContainer linking={DeepLinking}>
-			<PreferencesContext.Provider value={prefes}>
-				<ThemeProvider theme={preferences.appTheme}>
-					<PaperProvider>
-						<AuthProvider>
-							<TeamProvider>
-								<StatusBar />
-								<Routes />
-								<AskReview />
-							</TeamProvider>
-						</AuthProvider>
-						<FlashMessage duration={7000} statusBarHeight={50} />
-					</PaperProvider>
-				</ThemeProvider>
-			</PreferencesContext.Provider>
+			<Sentry.ErrorBoundary fallback={<RenderErrors />}>
+				<PreferencesContext.Provider value={prefes}>
+					<ThemeProvider theme={preferences.appTheme}>
+						<PaperProvider>
+							<AuthProvider>
+								<TeamProvider>
+									<StatusBar />
+									<Routes />
+									<AskReview />
+								</TeamProvider>
+							</AuthProvider>
+							<FlashMessage
+								duration={7000}
+								statusBarHeight={50}
+							/>
+						</PaperProvider>
+					</ThemeProvider>
+				</PreferencesContext.Provider>
+			</Sentry.ErrorBoundary>
 		</NavigationContainer>
 	);
 };

@@ -14,4 +14,5 @@ if (__DEV__) {
     require("./src/Services/Reactotron");
 }
 
-AppRegistry.registerComponent(appName, () => Sentry.wrap(App));
+const sentryProfiler = Sentry.withProfiler(App);
+AppRegistry.registerComponent(appName, () => Sentry.wrap(sentryProfiler));
