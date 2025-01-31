@@ -1,14 +1,24 @@
-import { destroySession } from '@teams/Utils/Auth/Session';
+import axios from 'axios';
+import { showMessage } from 'react-native-flash-message';
 
 import strings from '@teams/Locales';
 
 import navigationRef from '@teams/References/Navigation';
+
+import { captureException } from '@services/ExceptionsHandler';
+
+import { destroySession } from '@teams/Utils/Auth/Session';
 
 import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
 
 import AppError from '@shared/Errors/AppError';
 
 function launchAppError(err: string, statusCode?: number, errorCode?: number) {
+	showMessage({
+		message: err,
+		type: 'danger',
+	});
+
 	throw new AppError({
 		message: err,
 		statusCode: statusCode,
@@ -17,6 +27,44 @@ function launchAppError(err: string, statusCode?: number, errorCode?: number) {
 }
 
 async function errorsHandler(error: any): Promise<void> {
+	if (axios.isAxiosError(error)) {
+		const { errorCode, message } = error.response?.data;
+
+		if (message) {
+			// this is likely a yup error and maybe is a validation error
+			// so we will capture this for improve errors handlers
+			if (message.includes('must be a')) {
+				captureException({
+					error: new Error(message),
+					customData: {
+						url: error.config?.url,
+						method: error.config?.method,
+						data: error.config?.data,
+					},
+				});
+			}
+		}
+
+		if (errorCode) {
+			const result = Object.entries(strings);
+
+			const filted = result.filter(value =>
+				value[0].startsWith('API_Error_Code')
+			);
+
+			const errString = filted.find(
+				value => value[0] === `API_Error_Code${errorCode}`
+			);
+
+			if (errString) {
+				showMessage({
+					message: errString[1],
+					type: 'danger',
+				});
+			}
+		}
+	}
+
 	let err = '';
 	let code: number | undefined;
 
