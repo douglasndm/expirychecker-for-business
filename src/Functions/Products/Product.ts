@@ -32,14 +32,30 @@ export async function createProduct({
 }: createProductProps): Promise<IProduct> {
 	const currentTeam = await getCurrentTeam();
 
+	let brand_id: string | IBrand | undefined = product.brand;
+	let category_id: string | ICategory | undefined = product.category;
+	let store_id: string | IStore | undefined = product.store;
+
+	if (typeof brand_id !== 'string') {
+		brand_id = brand_id?.id;
+	}
+
+	if (typeof category_id !== 'string') {
+		category_id = category_id?.id;
+	}
+
+	if (typeof store_id !== 'string') {
+		store_id = store_id?.id;
+	}
+
 	const response = await api.post<IProduct>(
 		`/team/${currentTeam.id}/products`,
 		{
 			name: product.name,
 			code: product.code,
-			brand_id: product.brand,
-			category_id: product.category,
-			store_id: product.store,
+			brand_id,
+			category_id,
+			store_id,
 		}
 	);
 
