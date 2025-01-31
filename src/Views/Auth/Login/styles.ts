@@ -4,11 +4,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import LogoImg from '@assets/Images/Logo.png';
 
-export const Content = styled.View`
-	flex: 1;
-	align-items: stretch;
-`;
-
 export const AboutContainer = styled.TouchableOpacity`
 	top: 6%;
 	right: 4%;

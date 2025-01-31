@@ -7,7 +7,8 @@ import auth from '@react-native-firebase/auth';
 import { showMessage } from 'react-native-flash-message';
 import * as Yup from 'yup';
 
-import strings from '@teams/Locales';
+import teamsStrings from '@teams/Locales';
+import strings from '@shared/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
@@ -24,17 +25,12 @@ import { getTeamPreferences } from '@teams/Functions/Team/Preferences';
 
 import Container from '@components/ScrollView';
 
-import Form from './Form';
-import Footer from './Footer';
+import { Content } from '@views/Auth/Login/styles';
+import Footer from '@views/Auth/Login/Footer';
 
-import {
-	Content,
-	AboutContainer,
-	Icon,
-	LogoContainer,
-	Logo,
-	LogoTitle,
-} from './styles';
+import Form from './Form';
+
+import { AboutContainer, Icon, LogoContainer, Logo, LogoTitle } from './styles';
 
 const Login: React.FC = () => {
 	const { navigate, reset } =
@@ -183,7 +179,7 @@ const Login: React.FC = () => {
 			<LogoContainer>
 				<Logo />
 				<LogoTitle>
-					{strings.View_Login_Business_Title.toUpperCase()}
+					{teamsStrings.View_Login_Business_Title.toUpperCase()}
 				</LogoTitle>
 			</LogoContainer>
 

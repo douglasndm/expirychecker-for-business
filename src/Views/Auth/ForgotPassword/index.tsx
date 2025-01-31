@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
 import * as Yup from 'yup';
 
-import strings from '@teams/Locales';
+import strings from '@shared/Locales';
 
 import { recoveryPassword } from '@teams/Functions/Auth/Firebase/password';
 
@@ -11,7 +11,7 @@ import Header from '@components/Header';
 import Input from '@components/InputText';
 import Button from '@components/Button';
 
-import { Container, Content } from './styles';
+import { Container, Content } from '@views/Auth/ForgotPassword/styles';
 
 const ForgotPassword: React.FC = () => {
 	const { goBack } = useNavigation();

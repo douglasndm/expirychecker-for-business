@@ -4,7 +4,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { showMessage } from 'react-native-flash-message';
 import * as Yup from 'yup';
 
-import strings from '@teams/Locales';
+import strings from '@shared/Locales';
+import teamsStrings from '@teams/Locales';
 
 import { captureException } from '@services/ExceptionsHandler';
 
@@ -15,8 +16,8 @@ import Header from '@components/Header';
 import Input from '@components/InputText';
 import Button from '@components/Button';
 
-import { FormContainer } from '../Login/Form/styles';
-import { Container, PageContent } from './styles';
+import { FormContainer } from '@views/Auth/Login/Form/styles';
+import { Container, PageContent } from '@views/Auth/CreateAccount/styles';
 
 const CreateAccount: React.FC = () => {
 	const { reset } = useNavigation<StackNavigationProp<RoutesParams>>();
@@ -122,7 +123,7 @@ const CreateAccount: React.FC = () => {
 			if (error instanceof Error)
 				if (error.message.includes('auth/email-already-in-use')) {
 					showMessage({
-						message: strings.API_Error_Code40,
+						message: teamsStrings.API_Error_Code40,
 						type: 'warning',
 					});
 				} else {

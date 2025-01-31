@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import strings from '@teams/Locales';
+import strings from '@shared/Locales';
 
 import Input from '@components/InputText';
 import Button from '@components/Button';
@@ -12,7 +12,7 @@ import {
 	FormTitle,
 	LoginForm,
 	ForgotPasswordText,
-} from './styles';
+} from '@views/Auth/Login/Form/styles';
 
 interface Props {
 	email: string;
