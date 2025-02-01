@@ -1484,6 +1484,8 @@ PODS:
     - React-Core
   - react-native-netinfo (11.4.1):
     - React-Core
+  - react-native-restart (0.0.27):
+    - React-Core
   - react-native-safe-area-context (5.1.0):
     - React-Core
   - react-native-slider (4.5.5):
@@ -2111,6 +2113,7 @@ DEPENDENCIES:
   - "react-native-image-resizer (from `../../../node_modules/@bam.tech/react-native-image-resizer`)"
   - react-native-in-app-review (from `../../../node_modules/react-native-in-app-review`)
   - "react-native-netinfo (from `../../../node_modules/@react-native-community/netinfo`)"
+  - react-native-restart (from `../../../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../../../node_modules/@react-native-community/slider`)"
   - react-native-uuid-generator (from `../../../node_modules/react-native-uuid-generator`)
@@ -2292,6 +2295,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native-in-app-review"
   react-native-netinfo:
     :path: "../../../node_modules/@react-native-community/netinfo"
+  react-native-restart:
+    :path: "../../../node_modules/react-native-restart"
   react-native-safe-area-context:
     :path: "../../../node_modules/react-native-safe-area-context"
   react-native-slider:
@@ -2476,6 +2481,7 @@ SPEC CHECKSUMS:
   react-native-image-resizer: 6260ba497fb8d1a593c1c92ccd593f570df6f5b7
   react-native-in-app-review: db8bb167a5f238e7ceca5c242d6b36ce8c4404a4
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
+  react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: 04803a01f39f31cc6605a5531280b477b48f8a88
   react-native-slider: 552edab18aa6e2a52e220a066cc6bf28b6181ac9
   react-native-uuid-generator: 82ffa2a1cac94242ebed52c4dedc5044d3412717
