@@ -8,6 +8,10 @@ import strings from '@teams/Locales';
 
 import { useTeam } from '@teams/Contexts/TeamContext';
 
+import { captureException } from '@services/ExceptionsHandler';
+
+import AppError from '@shared/Errors/AppError';
+
 import { clearSelectedteam } from '@teams/Functions/Team/SelectedTeam';
 import { removeItSelfFromTeam } from '@teams/Functions/Team/User/Remove';
 
@@ -56,31 +60,31 @@ const List: React.FC = () => {
 
 					setTeamSub(teamSubscription);
 				} catch (error) {
-					console.log(error);
-					if (error instanceof Error) {
-						if (
-							!error.message.includes(
-								"doesn't have a subscription"
-							)
-						) {
-							// error handler
+					if (error instanceof AppError) {
+						if (error.errorCode === 19) {
+							setTeamSub(null);
 						}
+					} else if (error instanceof Error) {
+						captureException({ error });
 					}
 				}
 
-				const userStore = await getUserStore();
+				if (userRole.status !== 'pending') {
+					const userStore = await getUserStore();
 
-				if (userStore) {
-					setTeam({
-						...userRole,
-						store: userStore,
-					});
-				} else {
-					setTeam({
-						...userRole,
-						store: null,
-					});
+					if (userStore) {
+						setTeam({
+							...userRole,
+							store: userStore,
+						});
+						return;
+					}
 				}
+
+				setTeam({
+					...userRole,
+					store: null,
+				});
 			}
 		} catch (err) {
 			if (err instanceof Error) {
